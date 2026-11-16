@@ -15,6 +15,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+  <!-- QR Code Generator Library (untuk Barcode TTD Elektronik Offline/Embed di Word) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -124,7 +127,6 @@
       border-color: rgba(52, 211, 153, 0.25) !important;
     }
 
-    /* Penyesuaian permukaan putih / terang menjadi gelap lembut di Mode Gelap */
     html.dark-theme .bg-white,
     html.dark-theme .bg-white\/90,
     html.dark-theme .bg-white\/80 {
@@ -155,7 +157,6 @@
       color: #ecfdf5 !important;
     }
 
-    /* Penyesuaian seluruh teks gelap agar menjadi terang dan kontras terbaca */
     html.dark-theme .text-slate-900,
     html.dark-theme .text-slate-800,
     html.dark-theme .text-gray-900 {
@@ -189,7 +190,6 @@
       color: #fcd34d !important;
     }
 
-    /* Badge & Pill terang di Mode Gelap tetap kontras */
     html.dark-theme .bg-emerald-100 {
       background-color: rgba(16, 185, 129, 0.22) !important;
       color: #6ee7b7 !important;
@@ -216,7 +216,6 @@
       color: #fca5a5 !important;
     }
 
-    /* Tombol navigasi aktif di Mode Gelap */
     html.dark-theme .nav-btn.bg-white,
     html.dark-theme #tab-btn-pertandingan.bg-white,
     html.dark-theme #tab-btn-permainan.bg-white,
@@ -229,7 +228,6 @@
       color: #032219 !important;
     }
 
-    /* Border & Divider di Mode Gelap */
     html.dark-theme .border-slate-100,
     html.dark-theme .border-slate-200,
     html.dark-theme .border-slate-300,
@@ -247,7 +245,6 @@
       border-color: rgba(52, 211, 153, 0.18) !important;
     }
 
-    /* Input, Select & Textarea di Mode Gelap */
     html.dark-theme input,
     html.dark-theme select,
     html.dark-theme textarea {
@@ -266,7 +263,6 @@
       color: #f8fafc !important;
     }
 
-    /* Modal di Mode Gelap */
     html.dark-theme #confirm-modal > div,
     html.dark-theme #edit-reg-modal > div,
     html.dark-theme #detail-players-modal > div,
@@ -276,14 +272,12 @@
       border-color: rgba(52, 211, 153, 0.3) !important;
     }
 
-    /* Hover row halus di Mode Gelap */
     html.dark-theme .hover\:bg-slate-50:hover,
     html.dark-theme .hover\:bg-emerald-50\/40:hover,
     html.dark-theme .hover\:bg-emerald-50:hover {
       background-color: #133b2e !important;
     }
 
-    /* Footer Kredit Transparan namun Terbaca Jelas di Mode Terang & Gelap */
     #app-footer-text {
       color: rgba(6, 78, 59, 0.78) !important;
     }
@@ -292,7 +286,6 @@
       color: rgba(209, 250, 229, 0.82) !important;
     }
 
-    /* Pastikan teks di dalam area peraturan & list bernomor tetap jelas di kedua tema */
     html.dark-theme #dash-rule-pertandingan p,
     html.dark-theme #dash-rule-permainan p,
     html.dark-theme #rule-content-pertandingan p,
@@ -329,7 +322,6 @@
       background: #94a3b8;
     }
 
-    /* Animasi halus */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -473,6 +465,12 @@
         </div>
         <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Daftar Pemain Terdaftar</h4>
         <div id="detail-modal-list" class="max-h-60 overflow-y-auto divide-y divide-slate-100 border border-slate-200 rounded-xl"></div>
+        <div id="detail-modal-signature-box" class="hidden mt-4 pt-3 border-t border-slate-100">
+          <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Tanda Tangan Elektronik Penanggung Jawab</h4>
+          <div class="p-2 rounded-xl bg-white border border-slate-200 flex items-center justify-center">
+            <img id="detail-modal-signature-img" src="" alt="Tanda Tangan Elektronik" class="max-h-24 w-auto object-contain" />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -593,7 +591,7 @@
               </div>
             </div>
 
-            <!-- Tombol Ganti Tema Terang / Gelap di Header (Mudah diakses di HP maupun Desktop) -->
+            <!-- Tombol Ganti Tema Terang / Gelap di Header -->
             <button type="button" onclick="window.toggleColorTheme()" aria-label="Ganti Tema Terang atau Gelap" class="theme-toggle-btn self-start sm:self-center px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur border border-white/25 text-white text-xs font-extrabold flex items-center gap-2 shrink-0 transition shadow-sm">
               <span class="theme-icon text-sm">🌙</span>
               <span class="theme-label">Tema Gelap</span>
@@ -910,6 +908,38 @@
                 </div>
               </div>
 
+              <!-- Baris 5: Pernyataan Persetujuan & Tanda Tangan Elektronik Langsung di HP / Laptop -->
+              <div class="pt-2 space-y-4">
+                <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border border-emerald-300 space-y-4">
+                  <label class="flex items-start gap-3 cursor-pointer select-none">
+                    <input type="checkbox" id="reg-statement-agree" required class="mt-1 w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer shrink-0" />
+                    <div class="text-xs sm:text-sm text-slate-800 leading-relaxed">
+                      <p class="font-extrabold text-emerald-950">Surat Pernyataan Kesanggupan Mentaati Peraturan <span class="text-red-500">*</span></p>
+                      <div id="reg-statement-text-display" class="text-slate-700 mt-1 text-justify space-y-1.5"></div>
+                    </div>
+                  </label>
+
+                  <!-- Area Canvas Tanda Tangan Elektronik -->
+                  <div class="space-y-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <label class="block text-xs font-extrabold text-emerald-950 uppercase tracking-wider">
+                        Tanda Tangan Elektronik Penanggung Jawab (Goreskan di Layar HP / Laptop) <span class="text-red-500">*</span>
+                      </label>
+                      <button type="button" onclick="window.clearSignaturePad()" class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition">
+                        Hapus / Ulangi TTD
+                      </button>
+                    </div>
+                    <div class="relative rounded-2xl border-2 border-dashed border-emerald-400 bg-white overflow-hidden shadow-inner">
+                      <canvas id="reg-signature-canvas" class="w-full h-40 sm:h-44 block touch-none cursor-crosshair bg-white"></canvas>
+                      <div id="signature-placeholder-hint" class="pointer-events-none absolute inset-0 flex items-center justify-center text-xs sm:text-sm font-semibold text-slate-400 select-none">
+                        ✍️ Goreskan tanda tangan Anda di kotak ini
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-slate-600">Gunakan jari pada layar sentuh HP/Tablet atau mouse/touchpad pada Laptop untuk menandatangani surat pernyataan ini.</p>
+                  </div>
+                </div>
+              </div>
+
               <!-- Tombol Kirim Pendaftaran -->
               <div class="pt-3 flex justify-end">
                 <button type="submit" id="btn-submit-reg" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2.5 transition transform active:scale-[0.99]">
@@ -982,7 +1012,7 @@
                 3. Input Hasil Pertandingan
               </button>
               <button type="button" onclick="window.switchAdminTab('rules')" id="atab-rules" class="admin-subtab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
-                4. Edit Peraturan
+                4. Edit Peraturan & Pernyataan
               </button>
               <button type="button" onclick="window.switchAdminTab('downloads')" id="atab-downloads" class="admin-subtab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition flex items-center gap-1.5">
                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -1104,11 +1134,11 @@
               <div id="admin-matches-list" class="space-y-3"></div>
             </div>
 
-            <!-- SUB-TAB 4: EDIT PERATURAN -->
+            <!-- SUB-TAB 4: EDIT PERATURAN & SURAT PERNYATAAN -->
             <div id="admin-sec-rules" class="hidden glass-card rounded-3xl p-5 sm:p-6 space-y-6">
               <div>
-                <h3 class="text-lg font-extrabold text-slate-900">Edit Peraturan Pertandingan & Permainan</h3>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Susun poin peraturan secara rapi dan sejajar. Penomoran otomatis tertata lurus seperti tampilan pada Dashboard.</p>
+                <h3 class="text-lg font-extrabold text-slate-900">Edit Peraturan & Isi Surat Pernyataan Pendaftar</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Susun poin peraturan dan ubah isi teks Surat Pernyataan yang akan ditandatangani secara elektronik oleh pendaftar.</p>
               </div>
 
               <form id="admin-rules-form" class="space-y-6">
@@ -1136,9 +1166,24 @@
                   <textarea id="edit-rule-permainan" class="hidden"></textarea>
                 </div>
 
+                <!-- Editor Terstruktur: Isi Surat Pernyataan yang Ditandatangani Pendaftar -->
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <label class="block text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Isi Surat Pernyataan yang Ditandatangani Pendaftar</label>
+                      <p class="text-[11px] text-slate-600 mt-0.5">Teks poin di bawah ini muncul saat pendaftar mencentang surat pernyataan dan otomatis dicetak di berkas unduhan Surat Pernyataan (.doc).</p>
+                    </div>
+                    <button type="button" onclick="window.addRuleItemRow('pernyataan')" class="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-sm transition">
+                      + Tambah Poin Pernyataan
+                    </button>
+                  </div>
+                  <div id="admin-rule-items-pernyataan" class="space-y-2.5"></div>
+                  <textarea id="edit-rule-pernyataan" class="hidden"></textarea>
+                </div>
+
                 <div class="flex justify-end">
                   <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-sm shadow-sm transition">
-                    Simpan Peraturan
+                    Simpan Peraturan & Pernyataan
                   </button>
                 </div>
               </form>
@@ -1240,12 +1285,27 @@
                   </div>
                 </div>
 
-                <!-- Kartu 6: Laporan Lengkap Semua Keperluan Panitia -->
+                <!-- Kartu 6: Surat Pernyataan Menyanggupi Mentaati Peraturan (Bertanda Tangan Elektronik) -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
+                  <div class="space-y-1.5">
+                    <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-800">Surat Pernyataan & TTD</span>
+                    <h4 class="text-sm sm:text-base font-extrabold text-slate-900">Surat Pernyataan Mentaati Peraturan</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Unduh dokumen resmi surat pernyataan kesanggupan mentaati peraturan pertandingan & permainan lengkap dengan barcode tanda tangan elektronik tim pendaftar.</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2 pt-1">
+                    <button type="button" onclick="window.downloadCommitteeDocument('STATEMENTS')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                      <span>Download Surat Pernyataan (.doc)</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Kartu 7: Laporan Lengkap Semua Keperluan Panitia -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border-2 border-emerald-300 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-400 text-emerald-950">Paket Lengkap</span>
                     <h4 class="text-sm sm:text-base font-extrabold text-emerald-950">Semua Berkas Keperluan Panitia</h4>
-                    <p class="text-xs text-emerald-900/80 leading-relaxed">Gabungan seluruh data dalam satu dokumen lengkap: Peraturan, Status Sekolah, Roster Tim & Pemain, Bagan, dan Jadwal/Hasil.</p>
+                    <p class="text-xs text-emerald-900/80 leading-relaxed">Gabungan seluruh data dalam satu dokumen lengkap: Peraturan, Surat Pernyataan TTD, Status Sekolah, Roster Tim & Pemain, Bagan, dan Jadwal/Hasil.</p>
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('ALL')" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-950 text-white text-xs font-extrabold transition flex items-center justify-center gap-1.5 shadow-sm">
@@ -1447,7 +1507,7 @@
       const swCode = `
         const CACHE_NAME = 'minisoccer-pgri-v1';
         self.addEventListener('install', (e) => {
-          self.skipWaiting();
+          e.skipWaiting();
         });
         self.addEventListener('activate', (e) => {
           e.waitUntil(clients.claim());
@@ -1466,7 +1526,8 @@
     // =========================================================================
     const DEFAULT_RULES = {
       pertandingan: `1. Peserta adalah guru/tenaga kependidikan aktif yang terdaftar pada sekolah peserta HUT PGRI.\n2. Setiap sekolah dapat mengirimkan maksimal 1 tim Mini Soccer Putra dan 1 tim Mini Soccer Putri.\n3. Jumlah pemain yang didaftarkan minimal 7 orang dan maksimal 10 orang per tim.\n4. Sistem pertandingan menggunakan sistem gugur (knock-out) dengan waktu 2 x 15 menit.\n5. Tim wajib hadir di lapangan 15 menit sebelum jadwal kick-off. Keterlambatan lebih dari 10 menit dinyatakan Walk Out (WO).\n6. Keputusan panitia dan wasit bersifat mutlak dan tidak dapat diganggu gugat.`,
-      permainan: `1. Jumlah pemain di dalam lapangan adalah 7 vs 7 (termasuk 1 penjaga gawang).\n2. Pergantian pemain bersifat bebas (rolling substitution) pada zona pergantian setelah mendapat izin wasit.\n3. Tidak berlaku peraturan offside dalam permainan Mini Soccer.\n4. Tendangan bebas (free kick) dilakukan langsung/tidak langsung sesuai pelanggaran dengan jarak pagar hidup minimal 5 meter.\n5. Dilarang melakukan sliding tackle keras yang membahayakan pemain lawan.\n6. Setiap pemain wajib mengenakan seragam tim bernomor punggung, kaos kaki panjang, pelindung tulang kering (shin guard), dan sepatu futsal/turf.`
+      permainan: `1. Jumlah pemain di dalam lapangan adalah 7 vs 7 (termasuk 1 penjaga gawang).\n2. Pergantian pemain bersifat bebas (rolling substitution) pada zona pergantian setelah mendapat izin wasit.\n3. Tidak berlaku peraturan offside dalam permainan Mini Soccer.\n4. Tendangan bebas (free kick) dilakukan langsung/tidak langsung sesuai pelanggaran dengan jarak pagar hidup minimal 5 meter.\n5. Dilarang melakukan sliding tackle keras yang membahayakan pemain lawan.\n6. Setiap pemain wajib mengenakan seragam tim bernomor punggung, kaos kaki panjang, pelindung tulang kering (shin guard), dan sepatu futsal/turf.`,
+      pernyataan: `1. Menyanggupi dan bersedia mentaati seluruh Peraturan Pertandingan dan Peraturan Permainan Turnamen Mini Soccer HUT PGRI yang telah ditetapkan oleh Panitia Pelaksana, menjunjung tinggi nilai sportivitas, serta menerima dengan penuh tanggung jawab segala keputusan wasit dan panitia pertandingan.\n2. Apabila di kemudian hari saya atau anggota tim saya terbukti melanggar ketentuan peraturan tersebut, saya siap dikenakan sanksi denda sebesar Rp1.000.000 (satu juta rupiah) serta siap mentaati proses hukum dan mempertanggungjawabkannya sesuai peraturan perundang-undangan yang berlaku di Negara Kesatuan Republik Indonesia.`
     };
 
     const DEFAULT_APPEARANCE = {
@@ -1481,6 +1542,30 @@
       docHeader: "PANITIA PELAKSANA TURNAMEN MINI SOCCER HUT PGRI",
       footerText: "Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026"
     };
+
+    function createSampleSignatureDataUrl() {
+      try {
+        const c = document.createElement("canvas");
+        c.width = 360;
+        c.height = 140;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.strokeStyle = "#064e3b";
+        ctx.lineWidth = 3;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(65, 95);
+        ctx.bezierCurveTo(95, 30, 125, 30, 120, 88);
+        ctx.bezierCurveTo(118, 108, 155, 45, 180, 75);
+        ctx.bezierCurveTo(205, 105, 240, 50, 295, 78);
+        ctx.stroke();
+        return c.toDataURL("image/png");
+      } catch (e) {
+        return "";
+      }
+    }
 
     const state = {
       schools: IS_PREVIEW ? [
@@ -1497,7 +1582,9 @@
           no_wa: "081234567890",
           kapten: "Rizky Pratama",
           jumlah_pemain: 7,
-          daftar_pemain: ["Rizky Pratama", "Dedi Kurniawan", "Hendra Wijaya", "Bambang Sutrisno", "Agus Salim", "Eko Prasetyo", "Fajar Nugroho"]
+          daftar_pemain: ["Rizky Pratama", "Dedi Kurniawan", "Hendra Wijaya", "Bambang Sutrisno", "Agus Salim", "Eko Prasetyo", "Fajar Nugroho"],
+          signature_data: createSampleSignatureDataUrl(),
+          signed_at: "16 November 2026"
         }
       ] : [],
       matches: IS_PREVIEW ? [
@@ -1675,6 +1762,7 @@
             const data = docSnap.data();
             state.rules.pertandingan = data.peraturan_pertandingan || DEFAULT_RULES.pertandingan;
             state.rules.permainan = data.peraturan_permainan || DEFAULT_RULES.permainan;
+            state.rules.pernyataan = data.isi_pernyataan || DEFAULT_RULES.pernyataan;
             renderRules();
           }
         });
@@ -1967,11 +2055,140 @@
           return;
         }
         wrapper.classList.remove("hidden");
+        setTimeout(() => {
+          window.resizeSignatureCanvas(false);
+        }, 60);
         wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         wrapper.classList.add("hidden");
       }
     };
+
+    // =========================================================================
+    // 7B. CANVAS TANDA TANGAN ELEKTRONIK (HP SENTUH & MOUSE LAPTOP)
+    // =========================================================================
+    let signatureHasStroke = false;
+    let isDrawingSignature = false;
+
+    window.resizeSignatureCanvas = function(preserveDrawing = true) {
+      const canvas = document.getElementById("reg-signature-canvas");
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      let prevDataUrl = null;
+      if (preserveDrawing && signatureHasStroke) {
+        try {
+          prevDataUrl = canvas.toDataURL("image/png");
+        } catch (e) {}
+      }
+
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = Math.floor(rect.width * ratio);
+      canvas.height = Math.floor(rect.height * ratio);
+
+      const ctx = canvas.getContext("2d");
+      ctx.scale(ratio, ratio);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.strokeStyle = "#064e3b";
+      ctx.lineWidth = 2.6;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      if (prevDataUrl) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, rect.width, rect.height);
+        };
+        img.src = prevDataUrl;
+      }
+    };
+
+    window.clearSignaturePad = function() {
+      const canvas = document.getElementById("reg-signature-canvas");
+      const hint = document.getElementById("signature-placeholder-hint");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const rect = canvas.getBoundingClientRect();
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, rect.width || canvas.width, rect.height || canvas.height);
+      signatureHasStroke = false;
+      if (hint) hint.classList.remove("hidden");
+    };
+
+    function initSignaturePad() {
+      const canvas = document.getElementById("reg-signature-canvas");
+      const hint = document.getElementById("signature-placeholder-hint");
+      if (!canvas) return;
+
+      const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        if (e.touches && e.touches.length > 0) {
+          return {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
+          };
+        }
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
+      };
+
+      const startDraw = (e) => {
+        if (e.cancelable) e.preventDefault();
+        if (canvas.width === 0) window.resizeSignatureCanvas(false);
+        isDrawingSignature = true;
+        signatureHasStroke = true;
+        if (hint) hint.classList.add("hidden");
+
+        const pos = getPos(e);
+        const ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#064e3b";
+        ctx.lineWidth = 2.6;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      };
+
+      const moveDraw = (e) => {
+        if (!isDrawingSignature) return;
+        if (e.cancelable) e.preventDefault();
+        const pos = getPos(e);
+        const ctx = canvas.getContext("2d");
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      };
+
+      const endDraw = () => {
+        isDrawingSignature = false;
+      };
+
+      canvas.addEventListener("mousedown", startDraw);
+      canvas.addEventListener("mousemove", moveDraw);
+      window.addEventListener("mouseup", endDraw);
+
+      canvas.addEventListener("touchstart", startDraw, { passive: false });
+      canvas.addEventListener("touchmove", moveDraw, { passive: false });
+      canvas.addEventListener("touchend", endDraw);
+      window.addEventListener("resize", () => window.resizeSignatureCanvas(true));
+    }
+
+    function getExportedSignatureDataUrl() {
+      const canvas = document.getElementById("reg-signature-canvas");
+      if (!canvas || !signatureHasStroke) return "";
+
+      const exportCanvas = document.createElement("canvas");
+      exportCanvas.width = 360;
+      exportCanvas.height = 140;
+      const eCtx = exportCanvas.getContext("2d");
+      eCtx.fillStyle = "#ffffff";
+      eCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+      eCtx.drawImage(canvas, 0, 0, exportCanvas.width, exportCanvas.height);
+      return exportCanvas.toDataURL("image/png", 0.9);
+    }
 
     function formatRulesListHtml(rawText) {
       const lines = String(rawText || "")
@@ -2015,7 +2232,7 @@
           (text, idx) => `
             <div class="flex items-start gap-2.5 bg-white p-2.5 rounded-xl border border-emerald-200/90 shadow-sm">
               <span class="w-7 pt-2 shrink-0 font-extrabold text-emerald-800 text-sm text-right select-none">${idx + 1}.</span>
-              <textarea rows="2" oninput="window.syncAdminRuleTextarea('${type}')" placeholder="Tuliskan isi peraturan nomor ${idx + 1}..." class="rule-item-input-${type} flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-sm text-slate-800 leading-relaxed text-justify focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none resize-y">${escapeHtml(text)}</textarea>
+              <textarea rows="2" oninput="window.syncAdminRuleTextarea('${type}')" placeholder="Tuliskan isi poin nomor ${idx + 1}..." class="rule-item-input-${type} flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-sm text-slate-800 leading-relaxed text-justify focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none resize-y">${escapeHtml(text)}</textarea>
               <button type="button" onclick="window.removeRuleItemRow('${type}', ${idx})" title="Hapus poin ini" class="mt-1 p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold shrink-0 transition">
                 Hapus
               </button>
@@ -2062,26 +2279,34 @@
       const dashPermainan = document.getElementById("dash-rule-permainan");
       const regPertandingan = document.getElementById("rule-content-pertandingan");
       const regPermainan = document.getElementById("rule-content-permainan");
+      const regStatementDisplay = document.getElementById("reg-statement-text-display");
       const editPertandingan = document.getElementById("edit-rule-pertandingan");
       const editPermainan = document.getElementById("edit-rule-permainan");
+      const editPernyataan = document.getElementById("edit-rule-pernyataan");
 
       const htmlPertandingan = formatRulesListHtml(state.rules.pertandingan);
       const htmlPermainan = formatRulesListHtml(state.rules.permainan);
+      const htmlPernyataan = formatRulesListHtml(state.rules.pernyataan || DEFAULT_RULES.pernyataan);
 
       if (dashPertandingan) dashPertandingan.innerHTML = htmlPertandingan;
       if (dashPermainan) dashPermainan.innerHTML = htmlPermainan;
       if (regPertandingan) regPertandingan.innerHTML = htmlPertandingan;
       if (regPermainan) regPermainan.innerHTML = htmlPermainan;
+      if (regStatementDisplay) regStatementDisplay.innerHTML = htmlPernyataan;
 
       const activeEl = document.activeElement;
       const isEditingPertandingan = activeEl && activeEl.classList.contains("rule-item-input-pertandingan");
       const isEditingPermainan = activeEl && activeEl.classList.contains("rule-item-input-permainan");
+      const isEditingPernyataan = activeEl && activeEl.classList.contains("rule-item-input-pernyataan");
 
       if (editPertandingan && !isEditingPertandingan) {
         renderAdminRuleEditorRows("pertandingan", parseRuleLinesArray(state.rules.pertandingan));
       }
       if (editPermainan && !isEditingPermainan) {
         renderAdminRuleEditorRows("permainan", parseRuleLinesArray(state.rules.permainan));
+      }
+      if (editPernyataan && !isEditingPernyataan) {
+        renderAdminRuleEditorRows("pernyataan", parseRuleLinesArray(state.rules.pernyataan || DEFAULT_RULES.pernyataan));
       }
     }
 
@@ -2196,6 +2421,24 @@
           return;
         }
 
+        const statementAgreeEl = document.getElementById("reg-statement-agree");
+        if (statementAgreeEl && !statementAgreeEl.checked) {
+          showToast("Harap centang persetujuan Surat Pernyataan Kesanggupan Mentaati Peraturan.", "error");
+          return;
+        }
+
+        const signatureDataUrl = getExportedSignatureDataUrl();
+        if (!signatureDataUrl) {
+          showToast("Harap bubuhkan tanda tangan elektronik pada kotak yang tersedia sebelum mengirim pendaftaran.", "error");
+          return;
+        }
+
+        const signedDateStr = new Date().toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+
         const schoolObj = state.schools.find((s) => s.nama_sekolah === namaSekolah);
         const payload = {
           school_id: schoolObj ? schoolObj.id : "",
@@ -2205,7 +2448,9 @@
           no_wa: noWa,
           kapten,
           jumlah_pemain: jumlahPemain,
-          daftar_pemain: daftarPemain
+          daftar_pemain: daftarPemain,
+          signature_data: signatureDataUrl,
+          signed_at: signedDateStr
         };
 
         try {
@@ -2221,6 +2466,7 @@
 
           showToast(`Pendaftaran ${namaSekolah} (${cabang}) berhasil dikirim!`, "success");
           regForm.reset();
+          window.clearSignaturePad();
           const agreeCheckbox = document.getElementById("agree-rules-checkbox");
           const regWrapper = document.getElementById("registration-card-wrapper");
           if (agreeCheckbox) agreeCheckbox.checked = false;
@@ -2314,6 +2560,18 @@
         )
         .join("");
 
+      const sigBox = document.getElementById("detail-modal-signature-box");
+      const sigImg = document.getElementById("detail-modal-signature-img");
+      if (sigBox && sigImg) {
+        if (reg.signature_data) {
+          sigImg.src = reg.signature_data;
+          sigBox.classList.remove("hidden");
+        } else {
+          sigImg.src = "";
+          sigBox.classList.add("hidden");
+        }
+      }
+
       const modal = document.getElementById("detail-players-modal");
       modal.classList.remove("hidden");
       modal.classList.add("flex");
@@ -2380,7 +2638,6 @@
             <span class="text-[11px] font-semibold text-slate-500 break-words">${escapeHtml(m.babak)} • ${escapeHtml(m.tanggal)}</span>
           </div>
 
-          <!-- Tata letak responsif: Vertikal rapi di layar HP sangat kecil, 3 kolom sejajar di layar lebih lebar -->
           <div class="flex flex-col sm:grid sm:grid-cols-11 sm:items-center gap-2 pt-0.5">
             <div class="sm:col-span-4 flex items-center justify-between sm:justify-end gap-2">
               <p class="text-xs sm:text-sm font-extrabold text-slate-900 sm:text-right break-words leading-snug">${escapeHtml(m.tim_a)}</p>
@@ -2691,7 +2948,6 @@
               state.schools[idx].nama_sekolah = newName;
               state.schools.sort((a, b) => a.nama_sekolah.localeCompare(b.nama_sekolah));
             }
-            // Sinkronkan juga jika sekolah sudah tercatat pada data pendaftaran tim
             state.registrations.forEach((r) => {
               if (r.school_id === id || r.nama_sekolah === oldName) {
                 r.nama_sekolah = newName;
@@ -2899,18 +3155,20 @@
       }
     };
 
-    // Simpan Peraturan Admin
+    // Simpan Peraturan & Pernyataan Admin
     const rulesForm = document.getElementById("admin-rules-form");
     if (rulesForm) {
       rulesForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         window.syncAdminRuleTextarea("pertandingan");
         window.syncAdminRuleTextarea("permainan");
+        window.syncAdminRuleTextarea("pernyataan");
         const peraturanPertandingan = document.getElementById("edit-rule-pertandingan").value.trim();
         const peraturanPermainan = document.getElementById("edit-rule-permainan").value.trim();
+        const isiPernyataan = document.getElementById("edit-rule-pernyataan").value.trim();
 
-        if (!peraturanPertandingan || !peraturanPermainan) {
-          showToast("Harap isi minimal 1 poin pada masing-masing peraturan.", "warning");
+        if (!peraturanPertandingan || !peraturanPermainan || !isiPernyataan) {
+          showToast("Harap isi minimal 1 poin pada masing-masing peraturan dan surat pernyataan.", "warning");
           return;
         }
 
@@ -2918,6 +3176,7 @@
           if (IS_PREVIEW) {
             state.rules.pertandingan = peraturanPertandingan;
             state.rules.permainan = peraturanPermainan;
+            state.rules.pernyataan = isiPernyataan;
             renderRules();
           } else {
             await setDoc(
@@ -2925,14 +3184,15 @@
               {
                 peraturan_pertandingan: peraturanPertandingan,
                 peraturan_permainan: peraturanPermainan,
+                isi_pernyataan: isiPernyataan,
                 updatedAt: serverTimestamp()
               },
               { merge: true }
             );
           }
-          showToast("Peraturan pertandingan & permainan berhasil disimpan!", "success");
+          showToast("Peraturan & isi surat pernyataan berhasil disimpan!", "success");
         } catch (err) {
-          showToast("Gagal menyimpan peraturan: " + err.message, "error");
+          showToast("Gagal menyimpan peraturan & pernyataan: " + err.message, "error");
         }
       });
     }
@@ -3004,6 +3264,69 @@
     // =========================================================================
     // 14. FITUR DOWNLOAD DOKUMEN & KEPERLUAN PANITIA (ADMIN)
     // =========================================================================
+    function generateEmbeddedQrCodeDataUrl(text) {
+      try {
+        if (typeof window.qrcode === "function") {
+          const qr = window.qrcode(0, "M");
+          qr.addData(text);
+          qr.make();
+
+          const moduleCount = qr.getModuleCount();
+          const cellSize = 4;
+          const margin = 12;
+          const size = moduleCount * cellSize + margin * 2;
+
+          const canvas = document.createElement("canvas");
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext("2d");
+
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, size, size);
+
+          ctx.fillStyle = "#064e3b";
+          for (let row = 0; row < moduleCount; row++) {
+            for (let col = 0; col < moduleCount; col++) {
+              if (qr.isDark(row, col)) {
+                ctx.fillRect(
+                  margin + col * cellSize,
+                  margin + row * cellSize,
+                  cellSize,
+                  cellSize
+                );
+              }
+            }
+          }
+
+          return canvas.toDataURL("image/png");
+        }
+      } catch (err) {
+        console.error("QR generation fallback:", err);
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 220;
+      canvas.height = 84;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#064e3b";
+
+      let x = 14;
+      for (let i = 0; i < text.length && x < 204; i++) {
+        const code = text.charCodeAt(i);
+        const w = (code % 3) + 1;
+        if (i % 2 === 0) {
+          ctx.fillRect(x, 10, w, 52);
+        }
+        x += w + 2;
+      }
+      ctx.font = "bold 9px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("E-SIGNATURE VERIFIED", 110, 74);
+      return canvas.toDataURL("image/png");
+    }
+
     function triggerFileDownload(blob, filename) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -3221,6 +3544,114 @@
       `;
     }
 
+    function buildStatementsDocSection() {
+      if (state.registrations.length === 0) {
+        return `
+          <h2>SURAT PERNYATAAN KESANGGUPAN MENTAATI PERATURAN</h2>
+          <p><em>Belum ada tim sekolah yang terdaftar dan menandatangani surat pernyataan.</em></p>
+        `;
+      }
+
+      const statementLines = String(state.rules.pernyataan || DEFAULT_RULES.pernyataan)
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+      const statementRowsHtml = statementLines
+        .map((line, lineIdx) => {
+          const match = line.match(/^(\d+[\.\)])\s*(.*)$/);
+          const numStr = match ? match[1] : `${lineIdx + 1}.`;
+          const bodyStr = match ? match[2] : line;
+          return `
+            <tr>
+              <td style="border: none; width: 5%; padding: 4px 4px; vertical-align: top;"><strong>${escapeHtml(numStr)}</strong></td>
+              <td style="border: none; width: 95%; padding: 4px 4px; text-align: justify;">${escapeHtml(bodyStr)}</td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      return state.registrations
+        .map((r, idx) => {
+          const tanggalTtd = r.signed_at || new Date().toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+          const barcodeText = `Berkas ini sudah ditandatangani secara elektronik oleh ${r.penanggung_jawab} - ${r.nama_sekolah} (${r.cabang}) pada ${tanggalTtd}`;
+          const barcodeDataUrl = generateEmbeddedQrCodeDataUrl(barcodeText);
+          const ttdHtml = `
+            <div style="margin: 6px auto; text-align: center;">
+              <img src="${barcodeDataUrl}" width="105" height="105" alt="Barcode Tanda Tangan Elektronik" style="width: 105px; height: 105px; display: inline-block; border: 1px solid #d1d5db; padding: 3px;" />
+              <p style="margin: 4px 0 0 0; font-size: 8.5pt; color: #064e3b; font-style: italic; line-height: 1.3;">
+                Berkas ini sudah ditandatangani secara elektronik oleh:<br/>
+                <strong>${escapeHtml(r.penanggung_jawab)}</strong>
+              </p>
+            </div>
+          `;
+
+          return `
+            ${idx > 0 ? "<br style='page-break-before: always;' />" : ""}
+            <h2 style="text-align: center; text-decoration: underline;">SURAT PERNYATAAN KESANGGUPAN MENTAATI PERATURAN</h2>
+            <p style="text-align: center; font-size: 10pt; margin-top: -6px;">Turnamen Mini Soccer HUT PGRI • Nomor Registrasi: #${idx + 1}</p>
+
+            <p style="margin-bottom: 6px;">Saya yang bertanda tangan di bawah ini:</p>
+            <table style="border: none; margin-top: 4px; margin-bottom: 12px;">
+              <tr>
+                <td style="border: none; width: 32%; padding: 3px 4px;">Nama Penanggung Jawab</td>
+                <td style="border: none; width: 3%; padding: 3px 4px;">:</td>
+                <td style="border: none; width: 65%; padding: 3px 4px;"><strong>${escapeHtml(r.penanggung_jawab)}</strong></td>
+              </tr>
+              <tr>
+                <td style="border: none; padding: 3px 4px;">Asal Sekolah</td>
+                <td style="border: none; padding: 3px 4px;">:</td>
+                <td style="border: none; padding: 3px 4px;"><strong>${escapeHtml(r.nama_sekolah)}</strong></td>
+              </tr>
+              <tr>
+                <td style="border: none; padding: 3px 4px;">Cabang Pertandingan</td>
+                <td style="border: none; padding: 3px 4px;">:</td>
+                <td style="border: none; padding: 3px 4px;"><strong>${escapeHtml(r.cabang)}</strong></td>
+              </tr>
+              <tr>
+                <td style="border: none; padding: 3px 4px;">Nomor WhatsApp (HP)</td>
+                <td style="border: none; padding: 3px 4px;">:</td>
+                <td style="border: none; padding: 3px 4px;">${escapeHtml(r.no_wa)}</td>
+              </tr>
+              <tr>
+                <td style="border: none; padding: 3px 4px;">Nama Kapten Tim</td>
+                <td style="border: none; padding: 3px 4px;">:</td>
+                <td style="border: none; padding: 3px 4px;">${escapeHtml(r.kapten)} (${r.jumlah_pemain} Pemain Terdaftar)</td>
+              </tr>
+            </table>
+
+            <p style="margin-bottom: 6px; text-align: justify;">
+              Dengan ini menyatakan dengan sesungguhnya dan penuh kesadaran tanpa ada paksaan dari pihak mana pun, bahwa saya selaku Penanggung Jawab beserta seluruh pemain dan ofisial tim dari <strong>${escapeHtml(r.nama_sekolah)}</strong> pada cabang <strong>${escapeHtml(r.cabang)}</strong>:
+            </p>
+
+            <table style="border: none; margin-top: 4px; margin-bottom: 12px;">
+              ${statementRowsHtml}
+            </table>
+
+            <p style="text-align: justify;">
+              Demikian surat pernyataan ini saya buat dan tandatangani secara elektronik dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya.
+            </p>
+
+            <table style="border: none; margin-top: 22px;">
+              <tr>
+                <td style="border: none; width: 55%;"></td>
+                <td style="border: none; width: 45%; text-align: center;">
+                  <p style="margin: 0;">Tanggal Pendaftaran: ${escapeHtml(tanggalTtd)}</p>
+                  <p style="margin: 2px 0 4px 0;">Yang Membuat Pernyataan,</p>
+                  ${ttdHtml}
+                  <p style="margin: 2px 0 0 0; font-size: 9.5pt;">Penanggung Jawab Tim ${escapeHtml(r.nama_sekolah)}</p>
+                </td>
+              </tr>
+            </table>
+          `;
+        })
+        .join("\n");
+    }
+
     window.downloadCommitteeDocument = function(type) {
       const nowStr = new Date().toLocaleString("id-ID", {
         dateStyle: "full",
@@ -3245,10 +3676,15 @@
       } else if (type === "RULES") {
         bodySections = buildRulesDocSection();
         filePrefix = "Peraturan_Mini_Soccer_PGRI";
+      } else if (type === "STATEMENTS") {
+        bodySections = buildStatementsDocSection();
+        filePrefix = "Surat_Pernyataan_Mentaati_Peraturan_Mini_Soccer_PGRI";
       } else {
         filePrefix = "Semua_Keperluan_Panitia_Mini_Soccer_PGRI";
         bodySections = [
           buildRulesDocSection(),
+          "<br style='page-break-before: always;' />",
+          buildStatementsDocSection(),
           "<br style='page-break-before: always;' />",
           buildSchoolStatusDocSection(),
           "<br style='page-break-before: always;' />",
@@ -3263,7 +3699,7 @@
       const docKopTitle = state.appearance.docHeader || DEFAULT_APPEARANCE.docHeader;
 
       const docHtml = `
-        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
         <head>
           <meta charset="utf-8" />
           <title>${escapeHtml(filePrefix)}</title>
@@ -3389,7 +3825,7 @@
                       <p class="text-xs text-slate-600 break-words">PJ: <strong>${escapeHtml(r.penanggung_jawab)}</strong> • WA: ${escapeHtml(r.no_wa)} • Kapten: ${escapeHtml(r.kapten)}</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2 shrink-0">
-                      <button type="button" onclick="window.openDetailModal('${escapeHtml(r.id)}')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">Pemain</button>
+                      <button type="button" onclick="window.openDetailModal('${escapeHtml(r.id)}')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">Pemain & TTD</button>
                       <button type="button" onclick="window.openEditRegModal('${escapeHtml(r.id)}')" class="px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition">Ubah</button>
                       <button type="button" onclick="window.deleteRegistration('${escapeHtml(r.id)}', '${escapeHtml(r.nama_sekolah)}', '${escapeHtml(r.cabang)}')" class="px-3 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold transition">Hapus</button>
                     </div>
@@ -3445,6 +3881,7 @@
     }
 
     renderPreviewIndicators();
+    initSignaturePad();
     renderDynamicPlayerInputs(7, "players-input-list", []);
     renderAll();
     updateAdminUIState();
