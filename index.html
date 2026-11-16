@@ -149,6 +149,7 @@
 
     html.dark-theme .bg-emerald-50,
     html.dark-theme .bg-emerald-50\/90,
+    html.dark-theme .bg-emerald-50\/75,
     html.dark-theme .bg-emerald-50\/70,
     html.dark-theme .bg-emerald-50\/60,
     html.dark-theme .bg-emerald-100\/80,
@@ -186,7 +187,8 @@
     }
 
     html.dark-theme .text-amber-700,
-    html.dark-theme .text-amber-800 {
+    html.dark-theme .text-amber-800,
+    html.dark-theme .text-amber-900 {
       color: #fcd34d !important;
     }
 
@@ -200,7 +202,11 @@
       color: #5eead4 !important;
     }
 
-    html.dark-theme .bg-amber-100 {
+    html.dark-theme .bg-amber-100,
+    html.dark-theme .bg-amber-200,
+    html.dark-theme .bg-amber-50,
+    html.dark-theme .bg-amber-50\/90,
+    html.dark-theme .bg-amber-50\/50 {
       background-color: rgba(245, 158, 11, 0.22) !important;
       color: #fcd34d !important;
     }
@@ -221,6 +227,8 @@
     html.dark-theme #tab-btn-permainan.bg-white,
     html.dark-theme #bracket-tab-putra.bg-white,
     html.dark-theme #bracket-tab-putri.bg-white,
+    html.dark-theme #admin-b12-tab-putra.bg-white,
+    html.dark-theme #admin-b12-tab-putri.bg-white,
     html.dark-theme #filter-match-all.bg-white,
     html.dark-theme #filter-match-putra.bg-white,
     html.dark-theme #filter-match-putri.bg-white {
@@ -529,31 +537,29 @@
 
       <!-- Menu Navigasi Desktop -->
       <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-        <button type="button" data-nav="dashboard" class="nav-btn w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-200 bg-white text-emerald-900 shadow-lg">
+        <button type="button" data-nav="dashboard" class="nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all duration-200 bg-white text-emerald-950 shadow-md">
           <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span class="text-left leading-snug">Dashboard</span>
+          <span class="flex-1 text-left leading-snug">Dashboard</span>
         </button>
 
-        <button type="button" data-nav="bagan-jadwal" class="nav-btn w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold text-emerald-100 hover:bg-emerald-800/70 transition-all duration-200">
+        <button type="button" data-nav="bagan-jadwal" class="nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all duration-200">
           <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span class="text-left leading-snug">Bagan & Jadwal</span>
+          <span class="flex-1 text-left leading-snug">Bagan &amp; Jadwal</span>
         </button>
 
-        <button type="button" data-nav="status-pendaftaran" class="nav-btn w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold text-emerald-100 hover:bg-emerald-800/70 transition-all duration-200">
+        <button type="button" data-nav="status-pendaftaran" class="nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all duration-200">
           <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-          <span class="text-left leading-snug">Status Pendaftaran</span>
+          <span class="flex-1 text-left leading-snug">Status Pendaftaran</span>
         </button>
 
-        <button type="button" data-nav="pendaftaran" class="nav-btn w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold text-emerald-100 hover:bg-emerald-800/70 transition-all duration-200">
+        <button type="button" data-nav="pendaftaran" class="nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all duration-200">
           <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-          <span class="text-left leading-snug">Pendaftaran Tim</span>
+          <span class="flex-1 text-left leading-snug">Pendaftaran Tim</span>
         </button>
 
-        <button type="button" data-nav="admin" class="nav-btn w-full flex items-center justify-between gap-2 px-4 py-3 rounded-2xl text-sm font-bold text-emerald-100 hover:bg-emerald-800/70 transition-all duration-200">
-          <div class="flex items-center gap-3.5">
-            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            <span class="text-left leading-snug">Masuk Admin</span>
-          </div>
+        <button type="button" data-nav="admin" class="nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all duration-200">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span class="flex-1 text-left leading-snug">Masuk Admin</span>
           <span id="sidebar-admin-status" class="hidden px-2 py-0.5 text-[10px] font-extrabold rounded-full bg-amber-400 text-emerald-950 shrink-0">AKTIF</span>
         </button>
       </nav>
@@ -579,26 +585,26 @@
     <!-- ===================================================================== -->
     <!-- MOBILE BOTTOM NAVIGATION BAR (Muncul di HP / layar di bawah md)       -->
     <!-- ===================================================================== -->
-    <nav class="md:hidden fixed bottom-2 inset-x-1.5 z-40 glass-nav border border-emerald-700/80 shadow-2xl rounded-2xl p-1 grid grid-cols-5 gap-0.5">
-      <button type="button" data-nav="dashboard" class="nav-btn flex flex-col items-center justify-center gap-0.5 py-2 px-0.5 rounded-xl text-[9px] sm:text-[10px] font-extrabold transition-all bg-white text-emerald-900 shadow-sm text-center leading-tight min-w-0">
+    <nav class="md:hidden fixed bottom-2.5 inset-x-2 z-40 glass-nav border border-emerald-700/80 shadow-2xl rounded-2xl p-1.5 grid grid-cols-5 gap-1">
+      <button type="button" data-nav="dashboard" class="nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-extrabold transition-all bg-white text-emerald-950 shadow-sm text-center leading-tight min-w-0">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span class="w-full break-words">Dashboard</span>
       </button>
-      <button type="button" data-nav="bagan-jadwal" class="nav-btn flex flex-col items-center justify-center gap-0.5 py-2 px-0.5 rounded-xl text-[9px] sm:text-[10px] font-extrabold text-emerald-100 hover:bg-emerald-800/70 transition-all text-center leading-tight min-w-0">
+      <button type="button" data-nav="bagan-jadwal" class="nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all text-center leading-tight min-w-0">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        <span class="w-full break-words">Bagan</span>
+        <span class="w-full break-words">Bagan &amp; Jadwal</span>
       </button>
-      <button type="button" data-nav="status-pendaftaran" class="nav-btn flex flex-col items-center justify-center gap-0.5 py-2 px-0.5 rounded-xl text-[9px] sm:text-[10px] font-extrabold text-emerald-100 hover:bg-emerald-800/70 transition-all text-center leading-tight min-w-0">
+      <button type="button" data-nav="status-pendaftaran" class="nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all text-center leading-tight min-w-0">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-        <span class="w-full break-words">Status</span>
+        <span class="w-full break-words">Status Daftar</span>
       </button>
-      <button type="button" data-nav="pendaftaran" class="nav-btn flex flex-col items-center justify-center gap-0.5 py-2 px-0.5 rounded-xl text-[9px] sm:text-[10px] font-extrabold text-emerald-100 hover:bg-emerald-800/70 transition-all text-center leading-tight min-w-0">
+      <button type="button" data-nav="pendaftaran" class="nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all text-center leading-tight min-w-0">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
         <span class="w-full break-words">Daftar Tim</span>
       </button>
-      <button type="button" data-nav="admin" class="nav-btn flex flex-col items-center justify-center gap-0.5 py-2 px-0.5 rounded-xl text-[9px] sm:text-[10px] font-extrabold text-emerald-100 hover:bg-emerald-800/70 transition-all text-center leading-tight min-w-0">
+      <button type="button" data-nav="admin" class="nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all text-center leading-tight min-w-0">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-        <span class="w-full break-words">Admin</span>
+        <span class="w-full break-words">Masuk Admin</span>
       </button>
     </nav>
 
@@ -721,7 +727,21 @@
               </div>
             </div>
 
-            <div id="tournament-bracket-container" class="w-full"></div>
+            <!-- Bagan Pohon 12 Tim (Sesuai Sketsa Turnamen) -->
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900">
+                  🏆 Skema Bagan Pohon 12 Tim (Sistem Gugur & Bye)
+                </span>
+                <span class="text-[11px] font-semibold text-slate-500">Geser ke samping pada layar HP untuk melihat alur hingga Final →</span>
+              </div>
+              <div id="bracket-12-tree-container" class="w-full overflow-x-auto pb-2"></div>
+            </div>
+
+            <div class="pt-4 border-t border-emerald-200/70 space-y-3">
+              <h3 class="text-xs font-extrabold uppercase tracking-wider text-emerald-800">Rincian Laga Per Babak</h3>
+              <div id="tournament-bracket-container" class="w-full"></div>
+            </div>
           </div>
 
           <!-- 2. JADWAL PERTANDINGAN PER JAM & HASIL SELESAI -->
@@ -1048,6 +1068,9 @@
               <button type="button" onclick="window.switchAdminTab('matches')" id="atab-matches" class="admin-subtab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
                 3. Input Hasil Pertandingan
               </button>
+              <button type="button" onclick="window.switchAdminTab('bracket12')" id="atab-bracket12" class="admin-subtab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+                3B. Edit Bagan 12 Tim
+              </button>
               <button type="button" onclick="window.switchAdminTab('rules')" id="atab-rules" class="admin-subtab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
                 4. Edit Peraturan & Pernyataan
               </button>
@@ -1169,6 +1192,103 @@
               </form>
 
               <div id="admin-matches-list" class="space-y-3"></div>
+            </div>
+
+            <!-- SUB-TAB 3B: EDIT BAGAN PERTANDINGAN 12 TIM -->
+            <div id="admin-sec-bracket12" class="hidden glass-card rounded-3xl p-5 sm:p-6 space-y-6">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-emerald-200/80">
+                <div>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 mb-1">Skema Bagan 12 Tim</span>
+                  <h3 class="text-lg font-extrabold text-slate-900">Kelola Bagan Pohon 12 Tim (Putra & Putri)</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Atur posisi 12 tim peserta (No. 1, 6, 7, 12 langsung masuk Perempat Final / Bye; No. 2 vs 3, 4 vs 5, 8 vs 9, 10 vs 11 bertanding di Babak Awal) serta isi pemenang tiap babak.</p>
+                </div>
+                <div class="flex p-1 bg-emerald-100/80 rounded-xl self-start shrink-0">
+                  <button type="button" onclick="window.switchAdminBracket12Cabang('Mini Soccer Putra')" id="admin-b12-tab-putra" class="px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition">Bagan Putra</button>
+                  <button type="button" onclick="window.switchAdminBracket12Cabang('Mini Soccer Putri')" id="admin-b12-tab-putri" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition">Bagan Putri</button>
+                </div>
+              </div>
+
+              <form id="admin-bracket12-form" class="space-y-6">
+                <!-- Bagian 1: Urutan 12 Tim Peserta -->
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">1. Daftar Urutan 12 Tim Peserta (Bagan Kiri)</h4>
+                    <span class="text-[11px] font-semibold text-emerald-800">Tim 1, 6, 7, 12 otomatis Bye ke Perempat Final</span>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="admin-b12-teams-grid"></div>
+                </div>
+
+                <!-- Bagian 2: Hasil Pemenang Babak Awal (Play-in 8 Tim -> 4 Pemenang) -->
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">2. Pemenang Babak Awal (Laga Kualifikasi)</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label id="lbl-b12-r1-1" class="block text-xs font-bold text-slate-700 mb-1">Pemenang Laga 1 (Tim 2 vs Tim 3)</label>
+                      <input type="text" id="b12-r1-1" list="schools-datalist" placeholder="Isi pemenang Tim 2 vs Tim 3" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label id="lbl-b12-r1-2" class="block text-xs font-bold text-slate-700 mb-1">Pemenang Laga 2 (Tim 4 vs Tim 5)</label>
+                      <input type="text" id="b12-r1-2" list="schools-datalist" placeholder="Isi pemenang Tim 4 vs Tim 5" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label id="lbl-b12-r1-3" class="block text-xs font-bold text-slate-700 mb-1">Pemenang Laga 3 (Tim 8 vs Tim 9)</label>
+                      <input type="text" id="b12-r1-3" list="schools-datalist" placeholder="Isi pemenang Tim 8 vs Tim 9" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label id="lbl-b12-r1-4" class="block text-xs font-bold text-slate-700 mb-1">Pemenang Laga 4 (Tim 10 vs Tim 11)</label>
+                      <input type="text" id="b12-r1-4" list="schools-datalist" placeholder="Isi pemenang Tim 10 vs Tim 11" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bagian 3: Pemenang Perempat Final (8 Besar -> 4 Semifinalis) -->
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Pemenang Perempat Final (Menuju Semifinal)</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label id="lbl-b12-qf-1" class="block text-xs font-bold text-slate-700 mb-1">Pemenang QF 1 (Tim 1 vs Pemenang Laga 1)</label>
+                      <input type="text" id="b12-qf-1" list="schools-datalist" placeholder="Isi pemenang Perempat Final 1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label id="lbl-b12-qf-2" class="block text-xs font-bold text-slate-700 mb-1">Pemenang QF 2 (Pemenang Laga 2 vs Tim 6)</label>
+                      <input type="text" id="b12-qf-2" list="schools-datalist" placeholder="Isi pemenang Perempat Final 2" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label id="lbl-b12-qf-3" class="block text-xs font-bold text-slate-700 mb-1">Pemenang QF 3 (Tim 7 vs Pemenang Laga 3)</label>
+                      <input type="text" id="b12-qf-3" list="schools-datalist" placeholder="Isi pemenang Perempat Final 3" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label id="lbl-b12-qf-4" class="block text-xs font-bold text-slate-700 mb-1">Pemenang QF 4 (Pemenang Laga 4 vs Tim 12)</label>
+                      <input type="text" id="b12-qf-4" list="schools-datalist" placeholder="Isi pemenang Perempat Final 4" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bagian 4: Pemenang Semifinal & Juara 1 -->
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">4. Finalis & Juara Turnamen</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 mb-1">Finalis Atas (Pemenang Semifinal 1)</label>
+                      <input type="text" id="b12-sf-1" list="schools-datalist" placeholder="Pemenang SF 1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 mb-1">Finalis Bawah (Pemenang Semifinal 2)</label>
+                      <input type="text" id="b12-sf-2" list="schools-datalist" placeholder="Pemenang SF 2" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-extrabold text-amber-800 mb-1">🏆 JUARA 1 (Pemenang Final)</label>
+                      <input type="text" id="b12-champion" list="schools-datalist" placeholder="Nama Tim Juara 1" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-amber-400 bg-amber-50/50 text-sm font-extrabold text-emerald-950 outline-none focus:ring-2 focus:ring-amber-500" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex justify-end">
+                  <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-sm shadow-sm transition">
+                    Simpan Bagan 12 Tim
+                  </button>
+                </div>
+              </form>
             </div>
 
             <!-- SUB-TAB 4: EDIT PERATURAN & SURAT PERNYATAAN -->
@@ -1580,23 +1700,63 @@
       footerText: "Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026"
     };
 
+    const DEFAULT_BRACKET_12_PUTRA = {
+      teams: [
+        "TALAGASARI",
+        "2 SMP",
+        "SMA / SMK",
+        "SUKAKERTA",
+        "HIMPAUDI",
+        "1 SMP",
+        "BOJONG KASIH",
+        "WARGAASIH",
+        "KADUPANDAK",
+        "WARGASARI",
+        "SUKASARI",
+        "SUKARAJA"
+      ],
+      r1Winners: ["", "", "", ""],
+      qfWinners: ["", "", "", ""],
+      sfWinners: ["", ""],
+      champion: ""
+    };
+
+    const DEFAULT_BRACKET_12_PUTRI = {
+      teams: [
+        "TALAGASARI",
+        "2 SMP",
+        "SMA / SMK",
+        "SUKAKERTA",
+        "HIMPAUDI",
+        "1 SMP",
+        "BOJONG KASIH",
+        "WARGAASIH",
+        "KADUPANDAK",
+        "WARGASARI",
+        "SUKASARI",
+        "SUKARAJA"
+      ],
+      r1Winners: ["", "", "", ""],
+      qfWinners: ["", "", "", ""],
+      sfWinners: ["", ""],
+      champion: ""
+    };
+
     function createSampleSignatureDataUrl() {
       try {
         const c = document.createElement("canvas");
-        c.width = 360;
-        c.height = 140;
+        c.width = 300;
+        c.height = 100;
         const ctx = c.getContext("2d");
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, c.width, c.height);
         ctx.strokeStyle = "#064e3b";
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 2.5;
         ctx.lineCap = "round";
-        ctx.lineJoin = "round";
         ctx.beginPath();
-        ctx.moveTo(65, 95);
-        ctx.bezierCurveTo(95, 30, 125, 30, 120, 88);
-        ctx.bezierCurveTo(118, 108, 155, 45, 180, 75);
-        ctx.bezierCurveTo(205, 105, 240, 50, 295, 78);
+        ctx.moveTo(45, 65);
+        ctx.bezierCurveTo(75, 22, 105, 82, 138, 42);
+        ctx.bezierCurveTo(162, 18, 185, 76, 245, 48);
         ctx.stroke();
         return c.toDataURL("image/png");
       } catch (e) {
@@ -1605,51 +1765,69 @@
     }
 
     const state = {
-      schools: IS_PREVIEW ? [
-        { id: "sch-1", nama_sekolah: "SDN 01 NEGERI HARAPAN" },
-        { id: "sch-2", nama_sekolah: "SMPN 02 TUNAS BANGSA" }
-      ] : [],
-      registrations: IS_PREVIEW ? [
-        {
-          id: "reg-1",
-          school_id: "sch-1",
-          nama_sekolah: "SDN 01 NEGERI HARAPAN",
-          cabang: "Mini Soccer Putra",
-          penanggung_jawab: "AHMAD FAUZI, S.PD",
-          no_wa: "081234567890",
-          kapten: "Rizky Pratama",
-          jumlah_pemain: 7,
-          daftar_pemain: ["Rizky Pratama", "Dedi Kurniawan", "Hendra Wijaya", "Bambang Sutrisno", "Agus Salim", "Eko Prasetyo", "Fajar Nugroho"],
-          signature_data: createSampleSignatureDataUrl(),
-          signed_at: "16 November 2026"
-        }
-      ] : [],
-      matches: IS_PREVIEW ? [
-        {
-          id: "mat-1",
-          cabang: "Mini Soccer Putra",
-          status: "LIVE",
-          babak: "Penyisihan",
-          tanggal: "08.00 - 08.35 WIB",
-          tim_a: "SDN 01 NEGERI HARAPAN",
-          skor_a: 2,
-          tim_b: "SMPN 02 TUNAS BANGSA",
-          skor_b: 1
-        },
-        {
-          id: "mat-2",
-          cabang: "Mini Soccer Putri",
-          status: "UPCOMING",
-          babak: "Penyisihan",
-          tanggal: "08.45 - 09.20 WIB",
-          tim_a: "SDN 01 NEGERI HARAPAN",
-          skor_a: 0,
-          tim_b: "SMPN 02 TUNAS BANGSA",
-          skor_b: 0
-        }
-      ] : [],
+      schools: IS_PREVIEW
+        ? [
+            { id: "sch-1", nama_sekolah: "SDN 01 NEGERI HARAPAN" },
+            { id: "sch-2", nama_sekolah: "SMPN 02 TUNAS BANGSA" }
+          ]
+        : [],
+      registrations: IS_PREVIEW
+        ? [
+            {
+              id: "reg-1",
+              school_id: "sch-1",
+              nama_sekolah: "SDN 01 NEGERI HARAPAN",
+              cabang: "Mini Soccer Putra",
+              penanggung_jawab: "AHMAD FAUZI, S.PD",
+              no_wa: "081234567890",
+              kapten: "Rizky Pratama",
+              jumlah_pemain: 7,
+              daftar_pemain: [
+                "Rizky Pratama",
+                "Dedi Kurniawan",
+                "Hendra Saputra",
+                "Agus Salim",
+                "Fajar Nugroho",
+                "Wahyu Hidayat",
+                "Bambang Pamungkas"
+              ],
+              signature_data: createSampleSignatureDataUrl(),
+              signed_at: "16 November 2026"
+            }
+          ]
+        : [],
+      matches: IS_PREVIEW
+        ? [
+            {
+              id: "mat-1",
+              cabang: "Mini Soccer Putra",
+              status: "LIVE",
+              babak: "Penyisihan",
+              tanggal: "08.30 - 09.05 WIB",
+              tim_a: "SDN 01 NEGERI HARAPAN",
+              skor_a: 2,
+              tim_b: "SMPN 02 TUNAS BANGSA",
+              skor_b: 1
+            },
+            {
+              id: "mat-2",
+              cabang: "Mini Soccer Putri",
+              status: "UPCOMING",
+              babak: "Penyisihan",
+              tanggal: "09.15 - 09.50 WIB",
+              tim_a: "SDN 01 NEGERI HARAPAN",
+              skor_a: 0,
+              tim_b: "SMPN 02 TUNAS BANGSA",
+              skor_b: 0
+            }
+          ]
+        : [],
       rules: { ...DEFAULT_RULES },
-      appearance: { ...DEFAULT_APPEARANCE }
+      appearance: { ...DEFAULT_APPEARANCE },
+      bracket12: {
+        "Mini Soccer Putra": JSON.parse(JSON.stringify(DEFAULT_BRACKET_12_PUTRA)),
+        "Mini Soccer Putri": JSON.parse(JSON.stringify(DEFAULT_BRACKET_12_PUTRI))
+      }
     };
 
     let db = null;
@@ -1658,11 +1836,12 @@
     let currentAdminEmail = "";
     let currentMatchFilter = "ALL";
     let currentBracketCabang = "Mini Soccer Putra";
+    let currentAdminB12Cabang = "Mini Soccer Putra";
     let hasReadPertandingan = true;
     let hasReadPermainan = false;
 
     // =========================================================================
-    // 3. HELPER FUNGSI UTILITAS (ESCAPE HTML, TOAST, CUSTOM CONFIRM)
+    // 3. HELPER UTILITAS (ESCAPE HTML, TOAST, POP-UP ANIMASI, KONFIRMASI)
     // =========================================================================
     function escapeHtml(str) {
       if (str === null || str === undefined) return "";
@@ -1674,58 +1853,35 @@
         .replace(/'/g, "&#039;");
     }
 
-    function showToast(message, type = "success") {
+    function showToast(message, type = "info") {
       const container = document.getElementById("toast-container");
       if (!container) return;
 
       const styles = {
-        success: "bg-emerald-900 text-white border-emerald-700",
-        error: "bg-red-600 text-white border-red-500",
-        warning: "bg-amber-500 text-emerald-950 border-amber-400"
+        success: "bg-emerald-900 text-white border-emerald-500",
+        error: "bg-red-900 text-white border-red-500",
+        warning: "bg-amber-800 text-white border-amber-400",
+        info: "bg-slate-900 text-white border-slate-600"
       };
 
       const toast = document.createElement("div");
-      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-xl border text-xs sm:text-sm font-bold flex items-center justify-between gap-3 animate-fade-in ${styles[type] || styles.success}`;
-      toast.innerHTML = `<span class="leading-snug break-words">${escapeHtml(message)}</span>`;
+      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border shadow-xl text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 animate-fade-in ${styles[type] || styles.info}`;
+      toast.innerHTML = `
+        <span class="break-words leading-snug">${escapeHtml(message)}</span>
+        <button type="button" class="text-white/75 hover:text-white font-bold text-base leading-none shrink-0">&times;</button>
+      `;
+      toast.querySelector("button").onclick = () => toast.remove();
       container.appendChild(toast);
 
       setTimeout(() => {
-        toast.style.opacity = "0";
-        toast.style.transition = "opacity 0.25s ease";
-        setTimeout(() => toast.remove(), 260);
-      }, 3600);
-    }
-
-    function customConfirm(title, message) {
-      return new Promise((resolve) => {
-        const modal = document.getElementById("confirm-modal");
-        const titleEl = document.getElementById("confirm-title");
-        const msgEl = document.getElementById("confirm-message");
-        const okBtn = document.getElementById("confirm-ok-btn");
-        const cancelBtn = document.getElementById("confirm-cancel-btn");
-
-        titleEl.textContent = title;
-        msgEl.textContent = message;
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-
-        const cleanup = (result) => {
-          modal.classList.add("hidden");
-          modal.classList.remove("flex");
-          okBtn.onclick = null;
-          cancelBtn.onclick = null;
-          resolve(result);
-        };
-
-        okBtn.onclick = () => cleanup(true);
-        cancelBtn.onclick = () => cleanup(false);
-      });
+        if (toast.parentNode) toast.remove();
+      }, 4200);
     }
 
     function showCenterPopup({
-      title = "Berhasil!",
-      message = "",
-      badge = "Informasi",
+      badge = "Berhasil",
+      title = "Data Berhasil Dikirim",
+      message = "Informasi telah berhasil disimpan.",
       variant = "success",
       showCancel = false,
       confirmText = "Oke, Mengerti",
@@ -1742,46 +1898,31 @@
         const okBtn = document.getElementById("center-popup-ok-btn");
         const cancelBtn = document.getElementById("center-popup-cancel-btn");
 
-        if (!modal || !card) {
+        if (!modal || !okBtn) {
           resolve(true);
           return;
         }
 
-        const presets = {
-          success: {
-            iconBg: "bg-emerald-100 text-emerald-600",
-            badgeBg: "bg-emerald-100 text-emerald-800",
-            btnBg: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700",
-            svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`
-          },
-          logout: {
-            iconBg: "bg-amber-100 text-amber-600",
-            badgeBg: "bg-amber-100 text-amber-800",
-            btnBg: "bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700",
-            svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>`
-          },
-          error: {
-            iconBg: "bg-red-100 text-red-600",
-            badgeBg: "bg-red-100 text-red-700",
-            btnBg: "bg-red-600 hover:bg-red-700",
-            svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>`
-          }
-        };
-
-        const style = presets[variant] || presets.success;
-        iconWrap.className = `w-16 h-16 rounded-full mx-auto flex items-center justify-center animate-icon-ring ${style.iconBg}`;
-        svgEl.innerHTML = style.svg;
-        badgeEl.className = `inline-block px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${style.badgeBg}`;
         badgeEl.textContent = badge;
         titleEl.textContent = title;
         msgEl.textContent = message;
-
-        okBtn.className = `flex-1 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-extrabold text-white shadow-md transition ${style.btnBg}`;
         okBtn.textContent = confirmText;
+        cancelBtn.textContent = cancelText;
+
+        if (variant === "logout") {
+          iconWrap.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center bg-red-100 text-red-600 animate-icon-ring";
+          badgeEl.className = "inline-block px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-100 text-red-800";
+          okBtn.className = "flex-1 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-extrabold text-white bg-red-600 hover:bg-red-700 shadow-md transition";
+          svgEl.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>`;
+        } else {
+          iconWrap.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center bg-emerald-100 text-emerald-600 animate-icon-ring";
+          badgeEl.className = "inline-block px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800";
+          okBtn.className = "flex-1 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 shadow-md transition";
+          svgEl.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`;
+        }
 
         if (showCancel) {
           cancelBtn.classList.remove("hidden");
-          cancelBtn.textContent = cancelText;
         } else {
           cancelBtn.classList.add("hidden");
         }
@@ -1793,52 +1934,80 @@
         modal.classList.remove("hidden");
         modal.classList.add("flex");
 
-        const finish = (val) => {
+        const cleanup = (result) => {
           modal.classList.add("hidden");
           modal.classList.remove("flex");
           okBtn.onclick = null;
           cancelBtn.onclick = null;
-          resolve(val);
+          resolve(result);
         };
 
-        okBtn.onclick = () => finish(true);
-        cancelBtn.onclick = () => finish(false);
+        okBtn.onclick = () => cleanup(true);
+        cancelBtn.onclick = () => cleanup(false);
+      });
+    }
+
+    function customConfirm(title, message) {
+      return new Promise((resolve) => {
+        const modal = document.getElementById("confirm-modal");
+        const titleEl = document.getElementById("confirm-title");
+        const msgEl = document.getElementById("confirm-message");
+        const okBtn = document.getElementById("confirm-ok-btn");
+        const cancelBtn = document.getElementById("confirm-cancel-btn");
+
+        if (!modal || !okBtn || !cancelBtn) {
+          resolve(window.confirm(message));
+          return;
+        }
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        const cleanup = (res) => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          okBtn.onclick = null;
+          cancelBtn.onclick = null;
+          resolve(res);
+        };
+
+        okBtn.onclick = () => cleanup(true);
+        cancelBtn.onclick = () => cleanup(false);
       });
     }
 
     // =========================================================================
-    // 4. INDIKATOR PREVIEW & KONEKSI FIREBASE PRODUKSI
+    // 4. PREVIEW INDICATORS & INISIALISASI FIREBASE PRODUKSI
     // =========================================================================
     function renderPreviewIndicators() {
       const bannerEl = document.getElementById("preview-banner-container");
-      const loginHintEl = document.getElementById("preview-login-hint");
+      const hintEl = document.getElementById("preview-login-hint");
 
-      if (!IS_PREVIEW) {
-        if (bannerEl) bannerEl.innerHTML = "";
-        if (loginHintEl) loginHintEl.innerHTML = "";
-        return;
-      }
-
-      if (bannerEl) {
-        bannerEl.innerHTML = `
-          <div class="rounded-2xl bg-amber-100 border border-amber-300 px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-amber-950 shadow-sm">
-            <div class="flex items-center gap-2.5 text-xs sm:text-sm font-bold">
-              <span class="px-2 py-0.5 rounded-md bg-amber-400 text-emerald-950 text-[10px] font-extrabold uppercase shrink-0">Mode Preview</span>
-              <span>Aplikasi berjalan dengan data uji coba lokal (IS_PREVIEW = true).</span>
+      if (IS_PREVIEW) {
+        if (bannerEl) {
+          bannerEl.innerHTML = `
+            <div class="rounded-2xl bg-amber-50 border border-amber-300 px-4 py-3 text-xs text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-md bg-amber-400 text-emerald-950 font-extrabold uppercase text-[10px] shrink-0">Mode Preview</span>
+                <span class="font-semibold">Uji coba lokal aktif. Data disimpan sementara di memori browser.</span>
+              </div>
+              <span class="text-[11px] font-bold text-amber-800">Ubah IS_PREVIEW = false saat deploy Firebase</span>
             </div>
-            <span class="text-[11px] font-medium text-amber-800">Ubah IS_PREVIEW = false saat deploy ke Firebase.</span>
-          </div>
-        `;
-      }
-
-      if (loginHintEl) {
-        loginHintEl.innerHTML = `
-          <div class="mb-4 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 space-y-1">
-            <p class="font-extrabold text-amber-800">Akun Demo Preview:</p>
-            <p>Email: <code class="font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-amber-200">admin@pgri.or.id</code></p>
-            <p>Password: <code class="font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-amber-200">admin123</code></p>
-          </div>
-        `;
+          `;
+        }
+        if (hintEl) {
+          hintEl.innerHTML = `
+            <div class="mb-4 p-3.5 rounded-2xl bg-amber-50 border border-amber-300 text-xs text-amber-900 space-y-1">
+              <p class="font-extrabold">Akun Demo Preview:</p>
+              <p>Email: <code class="font-mono font-bold">admin@pgri.or.id</code> • Password: <code class="font-mono font-bold">admin123</code></p>
+            </div>
+          `;
+        }
+      } else {
+        if (bannerEl) bannerEl.innerHTML = "";
+        if (hintEl) hintEl.innerHTML = "";
       }
     }
 
@@ -1862,28 +2031,46 @@
         });
 
         onSnapshot(collection(db, "schools"), (snap) => {
-          state.schools = snap.docs
-            .map((d) => ({ id: d.id, ...d.data() }))
-            .sort((a, b) => (a.nama_sekolah || "").localeCompare(b.nama_sekolah || ""));
-          renderAll();
+          const list = [];
+          snap.forEach((docSnap) => {
+            list.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          list.sort((a, b) => (a.nama_sekolah || "").localeCompare(b.nama_sekolah || ""));
+          state.schools = list;
+          renderSchoolDropdowns();
+          renderRegistrationStatus();
+          if (isAdminAuthenticated) renderAdminLists();
         });
 
         onSnapshot(collection(db, "registrations"), (snap) => {
-          state.registrations = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-          renderAll();
+          const list = [];
+          snap.forEach((docSnap) => {
+            list.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          state.registrations = list;
+          renderRegistrationStatus();
+          if (isAdminAuthenticated) renderAdminLists();
         });
 
         onSnapshot(collection(db, "matches"), (snap) => {
-          state.matches = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-          renderAll();
+          const list = [];
+          snap.forEach((docSnap) => {
+            list.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          state.matches = list;
+          renderMatchesSection();
+          renderTournamentBracket();
+          if (isAdminAuthenticated) renderAdminLists();
         });
 
         onSnapshot(doc(db, "settings", "rules"), (docSnap) => {
           if (docSnap.exists()) {
-            const data = docSnap.data();
-            state.rules.pertandingan = data.peraturan_pertandingan || DEFAULT_RULES.pertandingan;
-            state.rules.permainan = data.peraturan_permainan || DEFAULT_RULES.permainan;
-            state.rules.pernyataan = data.isi_pernyataan || DEFAULT_RULES.pernyataan;
+            const d = docSnap.data();
+            state.rules = {
+              pertandingan: d.peraturan_pertandingan || DEFAULT_RULES.pertandingan,
+              permainan: d.peraturan_permainan || DEFAULT_RULES.permainan,
+              pernyataan: d.isi_pernyataan || DEFAULT_RULES.pernyataan
+            };
             renderRules();
           }
         });
@@ -1894,182 +2081,35 @@
             renderAppearance();
           }
         });
+
+        onSnapshot(doc(db, "settings", "bracket12"), (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.putra) {
+              state.bracket12["Mini Soccer Putra"] = {
+                ...DEFAULT_BRACKET_12_PUTRA,
+                ...data.putra
+              };
+            }
+            if (data.putri) {
+              state.bracket12["Mini Soccer Putri"] = {
+                ...DEFAULT_BRACKET_12_PUTRI,
+                ...data.putri
+              };
+            }
+            renderBracket12Tree();
+            renderAdminBracket12Form();
+          }
+        });
       } catch (err) {
         showToast("Konfigurasi Firebase belum valid: " + err.message, "error");
       }
     }
 
     // =========================================================================
-    // 5. RENDERING PENGATURAN TAMPILAN, NAMA APLIKASI, LOGO & FOOTER
+    // 5. NAVIGASI MENU UTAMA (DESKTOP & MOBILE)
     // =========================================================================
-    function renderAppearance() {
-      const cfg = state.appearance;
-
-      document.title = `${cfg.appTitle} - ${cfg.headerTitle}`;
-
-      const sidebarSubtitle = document.getElementById("app-sidebar-subtitle");
-      const sidebarTitle = document.getElementById("app-sidebar-title");
-      const headerBadge = document.getElementById("app-header-badge");
-      const headerTitle = document.getElementById("app-header-title");
-      const headerSubtitle = document.getElementById("app-header-subtitle");
-      const arenaTitle = document.getElementById("app-arena-title");
-      const arenaDesc = document.getElementById("app-arena-desc");
-      const footerEl = document.getElementById("app-footer-text");
-
-      if (sidebarSubtitle) sidebarSubtitle.textContent = cfg.appSubtitle;
-      if (sidebarTitle) sidebarTitle.textContent = cfg.appTitle;
-      if (headerBadge) headerBadge.textContent = cfg.headerBadge;
-      if (headerTitle) headerTitle.textContent = cfg.headerTitle;
-      if (headerSubtitle) headerSubtitle.textContent = cfg.headerSubtitle;
-      if (arenaTitle) arenaTitle.textContent = cfg.arenaTitle;
-      if (arenaDesc) arenaDesc.textContent = cfg.arenaDesc;
-      if (footerEl) footerEl.textContent = cfg.footerText !== undefined ? cfg.footerText : DEFAULT_APPEARANCE.footerText;
-
-      const sidebarLogoBox = document.getElementById("app-sidebar-logo-box");
-      const headerLogoBox = document.getElementById("app-header-logo-box");
-      const adminPreviewLogoBox = document.getElementById("admin-logo-preview-box");
-      const removeLogoBtn = document.getElementById("btn-remove-uploaded-logo");
-      const cleanLogoUrl = (cfg.logoUrl || "").trim();
-
-      const defaultSidebarSvg = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
-      const defaultHeaderSvg = `<svg class="w-7 h-7 sm:w-8 sm:h-8 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
-      const defaultAdminPreviewSvg = `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
-
-      const setLogoBoxContent = (boxEl, fallbackSvg, altText) => {
-        if (!boxEl) return;
-        if (!cleanLogoUrl) {
-          boxEl.innerHTML = fallbackSvg;
-          return;
-        }
-        boxEl.innerHTML = "";
-        const img = document.createElement("img");
-        img.src = cleanLogoUrl;
-        img.alt = altText;
-        img.className = "w-full h-full object-contain bg-white p-0.5";
-        img.onerror = () => {
-          boxEl.innerHTML = fallbackSvg;
-        };
-        boxEl.appendChild(img);
-      };
-
-      setLogoBoxContent(sidebarLogoBox, defaultSidebarSvg, "Logo Aplikasi");
-      setLogoBoxContent(headerLogoBox, defaultHeaderSvg, "Logo Turnamen");
-      setLogoBoxContent(adminPreviewLogoBox, defaultAdminPreviewSvg, "Pratinjau Logo");
-
-      if (removeLogoBtn) {
-        removeLogoBtn.classList.toggle("hidden", !cleanLogoUrl);
-      }
-
-      const fAppTitle = document.getElementById("set-app-title");
-      if (fAppTitle && document.activeElement !== fAppTitle) fAppTitle.value = cfg.appTitle;
-
-      const fAppSub = document.getElementById("set-app-subtitle");
-      if (fAppSub && document.activeElement !== fAppSub) fAppSub.value = cfg.appSubtitle;
-
-      const fLogo = document.getElementById("set-logo-url");
-      if (fLogo && document.activeElement !== fLogo) fLogo.value = cfg.logoUrl || "";
-
-      const fHBadge = document.getElementById("set-header-badge");
-      if (fHBadge && document.activeElement !== fHBadge) fHBadge.value = cfg.headerBadge;
-
-      const fHTitle = document.getElementById("set-header-title");
-      if (fHTitle && document.activeElement !== fHTitle) fHTitle.value = cfg.headerTitle;
-
-      const fHSub = document.getElementById("set-header-subtitle");
-      if (fHSub && document.activeElement !== fHSub) fHSub.value = cfg.headerSubtitle;
-
-      const fATitle = document.getElementById("set-arena-title");
-      if (fATitle && document.activeElement !== fATitle) fATitle.value = cfg.arenaTitle;
-
-      const fADesc = document.getElementById("set-arena-desc");
-      if (fADesc && document.activeElement !== fADesc) fADesc.value = cfg.arenaDesc;
-
-      const fDocHead = document.getElementById("set-doc-header");
-      if (fDocHead && document.activeElement !== fDocHead) fDocHead.value = cfg.docHeader;
-
-      const fFooter = document.getElementById("set-footer-text");
-      if (fFooter && document.activeElement !== fFooter) {
-        fFooter.value = cfg.footerText !== undefined ? cfg.footerText : DEFAULT_APPEARANCE.footerText;
-      }
-    }
-
-    window.handleLogoFileUpload = function(event) {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-
-      if (!file.type.startsWith("image/")) {
-        showToast("Format berkas harus berupa gambar (PNG, JPG, WEBP, atau SVG).", "error");
-        return;
-      }
-
-      const statusEl = document.getElementById("logo-upload-status");
-      if (statusEl) statusEl.textContent = "Memproses gambar logo...";
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const maxDim = 256;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxDim || height > maxDim) {
-            if (width > height) {
-              height = Math.round((height * maxDim) / width);
-              width = maxDim;
-            } else {
-              width = Math.round((width * maxDim) / height);
-              height = maxDim;
-            }
-          }
-
-          const canvas = document.createElement("canvas");
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext("2d");
-          ctx.clearRect(0, 0, width, height);
-          ctx.drawImage(img, 0, 0, width, height);
-
-          const compressedDataUrl = canvas.toDataURL("image/png", 0.9);
-          const hiddenLogoInput = document.getElementById("set-logo-url");
-          if (hiddenLogoInput) hiddenLogoInput.value = compressedDataUrl;
-
-          state.appearance.logoUrl = compressedDataUrl;
-          renderAppearance();
-
-          if (statusEl) {
-            statusEl.textContent = `Logo "${file.name}" berhasil dimuat secara live! Klik "Simpan Pengaturan Tampilan" di bawah untuk menyimpan permanen.`;
-          }
-          showToast("Logo berhasil diunggah & ditampilkan secara live!", "success");
-        };
-        img.onerror = function() {
-          showToast("Gagal membaca gambar logo. Silakan pilih berkas lain.", "error");
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    };
-
-    window.removeUploadedLogo = function() {
-      const hiddenLogoInput = document.getElementById("set-logo-url");
-      const fileInput = document.getElementById("set-logo-file");
-      const statusEl = document.getElementById("logo-upload-status");
-
-      if (hiddenLogoInput) hiddenLogoInput.value = "";
-      if (fileInput) fileInput.value = "";
-      state.appearance.logoUrl = "";
-      renderAppearance();
-
-      if (statusEl) {
-        statusEl.textContent = "Logo dikembalikan ke ikon sepak bola bawaan. Klik 'Simpan Pengaturan Tampilan' untuk menyimpan perubahan.";
-      }
-      showToast("Logo dihapus, menggunakan ikon bawaan.", "success");
-    };
-
-    // =========================================================================
-    // 6. NAVIGASI MENU UTAMA (DASHBOARD, BAGAN & JADWAL, STATUS, PENDAFTARAN, ADMIN)
-    // =========================================================================
-    function switchMainView(target) {
+    function switchMainView(viewName) {
       const views = {
         dashboard: document.getElementById("view-dashboard"),
         "bagan-jadwal": document.getElementById("view-bagan-jadwal"),
@@ -2077,31 +2117,40 @@
         pendaftaran: document.getElementById("view-pendaftaran"),
         admin: document.getElementById("view-admin")
       };
-      const navButtons = document.querySelectorAll(".nav-btn");
 
       Object.keys(views).forEach((key) => {
         if (views[key]) {
-          if (key === target) {
-            views[key].classList.remove("hidden");
-          } else {
-            views[key].classList.add("hidden");
-          }
+          views[key].classList.toggle("hidden", key !== viewName);
         }
       });
 
-      navButtons.forEach((btn) => {
-        const isSelected = btn.getAttribute("data-nav") === target;
-        if (isSelected) {
-          btn.classList.add("bg-white", "text-emerald-900", "shadow-lg");
-          btn.classList.remove("text-emerald-100", "hover:bg-emerald-800/70");
+      document.querySelectorAll(".nav-btn").forEach((btn) => {
+        const target = btn.getAttribute("data-nav");
+        const isMobile = btn.closest("nav.md\\:hidden") !== null;
+        if (target === viewName) {
+          if (isMobile) {
+            btn.className = "nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-extrabold transition-all bg-white text-emerald-950 shadow-sm text-center leading-tight min-w-0";
+          } else {
+            btn.className = "nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all duration-200 bg-white text-emerald-950 shadow-md";
+          }
         } else {
-          btn.classList.remove("bg-white", "text-emerald-900", "shadow-lg");
-          btn.classList.add("text-emerald-100", "hover:bg-emerald-800/70");
+          if (isMobile) {
+            btn.className = "nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all text-center leading-tight min-w-0";
+          } else {
+            btn.className = "nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-semibold text-emerald-50 hover:bg-emerald-800/80 transition-all duration-200";
+          }
         }
       });
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+
+    document.querySelectorAll(".nav-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-nav");
+        if (target) switchMainView(target);
+      });
+    });
 
     window.goToPendaftaran = function() {
       switchMainView("pendaftaran");
@@ -2111,385 +2160,368 @@
       switchMainView("bagan-jadwal");
     };
 
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        switchMainView(btn.getAttribute("data-nav"));
-      });
-    });
-
     // =========================================================================
-    // 7. RENDERING PERATURAN & TAB PERATURAN (DASHBOARD & PENDAFTARAN)
+    // 6. RENDERING TAMPILAN & UPLOAD LOGO LANGSUNG
     // =========================================================================
-    window.switchDashRuleTab = function(tab) {
-      const selectEl = document.getElementById("dash-rule-select");
-      const boxPertandingan = document.getElementById("dash-rule-pertandingan");
-      const boxPermainan = document.getElementById("dash-rule-permainan");
+    function renderAppearance() {
+      const app = state.appearance;
+      document.title = `${app.appTitle} - Portal Pendaftaran & Pertandingan`;
 
-      if (selectEl && selectEl.value !== tab) {
-        selectEl.value = tab;
-      }
+      const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
 
-      if (tab === "pertandingan") {
-        boxPertandingan.classList.remove("hidden");
-        boxPermainan.classList.add("hidden");
-      } else {
-        boxPermainan.classList.remove("hidden");
-        boxPertandingan.classList.add("hidden");
-      }
-    };
+      setText("app-sidebar-title", app.appTitle);
+      setText("app-sidebar-subtitle", app.appSubtitle);
+      setText("app-header-badge", app.headerBadge);
+      setText("app-header-title", app.headerTitle);
+      setText("app-header-subtitle", app.headerSubtitle);
+      setText("app-arena-title", app.arenaTitle);
+      setText("app-arena-desc", app.arenaDesc);
+      setText("app-footer-text", app.footerText || DEFAULT_APPEARANCE.footerText);
 
-    window.switchRuleTab = function(tab) {
-      const btnPertandingan = document.getElementById("tab-btn-pertandingan");
-      const btnPermainan = document.getElementById("tab-btn-permainan");
-      const boxPertandingan = document.getElementById("rule-content-pertandingan");
-      const boxPermainan = document.getElementById("rule-content-permainan");
+      const defaultSvgSidebar = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
+      const defaultSvgHeader = `<svg class="w-7 h-7 sm:w-8 sm:h-8 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
 
-      if (tab === "pertandingan") {
-        hasReadPertandingan = true;
-        btnPertandingan.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-extrabold bg-white text-emerald-800 shadow-sm transition flex items-center justify-center gap-1.5";
-        btnPermainan.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-bold text-emerald-900/75 hover:text-emerald-950 transition flex items-center justify-center gap-1.5";
-        boxPertandingan.classList.remove("hidden");
-        boxPermainan.classList.add("hidden");
-      } else {
-        hasReadPermainan = true;
-        const badgePermainan = document.getElementById("badge-read-permainan");
-        if (badgePermainan) {
-          badgePermainan.classList.remove("bg-amber-400");
-          badgePermainan.classList.add("bg-emerald-500");
-        }
-        btnPermainan.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-extrabold bg-white text-emerald-800 shadow-sm transition flex items-center justify-center gap-1.5";
-        btnPertandingan.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-bold text-emerald-900/75 hover:text-emerald-950 transition flex items-center justify-center gap-1.5";
-        boxPermainan.classList.remove("hidden");
-        boxPertandingan.classList.add("hidden");
-      }
-    };
-
-    window.handleAgreeCheckboxChange = function(checkbox) {
-      const wrapper = document.getElementById("registration-card-wrapper");
-      if (!wrapper) return;
-
-      if (checkbox.checked) {
-        if (!hasReadPermainan) {
-          showToast("Silakan klik & baca juga tab '2. Peraturan Permainan' terlebih dahulu.", "warning");
-          checkbox.checked = false;
-          window.switchRuleTab("permainan");
-          return;
-        }
-        wrapper.classList.remove("hidden");
-        setTimeout(() => {
-          window.resizeSignatureCanvas(false);
-        }, 60);
-        wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        wrapper.classList.add("hidden");
-      }
-    };
-
-    // =========================================================================
-    // 7B. CANVAS TANDA TANGAN ELEKTRONIK (HP SENTUH & MOUSE LAPTOP)
-    // =========================================================================
-    let signatureHasStroke = false;
-    let isDrawingSignature = false;
-
-    window.resizeSignatureCanvas = function(preserveDrawing = true) {
-      const canvas = document.getElementById("reg-signature-canvas");
-      if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
-
-      let prevDataUrl = null;
-      if (preserveDrawing && signatureHasStroke) {
-        try {
-          prevDataUrl = canvas.toDataURL("image/png");
-        } catch (e) {}
-      }
-
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      canvas.width = Math.floor(rect.width * ratio);
-      canvas.height = Math.floor(rect.height * ratio);
-
-      const ctx = canvas.getContext("2d");
-      ctx.scale(ratio, ratio);
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, rect.width, rect.height);
-      ctx.strokeStyle = "#064e3b";
-      ctx.lineWidth = 2.6;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-
-      if (prevDataUrl) {
-        const img = new Image();
-        img.onload = () => {
-          ctx.drawImage(img, 0, 0, rect.width, rect.height);
-        };
-        img.src = prevDataUrl;
-      }
-    };
-
-    window.clearSignaturePad = function() {
-      const canvas = document.getElementById("reg-signature-canvas");
-      const hint = document.getElementById("signature-placeholder-hint");
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      const rect = canvas.getBoundingClientRect();
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, rect.width || canvas.width, rect.height || canvas.height);
-      signatureHasStroke = false;
-      if (hint) hint.classList.remove("hidden");
-    };
-
-    function initSignaturePad() {
-      const canvas = document.getElementById("reg-signature-canvas");
-      const hint = document.getElementById("signature-placeholder-hint");
-      if (!canvas) return;
-
-      const getPos = (e) => {
-        const rect = canvas.getBoundingClientRect();
-        if (e.touches && e.touches.length > 0) {
-          return {
-            x: e.touches[0].clientX - rect.left,
-            y: e.touches[0].clientY - rect.top
+      const applyLogoToBox = (boxId, fallbackSvg) => {
+        const box = document.getElementById(boxId);
+        if (!box) return;
+        box.innerHTML = "";
+        if (app.logoUrl) {
+          const img = document.createElement("img");
+          img.src = app.logoUrl;
+          img.alt = "Logo Aplikasi";
+          img.className = "w-full h-full object-cover";
+          img.onerror = () => {
+            box.innerHTML = fallbackSvg;
           };
+          box.appendChild(img);
+        } else {
+          box.innerHTML = fallbackSvg;
         }
-        return {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
+      };
+
+      applyLogoToBox("app-sidebar-logo-box", defaultSvgSidebar);
+      applyLogoToBox("app-header-logo-box", defaultSvgHeader);
+      applyLogoToBox("admin-logo-preview-box", defaultSvgSidebar);
+
+      const removeLogoBtn = document.getElementById("btn-remove-uploaded-logo");
+      if (removeLogoBtn) {
+        removeLogoBtn.classList.toggle("hidden", !app.logoUrl);
+      }
+
+      // Sinkronkan input form pengaturan admin
+      const setInputVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val || "";
+      };
+      setInputVal("set-app-title", app.appTitle);
+      setInputVal("set-app-subtitle", app.appSubtitle);
+      setInputVal("set-logo-url", app.logoUrl);
+      setInputVal("set-header-badge", app.headerBadge);
+      setInputVal("set-header-title", app.headerTitle);
+      setInputVal("set-header-subtitle", app.headerSubtitle);
+      setInputVal("set-arena-title", app.arenaTitle);
+      setInputVal("set-arena-desc", app.arenaDesc);
+      setInputVal("set-doc-header", app.docHeader);
+      setInputVal("set-footer-text", app.footerText);
+    }
+
+    window.handleLogoFileUpload = function(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxDim = 220;
+          let w = img.width;
+          let h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) {
+              h = Math.round((h * maxDim) / w);
+              w = maxDim;
+            } else {
+              w = Math.round((w * maxDim) / h);
+              h = maxDim;
+            }
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+
+          const dataUrl = canvas.toDataURL("image/png", 0.9);
+          document.getElementById("set-logo-url").value = dataUrl;
+          state.appearance.logoUrl = dataUrl;
+          renderAppearance();
+
+          const statusEl = document.getElementById("logo-upload-status");
+          if (statusEl) {
+            statusEl.textContent = `Logo "${file.name}" berhasil dimuat. Klik "Simpan Pengaturan Tampilan" agar permanen.`;
+          }
+          showToast("Logo berhasil dipilih dan ditampilkan secara live!", "success");
         };
+        img.src = e.target.result;
       };
+      reader.readAsDataURL(file);
+    };
 
-      const startDraw = (e) => {
-        if (e.cancelable) e.preventDefault();
-        if (canvas.width === 0) window.resizeSignatureCanvas(false);
-        isDrawingSignature = true;
-        signatureHasStroke = true;
-        if (hint) hint.classList.add("hidden");
+    window.removeUploadedLogo = function() {
+      document.getElementById("set-logo-url").value = "";
+      const fileInput = document.getElementById("set-logo-file");
+      if (fileInput) fileInput.value = "";
+      state.appearance.logoUrl = "";
+      renderAppearance();
+      showToast("Logo dikembalikan ke ikon bola standar.", "info");
+    };
 
-        const pos = getPos(e);
-        const ctx = canvas.getContext("2d");
-        ctx.strokeStyle = "#064e3b";
-        ctx.lineWidth = 2.6;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      };
-
-      const moveDraw = (e) => {
-        if (!isDrawingSignature) return;
-        if (e.cancelable) e.preventDefault();
-        const pos = getPos(e);
-        const ctx = canvas.getContext("2d");
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      };
-
-      const endDraw = () => {
-        isDrawingSignature = false;
-      };
-
-      canvas.addEventListener("mousedown", startDraw);
-      canvas.addEventListener("mousemove", moveDraw);
-      window.addEventListener("mouseup", endDraw);
-
-      canvas.addEventListener("touchstart", startDraw, { passive: false });
-      canvas.addEventListener("touchmove", moveDraw, { passive: false });
-      canvas.addEventListener("touchend", endDraw);
-      window.addEventListener("resize", () => window.resizeSignatureCanvas(true));
-    }
-
-    function getExportedSignatureDataUrl() {
-      const canvas = document.getElementById("reg-signature-canvas");
-      if (!canvas || !signatureHasStroke) return "";
-
-      const exportCanvas = document.createElement("canvas");
-      exportCanvas.width = 360;
-      exportCanvas.height = 140;
-      const eCtx = exportCanvas.getContext("2d");
-      eCtx.fillStyle = "#ffffff";
-      eCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
-      eCtx.drawImage(canvas, 0, 0, exportCanvas.width, exportCanvas.height);
-      return exportCanvas.toDataURL("image/png", 0.9);
-    }
-
-    function formatRulesListHtml(rawText) {
-      const lines = String(rawText || "")
+    // =========================================================================
+    // 7. RENDERING PERATURAN (DASHBOARD DROPDOWN, PENDAFTARAN, & EDITOR ADMIN)
+    // =========================================================================
+    function formatNumberedRuleHtml(text) {
+      const lines = String(text || "")
         .split(/\r?\n/)
         .map((line) => line.trim())
-        .filter((line) => line.length > 0);
+        .filter(Boolean);
 
       if (lines.length === 0) {
-        return `<p class="text-slate-400 italic">Belum ada peraturan yang ditambahkan.</p>`;
+        return `<p class="text-slate-400 italic">Belum ada ketentuan peraturan yang ditambahkan.</p>`;
       }
 
-      return `<div class="space-y-2.5">` + lines.map((line) => {
-        const match = line.match(/^(\d+[\.\)])\s*(.*)$/);
-        if (match) {
-          return `
-            <div class="flex items-start gap-2.5">
-              <span class="w-6 shrink-0 font-extrabold text-emerald-800 text-right select-none">${escapeHtml(match[1])}</span>
-              <p class="flex-1 text-slate-800 leading-relaxed text-justify break-words">${escapeHtml(match[2])}</p>
-            </div>
-          `;
-        }
-        return `<p class="text-slate-800 leading-relaxed text-justify break-words">${escapeHtml(line)}</p>`;
-      }).join("") + `</div>`;
+      return `
+        <div class="space-y-2.5">
+          ${lines
+            .map((line, idx) => {
+              const match = line.match(/^(\d+[\.\)])\s*(.*)$/);
+              const numLabel = match ? match[1] : `${idx + 1}.`;
+              const bodyText = match ? match[2] : line;
+              return `
+                <div class="flex items-start gap-2.5">
+                  <span class="w-6 shrink-0 font-extrabold text-emerald-700 text-right select-none">${escapeHtml(numLabel)}</span>
+                  <p class="flex-1 text-slate-800 leading-relaxed break-words">${escapeHtml(bodyText)}</p>
+                </div>
+              `;
+            })
+            .join("")}
+        </div>
+      `;
     }
 
-    function parseRuleLinesArray(rawText) {
-      return String(rawText || "")
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter((line) => line.length > 0)
-        .map((line) => line.replace(/^\d+[\.\)]\s*/, "").trim());
+    function renderRules() {
+      const pertHtml = formatNumberedRuleHtml(state.rules.pertandingan);
+      const permHtml = formatNumberedRuleHtml(state.rules.permainan);
+      const pernyHtml = formatNumberedRuleHtml(state.rules.pernyataan || DEFAULT_RULES.pernyataan);
+
+      const dPert = document.getElementById("dash-rule-pertandingan");
+      const dPerm = document.getElementById("dash-rule-permainan");
+      const rPert = document.getElementById("rule-content-pertandingan");
+      const rPerm = document.getElementById("rule-content-permainan");
+      const rPerny = document.getElementById("reg-statement-text-display");
+
+      if (dPert) dPert.innerHTML = pertHtml;
+      if (dPerm) dPerm.innerHTML = permHtml;
+      if (rPert) rPert.innerHTML = pertHtml;
+      if (rPerm) rPerm.innerHTML = permHtml;
+      if (rPerny) rPerny.innerHTML = pernyHtml;
+
+      // Isi Editor Admin Terstruktur
+      populateAdminRuleEditor("pertandingan", state.rules.pertandingan);
+      populateAdminRuleEditor("permainan", state.rules.permainan);
+      populateAdminRuleEditor("pernyataan", state.rules.pernyataan || DEFAULT_RULES.pernyataan);
     }
 
-    function renderAdminRuleEditorRows(type, itemsArray) {
-      const container = document.getElementById(`admin-rule-items-${type}`);
+    function populateAdminRuleEditor(category, rawText) {
+      const container = document.getElementById(`admin-rule-items-${category}`);
       if (!container) return;
 
-      const list = itemsArray.length > 0 ? itemsArray : [""];
-      container.innerHTML = list
+      const lines = String(rawText || "")
+        .split(/\r?\n/)
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .map((l) => l.replace(/^\d+[\.\)]\s*/, ""));
+
+      if (lines.length === 0) lines.push("");
+
+      container.innerHTML = lines
         .map(
-          (text, idx) => `
-            <div class="flex items-start gap-2.5 bg-white p-2.5 rounded-xl border border-emerald-200/90 shadow-sm">
-              <span class="w-7 pt-2 shrink-0 font-extrabold text-emerald-800 text-sm text-right select-none">${idx + 1}.</span>
-              <textarea rows="2" oninput="window.syncAdminRuleTextarea('${type}')" placeholder="Tuliskan isi poin nomor ${idx + 1}..." class="rule-item-input-${type} flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-sm text-slate-800 leading-relaxed text-justify focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none resize-y">${escapeHtml(text)}</textarea>
-              <button type="button" onclick="window.removeRuleItemRow('${type}', ${idx})" title="Hapus poin ini" class="mt-1 p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold shrink-0 transition">
-                Hapus
+          (itemText, idx) => `
+            <div class="flex items-start gap-2.5 bg-white p-2.5 rounded-xl border border-emerald-200">
+              <span class="w-6 pt-2 text-xs sm:text-sm font-extrabold text-emerald-800 text-right shrink-0 rule-row-num">${idx + 1}.</span>
+              <textarea rows="2" oninput="window.syncAdminRuleTextarea('${category}')" class="rule-row-input flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-900 leading-relaxed focus:ring-2 focus:ring-emerald-500 outline-none">${escapeHtml(itemText)}</textarea>
+              <button type="button" onclick="window.removeRuleItemRow(this, '${category}')" class="p-2 rounded-lg text-red-500 hover:bg-red-50 shrink-0" title="Hapus Poin">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
             </div>
           `
         )
         .join("");
 
-      window.syncAdminRuleTextarea(type);
+      window.syncAdminRuleTextarea(category);
     }
 
-    window.syncAdminRuleTextarea = function(type) {
-      const inputs = Array.from(document.querySelectorAll(`.rule-item-input-${type}`));
-      const hiddenTextarea = document.getElementById(`edit-rule-${type}`);
-      if (!hiddenTextarea) return;
+    window.addRuleItemRow = function(category) {
+      const container = document.getElementById(`admin-rule-items-${category}`);
+      if (!container) return;
 
-      const formatted = inputs
-        .map((el) => el.value.trim())
-        .filter((val) => val.length > 0)
-        .map((val, idx) => `${idx + 1}. ${val}`)
-        .join("\n");
-
-      hiddenTextarea.value = formatted;
+      const count = container.children.length + 1;
+      const row = document.createElement("div");
+      row.className = "flex items-start gap-2.5 bg-white p-2.5 rounded-xl border border-emerald-200";
+      row.innerHTML = `
+        <span class="w-6 pt-2 text-xs sm:text-sm font-extrabold text-emerald-800 text-right shrink-0 rule-row-num">${count}.</span>
+        <textarea rows="2" oninput="window.syncAdminRuleTextarea('${category}')" placeholder="Tuliskan poin peraturan di sini..." class="rule-row-input flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-900 leading-relaxed focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+        <button type="button" onclick="window.removeRuleItemRow(this, '${category}')" class="p-2 rounded-lg text-red-500 hover:bg-red-50 shrink-0" title="Hapus Poin">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      `;
+      container.appendChild(row);
+      window.syncAdminRuleTextarea(category);
     };
 
-    window.addRuleItemRow = function(type) {
-      const currentValues = Array.from(document.querySelectorAll(`.rule-item-input-${type}`)).map((el) => el.value.trim());
-      currentValues.push("");
-      renderAdminRuleEditorRows(type, currentValues);
+    window.removeRuleItemRow = function(btn, category) {
+      const container = document.getElementById(`admin-rule-items-${category}`);
+      if (!container) return;
+      if (container.children.length <= 1) {
+        showToast("Minimal harus terdapat 1 poin peraturan.", "warning");
+        return;
+      }
+      btn.closest("div").remove();
+      Array.from(container.querySelectorAll(".rule-row-num")).forEach((span, idx) => {
+        span.textContent = `${idx + 1}.`;
+      });
+      window.syncAdminRuleTextarea(category);
     };
 
-    window.removeRuleItemRow = function(type, indexToRemove) {
-      const currentValues = Array.from(document.querySelectorAll(`.rule-item-input-${type}`)).map((el) => el.value.trim());
-      if (currentValues.length <= 1) {
-        currentValues[0] = "";
+    window.syncAdminRuleTextarea = function(category) {
+      const container = document.getElementById(`admin-rule-items-${category}`);
+      const textarea = document.getElementById(`edit-rule-${category}`);
+      if (!container || !textarea) return;
+
+      const lines = Array.from(container.querySelectorAll(".rule-row-input"))
+        .map((inp) => inp.value.trim())
+        .filter(Boolean)
+        .map((val, idx) => `${idx + 1}. ${val}`);
+
+      textarea.value = lines.join("\n");
+    };
+
+    window.switchDashRuleTab = function(val) {
+      const p1 = document.getElementById("dash-rule-pertandingan");
+      const p2 = document.getElementById("dash-rule-permainan");
+      if (!p1 || !p2) return;
+      if (val === "permainan") {
+        p1.classList.add("hidden");
+        p2.classList.remove("hidden");
       } else {
-        currentValues.splice(indexToRemove, 1);
+        p2.classList.add("hidden");
+        p1.classList.remove("hidden");
       }
-      renderAdminRuleEditorRows(type, currentValues);
     };
 
-    function renderRules() {
-      const dashPertandingan = document.getElementById("dash-rule-pertandingan");
-      const dashPermainan = document.getElementById("dash-rule-permainan");
-      const regPertandingan = document.getElementById("rule-content-pertandingan");
-      const regPermainan = document.getElementById("rule-content-permainan");
-      const regStatementDisplay = document.getElementById("reg-statement-text-display");
-      const editPertandingan = document.getElementById("edit-rule-pertandingan");
-      const editPermainan = document.getElementById("edit-rule-permainan");
-      const editPernyataan = document.getElementById("edit-rule-pernyataan");
+    window.switchRuleTab = function(tab) {
+      const btnPert = document.getElementById("tab-btn-pertandingan");
+      const btnPerm = document.getElementById("tab-btn-permainan");
+      const contPert = document.getElementById("rule-content-pertandingan");
+      const contPerm = document.getElementById("rule-content-permainan");
+      const badgePerm = document.getElementById("badge-read-permainan");
 
-      const htmlPertandingan = formatRulesListHtml(state.rules.pertandingan);
-      const htmlPermainan = formatRulesListHtml(state.rules.permainan);
-      const htmlPernyataan = formatRulesListHtml(state.rules.pernyataan || DEFAULT_RULES.pernyataan);
-
-      if (dashPertandingan) dashPertandingan.innerHTML = htmlPertandingan;
-      if (dashPermainan) dashPermainan.innerHTML = htmlPermainan;
-      if (regPertandingan) regPertandingan.innerHTML = htmlPertandingan;
-      if (regPermainan) regPermainan.innerHTML = htmlPermainan;
-      if (regStatementDisplay) regStatementDisplay.innerHTML = htmlPernyataan;
-
-      const activeEl = document.activeElement;
-      const isEditingPertandingan = activeEl && activeEl.classList.contains("rule-item-input-pertandingan");
-      const isEditingPermainan = activeEl && activeEl.classList.contains("rule-item-input-permainan");
-      const isEditingPernyataan = activeEl && activeEl.classList.contains("rule-item-input-pernyataan");
-
-      if (editPertandingan && !isEditingPertandingan) {
-        renderAdminRuleEditorRows("pertandingan", parseRuleLinesArray(state.rules.pertandingan));
+      if (tab === "pertandingan") {
+        hasReadPertandingan = true;
+        btnPert.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-extrabold bg-white text-emerald-800 shadow-sm transition flex items-center justify-center gap-1.5";
+        btnPerm.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-bold text-emerald-900/75 hover:text-emerald-950 transition flex items-center justify-center gap-1.5";
+        contPert.classList.remove("hidden");
+        contPerm.classList.add("hidden");
+      } else {
+        hasReadPermainan = true;
+        if (badgePerm) badgePerm.className = "w-2 h-2 rounded-full bg-emerald-500 shrink-0";
+        btnPerm.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-extrabold bg-white text-emerald-800 shadow-sm transition flex items-center justify-center gap-1.5";
+        btnPert.className = "flex-1 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-bold text-emerald-900/75 hover:text-emerald-950 transition flex items-center justify-center gap-1.5";
+        contPerm.classList.remove("hidden");
+        contPert.classList.add("hidden");
       }
-      if (editPermainan && !isEditingPermainan) {
-        renderAdminRuleEditorRows("permainan", parseRuleLinesArray(state.rules.permainan));
+    };
+
+    window.handleAgreeCheckboxChange = function(checkbox) {
+      const formWrapper = document.getElementById("registration-card-wrapper");
+      if (!formWrapper) return;
+
+      if (checkbox.checked) {
+        if (!hasReadPermainan) {
+          window.switchRuleTab("permainan");
+          showToast("Silakan periksa juga tab 2. Peraturan Permainan sebelum mengisi formulir.", "info");
+        }
+        formWrapper.classList.remove("hidden");
+        setTimeout(() => {
+          resizeSignatureCanvas();
+          formWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+      } else {
+        formWrapper.classList.add("hidden");
       }
-      if (editPernyataan && !isEditingPernyataan) {
-        renderAdminRuleEditorRows("pernyataan", parseRuleLinesArray(state.rules.pernyataan || DEFAULT_RULES.pernyataan));
-      }
-    }
+    };
 
     // =========================================================================
-    // 8. RENDERING DROPDOWN SEKOLAH & KOLOM PEMAIN DINAMIS (7 - 10 PEMAIN)
+    // 8. FORMULIR PENDAFTARAN TIM, KOLOM PEMAIN DINAMIS & TANDA TANGAN CANVAS
     // =========================================================================
     function renderSchoolDropdowns() {
-      const optionsHtml = [`<option value="">-- Pilih Nama Sekolah --</option>`]
-        .concat(
-          state.schools.map(
-            (s) => `<option value="${escapeHtml(s.nama_sekolah)}">${escapeHtml(s.nama_sekolah)}</option>`
-          )
+      const regSelect = document.getElementById("reg-school");
+      const editSelect = document.getElementById("edit-reg-school");
+      const datalist = document.getElementById("schools-datalist");
+
+      const optionsHtml = [
+        `<option value="">-- Pilih Nama Sekolah --</option>`,
+        ...state.schools.map(
+          (s) => `<option value="${escapeHtml(s.nama_sekolah)}">${escapeHtml(s.nama_sekolah)}</option>`
         )
-        .join("");
+      ].join("");
 
-      const regSchoolEl = document.getElementById("reg-school");
-      const editSchoolEl = document.getElementById("edit-reg-school");
-      const datalistEl = document.getElementById("schools-datalist");
-
-      if (regSchoolEl) {
-        const currentVal = regSchoolEl.value;
-        regSchoolEl.innerHTML = optionsHtml;
-        if (currentVal) regSchoolEl.value = currentVal;
+      if (regSelect) {
+        const currentVal = regSelect.value;
+        regSelect.innerHTML = optionsHtml;
+        if (currentVal) regSelect.value = currentVal;
       }
 
-      if (editSchoolEl) {
-        const currentEditVal = editSchoolEl.value;
-        editSchoolEl.innerHTML = optionsHtml;
-        if (currentEditVal) editSchoolEl.value = currentEditVal;
+      if (editSelect) {
+        const currentEditVal = editSelect.value;
+        editSelect.innerHTML = state.schools
+          .map((s) => `<option value="${escapeHtml(s.nama_sekolah)}">${escapeHtml(s.nama_sekolah)}</option>`)
+          .join("");
+        if (currentEditVal) editSelect.value = currentEditVal;
       }
 
-      if (datalistEl) {
-        datalistEl.innerHTML = state.schools
+      if (datalist) {
+        datalist.innerHTML = state.schools
           .map((s) => `<option value="${escapeHtml(s.nama_sekolah)}"></option>`)
           .join("");
       }
     }
 
-    function renderDynamicPlayerInputs(count, containerId = "players-input-list", existingValues = []) {
+    function renderDynamicPlayerInputs(count, containerId, existingValues = []) {
       const container = document.getElementById(containerId);
       const badge = document.getElementById("player-count-badge");
       if (!container) return;
 
-      if (badge && containerId === "players-input-list") {
+      if (containerId === "players-input-list" && badge) {
         badge.textContent = `${count} Kolom Pemain`;
       }
 
-      let html = "";
-      for (let i = 1; i <= count; i++) {
-        const val = existingValues[i - 1] ? escapeHtml(existingValues[i - 1]) : "";
-        html += `
-          <div class="grid grid-cols-12 items-center px-4 py-2.5 bg-white hover:bg-emerald-50/40 transition">
-            <div class="col-span-2 sm:col-span-1 text-xs font-extrabold text-emerald-800">${i}.</div>
-            <div class="col-span-10 sm:col-span-11">
-              <input type="text" required data-player-index="${i}" value="${val}"
-                placeholder="Nama lengkap pemain ke-${i}"
-                class="player-name-field w-full px-3 py-2 rounded-lg border border-slate-200 text-sm font-medium text-slate-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" />
+      container.innerHTML = Array.from({ length: count })
+        .map((_, idx) => {
+          const val = existingValues[idx] || "";
+          return `
+            <div class="grid grid-cols-12 items-center px-4 py-2.5 gap-2 bg-white hover:bg-emerald-50/40 transition">
+              <div class="col-span-2 sm:col-span-1 text-xs sm:text-sm font-extrabold text-emerald-800">${idx + 1}.</div>
+              <div class="col-span-10 sm:col-span-11">
+                <input type="text" required value="${escapeHtml(val)}" placeholder="Masukkan nama lengkap pemain ke-${idx + 1}"
+                  class="player-name-field w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white text-xs sm:text-sm font-medium text-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none transition" />
+              </div>
             </div>
-          </div>
-        `;
-      }
-      container.innerHTML = html;
+          `;
+        })
+        .join("");
     }
 
     const regJumlahSelect = document.getElementById("reg-jumlah");
@@ -2501,9 +2533,85 @@
       });
     }
 
-    // =========================================================================
-    // 9. SUBMIT FORM PENDAFTARAN TIM
-    // =========================================================================
+    // Canvas Tanda Tangan Elektronik
+    let sigCanvas = null;
+    let sigCtx = null;
+    let isDrawingSig = false;
+    let hasSignedCanvas = false;
+
+    function resizeSignatureCanvas() {
+      if (!sigCanvas) return;
+      const rect = sigCanvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      const dpr = Math.max(window.devicePixelRatio || 1, 1);
+      sigCanvas.width = Math.floor(rect.width * dpr);
+      sigCanvas.height = Math.floor(rect.height * dpr);
+      sigCtx = sigCanvas.getContext("2d");
+      sigCtx.scale(dpr, dpr);
+      sigCtx.fillStyle = "#ffffff";
+      sigCtx.fillRect(0, 0, rect.width, rect.height);
+      sigCtx.strokeStyle = "#064e3b";
+      sigCtx.lineWidth = 2.6;
+      sigCtx.lineCap = "round";
+      sigCtx.lineJoin = "round";
+      hasSignedCanvas = false;
+      const hint = document.getElementById("signature-placeholder-hint");
+      if (hint) hint.classList.remove("hidden");
+    }
+
+    function initSignaturePad() {
+      sigCanvas = document.getElementById("reg-signature-canvas");
+      if (!sigCanvas) return;
+
+      const getPos = (e) => {
+        const rect = sigCanvas.getBoundingClientRect();
+        const clientX = e.touches && e.touches.length > 0 ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches && e.touches.length > 0 ? e.touches[0].clientY : e.clientY;
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      };
+
+      const startDraw = (e) => {
+        if (!sigCtx) resizeSignatureCanvas();
+        isDrawingSig = true;
+        hasSignedCanvas = true;
+        const hint = document.getElementById("signature-placeholder-hint");
+        if (hint) hint.classList.add("hidden");
+        const pos = getPos(e);
+        sigCtx.beginPath();
+        sigCtx.moveTo(pos.x, pos.y);
+      };
+
+      const moveDraw = (e) => {
+        if (!isDrawingSig || !sigCtx) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        sigCtx.lineTo(pos.x, pos.y);
+        sigCtx.stroke();
+      };
+
+      const endDraw = () => {
+        if (!isDrawingSig) return;
+        isDrawingSig = false;
+        if (sigCtx) sigCtx.closePath();
+      };
+
+      sigCanvas.addEventListener("mousedown", startDraw);
+      sigCanvas.addEventListener("mousemove", moveDraw);
+      window.addEventListener("mouseup", endDraw);
+
+      sigCanvas.addEventListener("touchstart", startDraw, { passive: false });
+      sigCanvas.addEventListener("touchmove", moveDraw, { passive: false });
+      sigCanvas.addEventListener("touchend", endDraw);
+    }
+
+    window.clearSignaturePad = function() {
+      resizeSignatureCanvas();
+    };
+
     const regForm = document.getElementById("registration-form");
     if (regForm) {
       regForm.addEventListener("submit", async (e) => {
@@ -2515,52 +2623,44 @@
         const noWa = document.getElementById("reg-wa").value.trim();
         const kapten = document.getElementById("reg-kapten").value.trim();
         const jumlahPemain = parseInt(document.getElementById("reg-jumlah").value, 10);
+        const statementAgreed = document.getElementById("reg-statement-agree").checked;
+
+        if (!namaSekolah || !cabang) {
+          showToast("Silakan pilih Nama Sekolah dan Cabang Pertandingan.", "warning");
+          return;
+        }
+
+        if (state.registrations.some((r) => r.nama_sekolah === namaSekolah && r.cabang === cabang)) {
+          showToast(`Sekolah ${namaSekolah} sudah terdaftar pada cabang ${cabang}!`, "error");
+          return;
+        }
 
         const playerInputs = Array.from(document.querySelectorAll("#players-input-list .player-name-field"));
         const daftarPemain = playerInputs.map((inp) => inp.value.trim()).filter((v) => v.length > 0);
 
-        if (!namaSekolah || !cabang || !penanggungJawab || !noWa || !kapten) {
-          showToast("Harap lengkapi seluruh kolom wajib pendaftaran.", "error");
-          return;
-        }
-
-        if (noWa.length < 8) {
-          showToast("Nomor WhatsApp minimal 8 digit angka.", "error");
-          return;
-        }
-
         if (daftarPemain.length !== jumlahPemain) {
-          showToast(`Harap isi seluruh ${jumlahPemain} nama pemain dengan lengkap.`, "error");
+          showToast(`Harap lengkapi seluruh ${jumlahPemain} nama pemain.`, "warning");
           return;
         }
 
-        const isDuplicate = state.registrations.some(
-          (r) => r.nama_sekolah === namaSekolah && r.cabang === cabang
-        );
-        if (isDuplicate) {
-          showToast(`${namaSekolah} sudah terdaftar pada cabang ${cabang}!`, "error");
+        if (!statementAgreed) {
+          showToast("Harap centang Surat Pernyataan Kesanggupan Mentaati Peraturan.", "warning");
           return;
         }
 
-        const statementAgreeEl = document.getElementById("reg-statement-agree");
-        if (statementAgreeEl && !statementAgreeEl.checked) {
-          showToast("Harap centang persetujuan Surat Pernyataan Kesanggupan Mentaati Peraturan.", "error");
+        if (!hasSignedCanvas || !sigCanvas) {
+          showToast("Harap bubuhkan tanda tangan elektronik Anda di kotak tanda tangan.", "warning");
           return;
         }
 
-        const signatureDataUrl = getExportedSignatureDataUrl();
-        if (!signatureDataUrl) {
-          showToast("Harap bubuhkan tanda tangan elektronik pada kotak yang tersedia sebelum mengirim pendaftaran.", "error");
-          return;
-        }
-
-        const signedDateStr = new Date().toLocaleDateString("id-ID", {
+        const schoolObj = state.schools.find((s) => s.nama_sekolah === namaSekolah);
+        const signedAtStr = new Date().toLocaleDateString("id-ID", {
           day: "numeric",
           month: "long",
           year: "numeric"
         });
+        const signatureDataUrl = sigCanvas.toDataURL("image/png");
 
-        const schoolObj = state.schools.find((s) => s.nama_sekolah === namaSekolah);
         const payload = {
           school_id: schoolObj ? schoolObj.id : "",
           nama_sekolah: namaSekolah,
@@ -2571,7 +2671,7 @@
           jumlah_pemain: jumlahPemain,
           daftar_pemain: daftarPemain,
           signature_data: signatureDataUrl,
-          signed_at: signedDateStr
+          signed_at: signedAtStr
         };
 
         try {
@@ -2585,26 +2685,271 @@
             });
           }
 
-          showToast(`Pendaftaran ${namaSekolah} (${cabang}) berhasil dikirim!`, "success");
           regForm.reset();
-          window.clearSignaturePad();
-          const agreeCheckbox = document.getElementById("agree-rules-checkbox");
-          const regWrapper = document.getElementById("registration-card-wrapper");
-          if (agreeCheckbox) agreeCheckbox.checked = false;
-          if (regWrapper) regWrapper.classList.add("hidden");
           renderDynamicPlayerInputs(7, "players-input-list", []);
+          window.clearSignaturePad();
+
+          const agreeBox = document.getElementById("agree-rules-checkbox");
+          const formWrapper = document.getElementById("registration-card-wrapper");
+          if (agreeBox) agreeBox.checked = false;
+          if (formWrapper) formWrapper.classList.add("hidden");
+
           await showCenterPopup({
-            badge: "Pendaftaran Berhasil",
-            title: "Data Tim Berhasil Dikirim!",
-            message: `Tim ${namaSekolah} (${cabang}) atas nama PJ ${penanggungJawab} telah resmi terdaftar.`,
-            variant: "success",
-            confirmText: "Lihat Status Pendaftaran"
+            badge: "Pendaftaran Terkirim",
+            title: "Tim Berhasil Didaftarkan!",
+            message: `Tim ${namaSekolah} (${cabang}) telah resmi terdaftar dan surat pernyataan bertanda tangan elektronik telah tersimpan.`,
+            variant: "success"
           });
           switchMainView("status-pendaftaran");
         } catch (err) {
-          showToast("Gagal menyimpan pendaftaran: " + err.message, "error");
+          showToast("Gagal mengirim pendaftaran: " + err.message, "error");
         }
       });
+    }
+
+    // =========================================================================
+    // 9. RENDERING BAGAN 12 TIM & BAGAN RINCIAN BABAK
+    // =========================================================================
+    window.switchBracketCabang = function(cabang) {
+      currentBracketCabang = cabang;
+      const btnPutra = document.getElementById("bracket-tab-putra");
+      const btnPutri = document.getElementById("bracket-tab-putri");
+
+      if (cabang === "Mini Soccer Putra") {
+        btnPutra.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition";
+        btnPutri.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition";
+      } else {
+        btnPutri.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition";
+        btnPutra.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition";
+      }
+      renderBracket12Tree();
+      renderTournamentBracket();
+    };
+
+    function renderBracket12Tree() {
+      const container = document.getElementById("bracket-12-tree-container");
+      if (!container) return;
+
+      const data = state.bracket12[currentBracketCabang] || DEFAULT_BRACKET_12_PUTRA;
+      const t = data.teams || [];
+      const r1 = data.r1Winners || ["", "", "", ""];
+      const qf = data.qfWinners || ["", "", "", ""];
+      const sf = data.sfWinners || ["", ""];
+      const champ = data.champion || "";
+
+      const teamSlot = (num, name, isBye = false) => `
+        <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-xl border ${isBye ? "bg-amber-50/90 border-amber-300" : "bg-white border-emerald-200"} shadow-sm">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-5 h-5 rounded-md ${isBye ? "bg-amber-400 text-emerald-950" : "bg-emerald-700 text-white"} text-[10px] font-extrabold flex items-center justify-center shrink-0">${num}</span>
+            <span class="text-xs font-extrabold text-slate-900 break-words leading-snug">${escapeHtml(name || `TIM ${num}`)}</span>
+          </div>
+          ${isBye ? `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-200 text-amber-950 shrink-0">BYE ➔</span>` : ""}
+        </div>
+      `;
+
+      const advSlot = (label, winnerName, highlight = false) => `
+        <div class="px-3 py-2 rounded-xl border ${highlight ? "bg-amber-50 border-amber-400" : "bg-white border-emerald-300"} shadow-sm">
+          <span class="block text-[9px] font-extrabold uppercase tracking-wider ${highlight ? "text-amber-800" : "text-emerald-700"}">${escapeHtml(label)}</span>
+          <span class="block text-xs font-extrabold ${winnerName ? "text-slate-900" : "text-slate-400 italic"} mt-0.5 break-words">${escapeHtml(winnerName || "Menunggu pemenang...")}</span>
+        </div>
+      `;
+
+      const flowArrowHtml = `
+        <div class="flex flex-col items-center justify-around py-10 text-emerald-700 select-none">
+          <span class="w-7 h-7 rounded-full bg-white border border-emerald-300 shadow-sm flex items-center justify-center font-extrabold text-sm">➔</span>
+          <span class="w-7 h-7 rounded-full bg-white border border-emerald-300 shadow-sm flex items-center justify-center font-extrabold text-sm">➔</span>
+        </div>
+      `;
+
+      container.innerHTML = `
+        <div class="min-w-[960px] bg-emerald-50/75 border border-emerald-200 rounded-2xl p-4 sm:p-5">
+          <!-- Penunjuk Arah Alur Turnamen -->
+          <div class="flex items-center justify-between gap-2 mb-4 px-3 py-2 rounded-xl bg-white/90 border border-emerald-200 text-[11px] font-extrabold text-emerald-900">
+            <span>1. Babak Awal (12 Tim)</span>
+            <span class="text-emerald-600">━━━━▶</span>
+            <span>2. Perempat Final (8 Besar)</span>
+            <span class="text-emerald-600">━━━━▶</span>
+            <span>3. Semifinal (4 Besar)</span>
+            <span class="text-emerald-600">━━━━▶</span>
+            <span>4. Final &amp; Juara 1 🏆</span>
+          </div>
+
+          <div class="flex items-stretch gap-2">
+            <!-- KOLOM 1: 12 TIM PESERTA (BABAK AWAL) -->
+            <div class="flex-1 flex flex-col justify-between space-y-3">
+              <div class="text-center pb-1.5 border-b border-emerald-200">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">1. Babak Awal (12 Tim)</span>
+              </div>
+              <div class="space-y-2.5">
+                <!-- Grup Atas (1-6) -->
+                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-200/80 space-y-2">
+                  ${teamSlot(1, t[0], true)}
+                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
+                    ${teamSlot(2, t[1], false)}
+                    <div class="text-[9px] font-extrabold text-emerald-700 pl-1">VS (Laga 1 ➔ QF 1)</div>
+                    ${teamSlot(3, t[2], false)}
+                  </div>
+                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
+                    ${teamSlot(4, t[3], false)}
+                    <div class="text-[9px] font-extrabold text-emerald-700 pl-1">VS (Laga 2 ➔ QF 2)</div>
+                    ${teamSlot(5, t[4], false)}
+                  </div>
+                  ${teamSlot(6, t[5], true)}
+                </div>
+
+                <!-- Grup Bawah (7-12) -->
+                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-200/80 space-y-2">
+                  ${teamSlot(7, t[6], true)}
+                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
+                    ${teamSlot(8, t[7], false)}
+                    <div class="text-[9px] font-extrabold text-emerald-700 pl-1">VS (Laga 3 ➔ QF 3)</div>
+                    ${teamSlot(9, t[8], false)}
+                  </div>
+                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
+                    ${teamSlot(10, t[9], false)}
+                    <div class="text-[9px] font-extrabold text-emerald-700 pl-1">VS (Laga 4 ➔ QF 4)</div>
+                    ${teamSlot(11, t[10], false)}
+                  </div>
+                  ${teamSlot(12, t[11], true)}
+                </div>
+              </div>
+            </div>
+
+            ${flowArrowHtml}
+
+            <!-- KOLOM 2: PEREMPAT FINAL (8 BESAR) -->
+            <div class="flex-1 flex flex-col justify-between space-y-3">
+              <div class="text-center pb-1.5 border-b border-emerald-200">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">2. Perempat Final</span>
+              </div>
+              <div class="flex-1 flex flex-col justify-around gap-3 py-1">
+                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
+                  <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 1 ➔ Semifinal 1</span>
+                  ${advSlot("Tim 1 (Bye)", t[0])}
+                  ${advSlot("Pemenang 2 vs 3", r1[0])}
+                </div>
+                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
+                  <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 2 ➔ Semifinal 1</span>
+                  ${advSlot("Pemenang 4 vs 5", r1[1])}
+                  ${advSlot("Tim 6 (Bye)", t[5])}
+                </div>
+                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
+                  <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 3 ➔ Semifinal 2</span>
+                  ${advSlot("Tim 7 (Bye)", t[6])}
+                  ${advSlot("Pemenang 8 vs 9", r1[2])}
+                </div>
+                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
+                  <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 4 ➔ Semifinal 2</span>
+                  ${advSlot("Pemenang 10 vs 11", r1[3])}
+                  ${advSlot("Tim 12 (Bye)", t[11])}
+                </div>
+              </div>
+            </div>
+
+            ${flowArrowHtml}
+
+            <!-- KOLOM 3: SEMIFINAL (4 BESAR) -->
+            <div class="flex-1 flex flex-col justify-between space-y-3">
+              <div class="text-center pb-1.5 border-b border-emerald-200">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">3. Semifinal</span>
+              </div>
+              <div class="flex-1 flex flex-col justify-around gap-6 py-4">
+                <div class="p-3 rounded-2xl bg-white/90 border-2 border-emerald-300 space-y-2 shadow-sm">
+                  <span class="text-[10px] font-extrabold text-emerald-800 uppercase">Semifinal 1 ➔ Final</span>
+                  ${advSlot("Pemenang QF 1", qf[0])}
+                  <div class="text-center text-[10px] font-extrabold text-slate-400">VS</div>
+                  ${advSlot("Pemenang QF 2", qf[1])}
+                </div>
+                <div class="p-3 rounded-2xl bg-white/90 border-2 border-emerald-300 space-y-2 shadow-sm">
+                  <span class="text-[10px] font-extrabold text-emerald-800 uppercase">Semifinal 2 ➔ Final</span>
+                  ${advSlot("Pemenang QF 3", qf[2])}
+                  <div class="text-center text-[10px] font-extrabold text-slate-400">VS</div>
+                  ${advSlot("Pemenang QF 4", qf[3])}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col items-center justify-center text-amber-600 select-none">
+              <span class="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 shadow-sm flex items-center justify-center font-extrabold text-base">➔</span>
+            </div>
+
+            <!-- KOLOM 4: FINAL & JUARA -->
+            <div class="flex-1 flex flex-col justify-between space-y-3">
+              <div class="text-center pb-1.5 border-b border-emerald-200">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">4. Final &amp; Juara</span>
+              </div>
+              <div class="flex-1 flex flex-col justify-center gap-3 py-4">
+                <div class="p-3.5 rounded-2xl bg-white border-2 border-amber-300 space-y-2 shadow-md">
+                  <span class="text-[10px] font-extrabold text-amber-800 uppercase">Partai Final</span>
+                  ${advSlot("Finalis 1 (Pemenang SF 1)", sf[0])}
+                  <div class="text-center text-[10px] font-extrabold text-amber-600">VS</div>
+                  ${advSlot("Finalis 2 (Pemenang SF 2)", sf[1])}
+                </div>
+                <div class="text-center text-amber-600 font-extrabold text-base leading-none">⬇</div>
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200 border-2 border-amber-400 text-center shadow-md">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 block">🏆 JUARA 1 ${escapeHtml(currentBracketCabang)}</span>
+                  <p class="text-sm font-extrabold text-emerald-950 mt-1 break-words">${escapeHtml(champ || "Menunggu Hasil Final")}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTournamentBracket() {
+      const container = document.getElementById("tournament-bracket-container");
+      if (!container) return;
+
+      const stages = ["Penyisihan", "Perempat Final", "Semifinal", "Perebutan Juara 3", "Final"];
+      const cabangMatches = state.matches.filter((m) => m.cabang === currentBracketCabang);
+
+      if (cabangMatches.length === 0) {
+        container.innerHTML = `<div class="p-6 rounded-2xl bg-white/80 border border-emerald-200/70 text-center text-xs sm:text-sm text-slate-500">Belum ada data rincian laga per babak untuk kategori <strong>${escapeHtml(currentBracketCabang)}</strong>.</div>`;
+        return;
+      }
+
+      const activeStages = stages.filter((st) => cabangMatches.some((m) => m.babak === st));
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          ${activeStages
+            .map((stage) => {
+              const matchesInStage = cabangMatches.filter((m) => m.babak === stage);
+              return `
+                <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-3">
+                  <div class="flex items-center justify-between border-b border-emerald-200 pb-2">
+                    <h3 class="text-xs font-extrabold uppercase tracking-wider text-emerald-950">${escapeHtml(stage)}</h3>
+                    <span class="text-[11px] font-bold text-emerald-700">${matchesInStage.length} Laga</span>
+                  </div>
+                  <div class="space-y-2.5">
+                    ${matchesInStage
+                      .map(
+                        (m) => `
+                          <div class="bg-white rounded-xl border border-emerald-200/90 p-3 shadow-sm space-y-1.5">
+                            <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
+                              <span>${escapeHtml(m.tanggal)}</span>
+                              <span class="${m.status === "LIVE" ? "text-red-600" : m.status === "FINISHED" ? "text-emerald-700" : "text-amber-600"}">${escapeHtml(m.status)}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2 text-xs font-extrabold text-slate-900">
+                              <span class="break-words">${escapeHtml(m.tim_a)}</span>
+                              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-900 shrink-0">${m.status === "UPCOMING" ? "-" : m.skor_a}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2 text-xs font-extrabold text-slate-900">
+                              <span class="break-words">${escapeHtml(m.tim_b)}</span>
+                              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-900 shrink-0">${m.status === "UPCOMING" ? "-" : m.skor_b}</span>
+                            </div>
+                          </div>
+                        `
+                      )
+                      .join("")}
+                  </div>
+                </div>
+              `;
+            })
+            .join("")}
+        </div>
+      `;
     }
 
     // =========================================================================
@@ -2712,23 +3057,8 @@
     };
 
     // =========================================================================
-    // 11. RENDERING LIVE SCORE, BAGAN TURNAMEN & JADWAL PERTANDINGAN
+    // 11. RENDERING LIVE SCORE & JADWAL PERTANDINGAN
     // =========================================================================
-    window.switchBracketCabang = function(cabang) {
-      currentBracketCabang = cabang;
-      const btnPutra = document.getElementById("bracket-tab-putra");
-      const btnPutri = document.getElementById("bracket-tab-putri");
-
-      if (cabang === "Mini Soccer Putra") {
-        btnPutra.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition";
-        btnPutri.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition";
-      } else {
-        btnPutri.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition";
-        btnPutra.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition";
-      }
-      renderTournamentBracket();
-    };
-
     window.filterMatches = function(filter) {
       currentMatchFilter = filter;
       const buttons = {
@@ -2821,63 +3151,8 @@
       }
     }
 
-    function renderTournamentBracket() {
-      const container = document.getElementById("tournament-bracket-container");
-      if (!container) return;
-
-      const stages = ["Penyisihan", "Perempat Final", "Semifinal", "Perebutan Juara 3", "Final"];
-      const cabangMatches = state.matches.filter((m) => m.cabang === currentBracketCabang);
-
-      if (cabangMatches.length === 0) {
-        container.innerHTML = `<div class="p-6 rounded-2xl bg-white/80 border border-emerald-200/70 text-center text-xs sm:text-sm text-slate-500">Belum ada data bagan pertandingan untuk kategori <strong>${escapeHtml(currentBracketCabang)}</strong>.</div>`;
-        return;
-      }
-
-      const activeStages = stages.filter((st) => cabangMatches.some((m) => m.babak === st));
-
-      container.innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          ${activeStages
-            .map((stage) => {
-              const matchesInStage = cabangMatches.filter((m) => m.babak === stage);
-              return `
-                <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-3">
-                  <div class="flex items-center justify-between border-b border-emerald-200 pb-2">
-                    <h3 class="text-xs font-extrabold uppercase tracking-wider text-emerald-950">${escapeHtml(stage)}</h3>
-                    <span class="text-[11px] font-bold text-emerald-700">${matchesInStage.length} Laga</span>
-                  </div>
-                  <div class="space-y-2.5">
-                    ${matchesInStage
-                      .map(
-                        (m) => `
-                          <div class="bg-white rounded-xl border border-emerald-200/90 p-3 shadow-sm space-y-1.5">
-                            <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
-                              <span>${escapeHtml(m.tanggal)}</span>
-                              <span class="${m.status === "LIVE" ? "text-red-600" : m.status === "FINISHED" ? "text-emerald-700" : "text-amber-600"}">${escapeHtml(m.status)}</span>
-                            </div>
-                            <div class="flex justify-between items-center gap-2 text-xs font-extrabold text-slate-900">
-                              <span class="break-words">${escapeHtml(m.tim_a)}</span>
-                              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-900 shrink-0">${m.status === "UPCOMING" ? "-" : m.skor_a}</span>
-                            </div>
-                            <div class="flex justify-between items-center gap-2 text-xs font-extrabold text-slate-900">
-                              <span class="break-words">${escapeHtml(m.tim_b)}</span>
-                              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-900 shrink-0">${m.status === "UPCOMING" ? "-" : m.skor_b}</span>
-                            </div>
-                          </div>
-                        `
-                      )
-                      .join("")}
-                  </div>
-                </div>
-              `;
-            })
-            .join("")}
-        </div>
-      `;
-    }
-
     // =========================================================================
-    // 12. AUTENTIKASI ADMIN & SUB-TAB PANEL ADMIN
+    // 12. AUTENTIKASI ADMIN, SUB-TAB PANEL ADMIN & BAGAN 12 TIM ADMIN
     // =========================================================================
     function updateAdminUIState() {
       const loginBox = document.getElementById("admin-login-box");
@@ -2893,6 +3168,7 @@
         if (mobileBadge) mobileBadge.classList.remove("hidden");
         if (loggedEmailEl) loggedEmailEl.textContent = currentAdminEmail;
         renderAdminLists();
+        renderAdminBracket12Form();
       } else {
         if (loginBox) loginBox.classList.remove("hidden");
         if (panelBox) panelBox.classList.add("hidden");
@@ -2979,6 +3255,7 @@
         schools: document.getElementById("admin-sec-schools"),
         registrations: document.getElementById("admin-sec-registrations"),
         matches: document.getElementById("admin-sec-matches"),
+        bracket12: document.getElementById("admin-sec-bracket12"),
         rules: document.getElementById("admin-sec-rules"),
         downloads: document.getElementById("admin-sec-downloads"),
         appearance: document.getElementById("admin-sec-appearance")
@@ -2987,6 +3264,7 @@
         schools: document.getElementById("atab-schools"),
         registrations: document.getElementById("atab-registrations"),
         matches: document.getElementById("atab-matches"),
+        bracket12: document.getElementById("atab-bracket12"),
         rules: document.getElementById("atab-rules"),
         downloads: document.getElementById("atab-downloads"),
         appearance: document.getElementById("atab-appearance")
@@ -3004,7 +3282,126 @@
           }
         }
       });
+
+      if (tabName === "bracket12") {
+        renderAdminBracket12Form();
+      }
     };
+
+    window.switchAdminBracket12Cabang = function(cabang) {
+      currentAdminB12Cabang = cabang;
+      const btnPutra = document.getElementById("admin-b12-tab-putra");
+      const btnPutri = document.getElementById("admin-b12-tab-putri");
+      if (btnPutra && btnPutri) {
+        if (cabang === "Mini Soccer Putra") {
+          btnPutra.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition";
+          btnPutri.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition";
+        } else {
+          btnPutri.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition";
+          btnPutra.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition";
+        }
+      }
+      renderAdminBracket12Form();
+    };
+
+    function renderAdminBracket12Form() {
+      const grid = document.getElementById("admin-b12-teams-grid");
+      if (!grid) return;
+
+      const data = state.bracket12[currentAdminB12Cabang] || DEFAULT_BRACKET_12_PUTRA;
+      const byeIndices = new Set([0, 5, 6, 11]);
+
+      grid.innerHTML = Array.from({ length: 12 })
+        .map((_, i) => {
+          const val = data.teams[i] || "";
+          const isBye = byeIndices.has(i);
+          return `
+            <div class="bg-white p-2.5 rounded-xl border ${isBye ? "border-amber-300" : "border-emerald-200"} flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg ${isBye ? "bg-amber-400 text-emerald-950" : "bg-emerald-700 text-white"} text-xs font-extrabold flex items-center justify-center shrink-0">${i + 1}</span>
+              <input type="text" id="b12-team-${i}" list="schools-datalist" value="${escapeHtml(val)}"
+                oninput="this.value = this.value.toUpperCase()"
+                placeholder="Nama Tim ${i + 1}"
+                class="flex-1 min-w-0 px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs sm:text-sm font-bold uppercase text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500" />
+              ${isBye ? `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-100 text-amber-900 shrink-0">BYE</span>` : ""}
+            </div>
+          `;
+        })
+        .join("");
+
+      const r1 = data.r1Winners || ["", "", "", ""];
+      const qf = data.qfWinners || ["", "", "", ""];
+      const sf = data.sfWinners || ["", ""];
+
+      const setVal = (id, v) => {
+        const el = document.getElementById(id);
+        if (el) el.value = v || "";
+      };
+
+      setVal("b12-r1-1", r1[0]);
+      setVal("b12-r1-2", r1[1]);
+      setVal("b12-r1-3", r1[2]);
+      setVal("b12-r1-4", r1[3]);
+
+      setVal("b12-qf-1", qf[0]);
+      setVal("b12-qf-2", qf[1]);
+      setVal("b12-qf-3", qf[2]);
+      setVal("b12-qf-4", qf[3]);
+
+      setVal("b12-sf-1", sf[0]);
+      setVal("b12-sf-2", sf[1]);
+      setVal("b12-champion", data.champion || "");
+    }
+
+    const bracket12Form = document.getElementById("admin-bracket12-form");
+    if (bracket12Form) {
+      bracket12Form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const teams = Array.from({ length: 12 }).map((_, i) => {
+          const el = document.getElementById(`b12-team-${i}`);
+          return el ? el.value.trim().toUpperCase() : `TIM ${i + 1}`;
+        });
+
+        const getUpper = (id) => {
+          const el = document.getElementById(id);
+          return el ? el.value.trim().toUpperCase() : "";
+        };
+
+        const updatedB12 = {
+          teams,
+          r1Winners: [getUpper("b12-r1-1"), getUpper("b12-r1-2"), getUpper("b12-r1-3"), getUpper("b12-r1-4")],
+          qfWinners: [getUpper("b12-qf-1"), getUpper("b12-qf-2"), getUpper("b12-qf-3"), getUpper("b12-qf-4")],
+          sfWinners: [getUpper("b12-sf-1"), getUpper("b12-sf-2")],
+          champion: getUpper("b12-champion")
+        };
+
+        state.bracket12[currentAdminB12Cabang] = updatedB12;
+
+        try {
+          if (IS_PREVIEW) {
+            renderBracket12Tree();
+          } else {
+            await setDoc(
+              doc(db, "settings", "bracket12"),
+              {
+                putra: state.bracket12["Mini Soccer Putra"],
+                putri: state.bracket12["Mini Soccer Putri"],
+                updatedAt: serverTimestamp()
+              },
+              { merge: true }
+            );
+          }
+          await showCenterPopup({
+            badge: "Bagan Diperbarui",
+            title: "Bagan 12 Tim Disimpan!",
+            message: `Susunan bagan 12 tim kategori ${currentAdminB12Cabang} telah berhasil diperbarui dan tampil di menu Bagan & Jadwal.`,
+            variant: "success"
+          });
+        } catch (err) {
+          showToast("Gagal menyimpan bagan 12 tim: " + err.message, "error");
+        }
+      });
+    }
 
     // =========================================================================
     // 13. CRUD ADMIN: DAFTAR SEKOLAH, DATA TIM, PERTANDINGAN, PERATURAN, TAMPILAN
@@ -3530,12 +3927,74 @@
       return `
         <h2>BAGAN PERTANDINGAN MINI SOCCER HUT PGRI</h2>
         ${categories.map((cat) => {
+          const b12 = state.bracket12[cat] || DEFAULT_BRACKET_12_PUTRA;
+          const t = b12.teams || [];
+          const r1 = b12.r1Winners || ["", "", "", ""];
+          const qf = b12.qfWinners || ["", "", "", ""];
+          const sf = b12.sfWinners || ["", ""];
           const catMatches = state.matches.filter((m) => m.cabang === cat);
+
+          const b12TableHtml = `
+            <h3>Skema Bagan 12 Tim — ${escapeHtml(cat)}</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 34%;">1. Susunan 12 Tim (Babak Awal)</th>
+                  <th style="width: 24%;">2. Perempat Final</th>
+                  <th style="width: 22%;">3. Semifinal</th>
+                  <th style="width: 20%;">4. Final & Juara 1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1. <strong>${escapeHtml(t[0] || "")}</strong> <em>(BYE)</em><br/>
+                    2. ${escapeHtml(t[1] || "")} vs 3. ${escapeHtml(t[2] || "")}<br/>
+                    4. ${escapeHtml(t[3] || "")} vs 5. ${escapeHtml(t[4] || "")}<br/>
+                    6. <strong>${escapeHtml(t[5] || "")}</strong> <em>(BYE)</em>
+                  </td>
+                  <td>
+                    <strong>QF 1:</strong> ${escapeHtml(t[0] || "")} vs ${escapeHtml(r1[0] || "(Pemenang 2 vs 3)")}<br/><br/>
+                    <strong>QF 2:</strong> ${escapeHtml(r1[1] || "(Pemenang 4 vs 5)")} vs ${escapeHtml(t[5] || "")}
+                  </td>
+                  <td>
+                    <strong>Semifinal 1:</strong><br/>
+                    ${escapeHtml(qf[0] || "(Pemenang QF 1)")} vs ${escapeHtml(qf[1] || "(Pemenang QF 2)")}
+                  </td>
+                  <td rowspan="2" style="vertical-align: middle; text-align: center;">
+                    <strong>FINAL:</strong><br/>
+                    ${escapeHtml(sf[0] || "(Finalis 1)")}<br/>VS<br/>${escapeHtml(sf[1] || "(Finalis 2)")}<br/><br/>
+                    <strong>JUARA 1:</strong><br/>
+                    <span style="color:#064e3b; font-size:11pt;"><strong>${escapeHtml(b12.champion || "-")}</strong></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    7. <strong>${escapeHtml(t[6] || "")}</strong> <em>(BYE)</em><br/>
+                    8. ${escapeHtml(t[7] || "")} vs 9. ${escapeHtml(t[8] || "")}<br/>
+                    10. ${escapeHtml(t[9] || "")} vs 11. ${escapeHtml(t[10] || "")}<br/>
+                    12. <strong>${escapeHtml(t[11] || "")}</strong> <em>(BYE)</em>
+                  </td>
+                  <td>
+                    <strong>QF 3:</strong> ${escapeHtml(t[6] || "")} vs ${escapeHtml(r1[2] || "(Pemenang 8 vs 9)")}<br/><br/>
+                    <strong>QF 4:</strong> ${escapeHtml(r1[3] || "(Pemenang 10 vs 11)")} vs ${escapeHtml(t[11] || "")}
+                  </td>
+                  <td>
+                    <strong>Semifinal 2:</strong><br/>
+                    ${escapeHtml(qf[2] || "(Pemenang QF 3)")} vs ${escapeHtml(qf[3] || "(Pemenang QF 4)")}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          `;
+
           if (catMatches.length === 0) {
-            return `<h3>Kategori: ${escapeHtml(cat)}</h3><p><em>Belum ada data pertandingan pada kategori ini.</em></p>`;
+            return b12TableHtml;
           }
+
           return `
-            <h3>Kategori: ${escapeHtml(cat)}</h3>
+            ${b12TableHtml}
+            <h4>Rincian Jadwal Laga Per Babak (${escapeHtml(cat)})</h4>
             ${stages
               .filter((st) => catMatches.some((m) => m.babak === st))
               .map((st) => {
@@ -4057,9 +4516,11 @@
       renderSchoolDropdowns();
       renderRegistrationStatus();
       renderMatchesSection();
+      renderBracket12Tree();
       renderTournamentBracket();
       if (isAdminAuthenticated) {
         renderAdminLists();
+        renderAdminBracket12Form();
       }
     }
 
