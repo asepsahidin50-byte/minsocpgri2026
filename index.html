@@ -269,7 +269,8 @@
     /* Modal di Mode Gelap */
     html.dark-theme #confirm-modal > div,
     html.dark-theme #edit-reg-modal > div,
-    html.dark-theme #detail-players-modal > div {
+    html.dark-theme #detail-players-modal > div,
+    html.dark-theme #edit-school-modal > div {
       background-color: #0b241c !important;
       color: #f8fafc !important;
       border-color: rgba(52, 211, 153, 0.3) !important;
@@ -397,6 +398,33 @@
           <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
             <button type="button" onclick="window.closeEditRegModal()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Batal</button>
             <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md transition">Simpan Perubahan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Ubah / Edit Nama Sekolah (Khusus Admin) -->
+    <div id="edit-school-modal" class="fixed inset-0 z-[10035] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-fade-in">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Ubah Nama Sekolah</h3>
+            <p class="text-xs text-slate-500">Perbarui nama sekolah peserta turnamen</p>
+          </div>
+          <button type="button" onclick="window.closeEditSchoolModal()" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <form id="edit-school-form" class="space-y-4">
+          <input type="hidden" id="edit-school-id" />
+          <input type="hidden" id="edit-school-old-name" />
+          <div>
+            <label for="edit-school-name-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Sekolah Baru</label>
+            <input type="text" id="edit-school-name-input" required placeholder="Masukkan nama sekolah" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-sm font-bold uppercase text-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none" />
+          </div>
+          <div class="flex justify-end gap-3 pt-2">
+            <button type="button" onclick="window.closeEditSchoolModal()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Batal</button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-emerald-700 hover:bg-emerald-800 shadow-sm transition">Simpan Perubahan</button>
           </div>
         </form>
       </div>
@@ -1211,7 +1239,7 @@
                 <div class="min-w-0">
                   <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 mb-1">Kustomisasi Identitas Aplikasi</span>
                   <h3 class="text-base sm:text-lg font-extrabold text-slate-900 break-words">Edit Nama Aplikasi, Upload Logo & Teks Tampilan</h3>
-                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">Upload logo langsung dari perangkat Anda dan sesuaikan seluruh judul, nama turnamen, subjudul, serta kop dokumen panitia.</p>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">Upload logo langsung dari perangkat Anda dan sesuaikan seluruh judul, nama turnamen, subjudul, kop dokumen, serta teks footer aplikasi.</p>
                 </div>
                 <button type="button" onclick="window.resetAppearanceDefaults()" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition shrink-0">
                   Reset ke Default
@@ -1277,9 +1305,9 @@
                   </div>
                 </div>
 
-                <!-- Pengaturan Info Sidebar & Kop Dokumen -->
+                <!-- Pengaturan Info Sidebar, Kop Dokumen & Footer -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
-                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Kartu Info Arena & Kop Cetak Panitia</h4>
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Kartu Info Arena, Kop Cetak & Teks Footer Aplikasi</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Judul Kartu Info Sidebar</label>
@@ -1294,6 +1322,10 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Keterangan Singkat Kartu Info Sidebar</label>
                     <textarea rows="2" id="set-arena-desc" required placeholder="Pantau bagan turnamen, live score per jam, dan daftarkan skuad terbaik sekolah Anda." class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-sm text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
                   </div>
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Teks Footer Bawah Aplikasi (Transparan Halus)</label>
+                    <input type="text" id="set-footer-text" placeholder="Contoh: Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none" />
+                  </div>
                 </div>
 
                 <div class="flex justify-end pt-1">
@@ -1306,6 +1338,13 @@
 
           </div>
         </section>
+
+        <!-- Footer Kredit Aplikasi (Transparan & Halus) -->
+        <footer class="pt-4 pb-6 text-center bg-transparent">
+          <p id="app-footer-text" class="text-[11px] sm:text-xs font-medium text-emerald-950/40 dark:text-emerald-100/35 tracking-wide break-words select-none">
+            Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026
+          </p>
+        </footer>
 
       </div>
     </main>
@@ -1415,7 +1454,8 @@
       headerSubtitle: "Informasi Peraturan, Bagan Pertandingan, Live Score Per Jam, dan Pendaftaran Tim Sekolah",
       arenaTitle: "🏟️ Arena Mini Soccer PGRI",
       arenaDesc: "Pantau bagan turnamen, live score per jam, dan daftarkan skuad terbaik sekolah Anda.",
-      docHeader: "PANITIA PELAKSANA TURNAMEN MINI SOCCER HUT PGRI"
+      docHeader: "PANITIA PELAKSANA TURNAMEN MINI SOCCER HUT PGRI",
+      footerText: "Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026"
     };
 
     const state = {
@@ -1627,7 +1667,7 @@
     }
 
     // =========================================================================
-    // 5. RENDERING PENGATURAN TAMPILAN, NAMA APLIKASI & LOGO
+    // 5. RENDERING PENGATURAN TAMPILAN, NAMA APLIKASI, LOGO & FOOTER
     // =========================================================================
     function renderAppearance() {
       const cfg = state.appearance;
@@ -1641,6 +1681,7 @@
       const headerSubtitle = document.getElementById("app-header-subtitle");
       const arenaTitle = document.getElementById("app-arena-title");
       const arenaDesc = document.getElementById("app-arena-desc");
+      const footerEl = document.getElementById("app-footer-text");
 
       if (sidebarSubtitle) sidebarSubtitle.textContent = cfg.appSubtitle;
       if (sidebarTitle) sidebarTitle.textContent = cfg.appTitle;
@@ -1649,6 +1690,7 @@
       if (headerSubtitle) headerSubtitle.textContent = cfg.headerSubtitle;
       if (arenaTitle) arenaTitle.textContent = cfg.arenaTitle;
       if (arenaDesc) arenaDesc.textContent = cfg.arenaDesc;
+      if (footerEl) footerEl.textContent = cfg.footerText !== undefined ? cfg.footerText : DEFAULT_APPEARANCE.footerText;
 
       const sidebarLogoBox = document.getElementById("app-sidebar-logo-box");
       const headerLogoBox = document.getElementById("app-header-logo-box");
@@ -1714,6 +1756,11 @@
 
       const fDocHead = document.getElementById("set-doc-header");
       if (fDocHead && document.activeElement !== fDocHead) fDocHead.value = cfg.docHeader;
+
+      const fFooter = document.getElementById("set-footer-text");
+      if (fFooter && document.activeElement !== fFooter) {
+        fFooter.value = cfg.footerText !== undefined ? cfg.footerText : DEFAULT_APPEARANCE.footerText;
+      }
     }
 
     window.handleLogoFileUpload = function(event) {
@@ -2578,6 +2625,70 @@
       }
     };
 
+    window.openEditSchoolModal = function(id) {
+      const school = state.schools.find((s) => s.id === id);
+      if (!school) return;
+
+      document.getElementById("edit-school-id").value = school.id;
+      document.getElementById("edit-school-old-name").value = school.nama_sekolah;
+      document.getElementById("edit-school-name-input").value = school.nama_sekolah;
+
+      const modal = document.getElementById("edit-school-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    };
+
+    window.closeEditSchoolModal = function() {
+      const modal = document.getElementById("edit-school-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    };
+
+    const editSchoolForm = document.getElementById("edit-school-form");
+    if (editSchoolForm) {
+      editSchoolForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = document.getElementById("edit-school-id").value;
+        const oldName = document.getElementById("edit-school-old-name").value;
+        const newName = document.getElementById("edit-school-name-input").value.trim().toUpperCase();
+
+        if (!newName) return;
+
+        if (state.schools.some((s) => s.id !== id && s.nama_sekolah.toUpperCase() === newName)) {
+          showToast("Nama sekolah tersebut sudah ada dalam daftar!", "warning");
+          return;
+        }
+
+        try {
+          if (IS_PREVIEW) {
+            const idx = state.schools.findIndex((s) => s.id === id);
+            if (idx !== -1) {
+              state.schools[idx].nama_sekolah = newName;
+              state.schools.sort((a, b) => a.nama_sekolah.localeCompare(b.nama_sekolah));
+            }
+            // Sinkronkan juga jika sekolah sudah tercatat pada data pendaftaran tim
+            state.registrations.forEach((r) => {
+              if (r.school_id === id || r.nama_sekolah === oldName) {
+                r.nama_sekolah = newName;
+              }
+            });
+            renderAll();
+          } else {
+            await updateDoc(doc(db, "schools", id), { nama_sekolah: newName });
+            const relatedRegs = state.registrations.filter((r) => r.school_id === id || r.nama_sekolah === oldName);
+            for (const reg of relatedRegs) {
+              await updateDoc(doc(db, "registrations", reg.id), { nama_sekolah: newName });
+            }
+          }
+
+          window.closeEditSchoolModal();
+          showToast(`Nama sekolah berhasil diubah menjadi "${newName}".`, "success");
+        } catch (err) {
+          showToast("Gagal mengubah nama sekolah: " + err.message, "error");
+        }
+      });
+    }
+
     window.openEditRegModal = function(regId) {
       const reg = state.registrations.find((r) => r.id === regId);
       if (!reg) return;
@@ -2801,7 +2912,7 @@
       });
     }
 
-    // Simpan Pengaturan Tampilan, Nama Aplikasi & Logo Admin
+    // Simpan Pengaturan Tampilan, Nama Aplikasi, Logo & Footer Admin
     const appearanceForm = document.getElementById("admin-appearance-form");
     if (appearanceForm) {
       appearanceForm.addEventListener("submit", async (e) => {
@@ -2816,7 +2927,8 @@
           headerSubtitle: document.getElementById("set-header-subtitle").value.trim() || DEFAULT_APPEARANCE.headerSubtitle,
           arenaTitle: document.getElementById("set-arena-title").value.trim() || DEFAULT_APPEARANCE.arenaTitle,
           arenaDesc: document.getElementById("set-arena-desc").value.trim() || DEFAULT_APPEARANCE.arenaDesc,
-          docHeader: document.getElementById("set-doc-header").value.trim() || DEFAULT_APPEARANCE.docHeader
+          docHeader: document.getElementById("set-doc-header").value.trim() || DEFAULT_APPEARANCE.docHeader,
+          footerText: document.getElementById("set-footer-text").value.trim()
         };
 
         try {
@@ -2833,7 +2945,7 @@
               { merge: true }
             );
           }
-          showToast("Pengaturan tampilan, nama aplikasi & logo berhasil diperbarui!", "success");
+          showToast("Pengaturan tampilan, nama aplikasi, logo & footer berhasil diperbarui!", "success");
         } catch (err) {
           showToast("Gagal menyimpan pengaturan tampilan: " + err.message, "error");
         }
@@ -2841,7 +2953,7 @@
     }
 
     window.resetAppearanceDefaults = async function() {
-      const ok = await customConfirm("Reset Pengaturan Tampilan", "Kembalikan nama aplikasi, logo, dan semua teks tampilan ke pengaturan bawaan?");
+      const ok = await customConfirm("Reset Pengaturan Tampilan", "Kembalikan nama aplikasi, logo, footer, dan semua teks tampilan ke pengaturan bawaan?");
       if (!ok) return;
 
       try {
@@ -3213,14 +3325,19 @@
           : state.schools
               .map(
                 (s, idx) => `
-                  <div class="px-4 py-3 flex items-start justify-between gap-3 hover:bg-slate-50">
-                    <div class="flex items-start gap-2.5 min-w-0 pt-1">
+                  <div class="px-4 py-3 flex items-center justify-between gap-3 hover:bg-slate-50">
+                    <div class="flex items-start gap-2.5 min-w-0">
                       <span class="w-6 shrink-0 text-xs sm:text-sm font-extrabold text-emerald-800 text-right">${idx + 1}.</span>
                       <span class="text-xs sm:text-sm font-bold text-slate-800 break-words leading-snug">${escapeHtml(s.nama_sekolah)}</span>
                     </div>
-                    <button type="button" onclick="window.deleteSchool('${escapeHtml(s.id)}', '${escapeHtml(s.nama_sekolah)}')" class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold shrink-0 transition">
-                      Hapus
-                    </button>
+                    <div class="flex items-center gap-2 shrink-0">
+                      <button type="button" onclick="window.openEditSchoolModal('${escapeHtml(s.id)}')" class="px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition">
+                        Ubah
+                      </button>
+                      <button type="button" onclick="window.deleteSchool('${escapeHtml(s.id)}', '${escapeHtml(s.nama_sekolah)}')" class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold transition">
+                        Hapus
+                      </button>
+                    </div>
                   </div>
                 `
               )
