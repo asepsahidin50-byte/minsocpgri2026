@@ -266,7 +266,8 @@
     html.dark-theme #confirm-modal > div,
     html.dark-theme #edit-reg-modal > div,
     html.dark-theme #detail-players-modal > div,
-    html.dark-theme #edit-school-modal > div {
+    html.dark-theme #edit-school-modal > div,
+    html.dark-theme #center-popup-modal > div {
       background-color: #0b241c !important;
       color: #f8fafc !important;
       border-color: rgba(52, 211, 153, 0.3) !important;
@@ -329,12 +330,48 @@
     .animate-fade-in {
       animation: fadeIn 0.25s ease-out forwards;
     }
+
+    @keyframes centerPopSpring {
+      0% { opacity: 0; transform: scale(0.75) translateY(16px); }
+      65% { opacity: 1; transform: scale(1.04) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-center-pop {
+      animation: centerPopSpring 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes iconPulseRing {
+      0% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45); }
+      70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .animate-icon-ring {
+      animation: iconPulseRing 1.4s ease-out infinite;
+    }
   </style>
 </head>
 <body>
   <div id="pgri-app-root" class="flex flex-col md:flex-row min-h-screen pb-24 md:pb-0">
     <!-- Toast / Notification Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-[10050] flex flex-col gap-2 max-w-sm w-[calc(100%-2rem)] pointer-events-none"></div>
+
+    <!-- Pop-Up Animasi Tengah Layar (Pengiriman Data & Keluar Admin) -->
+    <div id="center-popup-modal" class="fixed inset-0 z-[10060] hidden items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
+      <div id="center-popup-card" class="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl border border-emerald-200 text-center space-y-4">
+        <div id="center-popup-icon-wrap" class="w-16 h-16 rounded-full mx-auto flex items-center justify-center bg-emerald-100 text-emerald-600 animate-icon-ring">
+          <svg id="center-popup-svg" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="space-y-1.5">
+          <span id="center-popup-badge" class="inline-block px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800">Berhasil</span>
+          <h3 id="center-popup-title" class="text-lg sm:text-xl font-extrabold text-slate-900 leading-snug break-words">Data Berhasil Dikirim</h3>
+          <p id="center-popup-message" class="text-xs sm:text-sm text-slate-600 leading-relaxed break-words">Informasi telah berhasil disimpan.</p>
+        </div>
+        <div id="center-popup-actions" class="pt-2 flex items-center justify-center gap-2.5">
+          <button id="center-popup-cancel-btn" type="button" class="hidden flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Batal</button>
+          <button id="center-popup-ok-btn" type="button" class="flex-1 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 shadow-md transition">Oke, Mengerti</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Custom Confirm Modal -->
     <div id="confirm-modal" class="fixed inset-0 z-[10040] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
@@ -1685,6 +1722,90 @@
       });
     }
 
+    function showCenterPopup({
+      title = "Berhasil!",
+      message = "",
+      badge = "Informasi",
+      variant = "success",
+      showCancel = false,
+      confirmText = "Oke, Mengerti",
+      cancelText = "Batal"
+    }) {
+      return new Promise((resolve) => {
+        const modal = document.getElementById("center-popup-modal");
+        const card = document.getElementById("center-popup-card");
+        const iconWrap = document.getElementById("center-popup-icon-wrap");
+        const svgEl = document.getElementById("center-popup-svg");
+        const badgeEl = document.getElementById("center-popup-badge");
+        const titleEl = document.getElementById("center-popup-title");
+        const msgEl = document.getElementById("center-popup-message");
+        const okBtn = document.getElementById("center-popup-ok-btn");
+        const cancelBtn = document.getElementById("center-popup-cancel-btn");
+
+        if (!modal || !card) {
+          resolve(true);
+          return;
+        }
+
+        const presets = {
+          success: {
+            iconBg: "bg-emerald-100 text-emerald-600",
+            badgeBg: "bg-emerald-100 text-emerald-800",
+            btnBg: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700",
+            svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`
+          },
+          logout: {
+            iconBg: "bg-amber-100 text-amber-600",
+            badgeBg: "bg-amber-100 text-amber-800",
+            btnBg: "bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700",
+            svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>`
+          },
+          error: {
+            iconBg: "bg-red-100 text-red-600",
+            badgeBg: "bg-red-100 text-red-700",
+            btnBg: "bg-red-600 hover:bg-red-700",
+            svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>`
+          }
+        };
+
+        const style = presets[variant] || presets.success;
+        iconWrap.className = `w-16 h-16 rounded-full mx-auto flex items-center justify-center animate-icon-ring ${style.iconBg}`;
+        svgEl.innerHTML = style.svg;
+        badgeEl.className = `inline-block px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${style.badgeBg}`;
+        badgeEl.textContent = badge;
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+
+        okBtn.className = `flex-1 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-extrabold text-white shadow-md transition ${style.btnBg}`;
+        okBtn.textContent = confirmText;
+
+        if (showCancel) {
+          cancelBtn.classList.remove("hidden");
+          cancelBtn.textContent = cancelText;
+        } else {
+          cancelBtn.classList.add("hidden");
+        }
+
+        card.classList.remove("animate-center-pop");
+        void card.offsetWidth;
+        card.classList.add("animate-center-pop");
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        const finish = (val) => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          okBtn.onclick = null;
+          cancelBtn.onclick = null;
+          resolve(val);
+        };
+
+        okBtn.onclick = () => finish(true);
+        cancelBtn.onclick = () => finish(false);
+      });
+    }
+
     // =========================================================================
     // 4. INDIKATOR PREVIEW & KONEKSI FIREBASE PRODUKSI
     // =========================================================================
@@ -2472,6 +2593,13 @@
           if (agreeCheckbox) agreeCheckbox.checked = false;
           if (regWrapper) regWrapper.classList.add("hidden");
           renderDynamicPlayerInputs(7, "players-input-list", []);
+          await showCenterPopup({
+            badge: "Pendaftaran Berhasil",
+            title: "Data Tim Berhasil Dikirim!",
+            message: `Tim ${namaSekolah} (${cabang}) atas nama PJ ${penanggungJawab} telah resmi terdaftar.`,
+            variant: "success",
+            confirmText: "Lihat Status Pendaftaran"
+          });
           switchMainView("status-pendaftaran");
         } catch (err) {
           showToast("Gagal menyimpan pendaftaran: " + err.message, "error");
@@ -2807,16 +2935,39 @@
     const adminLogoutBtn = document.getElementById("btn-admin-logout");
     if (adminLogoutBtn) {
       adminLogoutBtn.addEventListener("click", async () => {
+        const confirmExit = await showCenterPopup({
+          badge: "Konfirmasi Keluar",
+          title: "Keluar dari Menu Admin?",
+          message: "Anda akan keluar dari Panel Kontrol Koordinator Admin Mini Soccer.",
+          variant: "logout",
+          showCancel: true,
+          confirmText: "Ya, Keluar Admin",
+          cancelText: "Tetap di Admin"
+        });
+        if (!confirmExit) return;
+
         if (IS_PREVIEW) {
           isAdminAuthenticated = false;
           currentAdminEmail = "";
           updateAdminUIState();
-          showToast("Anda telah keluar dari panel admin.", "success");
+          await showCenterPopup({
+            badge: "Sesi Berakhir",
+            title: "Berhasil Keluar Admin",
+            message: "Anda telah keluar dari Panel Kontrol Koordinator Admin.",
+            variant: "success",
+            confirmText: "Selesai"
+          });
           return;
         }
         try {
           await signOut(auth);
-          showToast("Berhasil logout dari akun Admin.", "success");
+          await showCenterPopup({
+            badge: "Sesi Berakhir",
+            title: "Berhasil Keluar Admin",
+            message: "Anda telah keluar dari akun Koordinator Admin.",
+            variant: "success",
+            confirmText: "Selesai"
+          });
         } catch (err) {
           showToast("Gagal logout: " + err.message, "error");
         }
@@ -2883,7 +3034,12 @@
             });
           }
           input.value = "";
-          showToast(`Sekolah "${nama}" berhasil ditambahkan.`, "success");
+          await showCenterPopup({
+            badge: "Data Terkirim",
+            title: "Sekolah Berhasil Ditambahkan!",
+            message: `Sekolah "${nama}" telah masuk ke daftar peserta dan dropdown pendaftaran.`,
+            variant: "success"
+          });
         } catch (err) {
           showToast("Gagal menambah sekolah: " + err.message, "error");
         }
@@ -2963,7 +3119,12 @@
           }
 
           window.closeEditSchoolModal();
-          showToast(`Nama sekolah berhasil diubah menjadi "${newName}".`, "success");
+          await showCenterPopup({
+            badge: "Data Diperbarui",
+            title: "Nama Sekolah Diperbarui!",
+            message: `Nama sekolah berhasil diubah menjadi "${newName}".`,
+            variant: "success"
+          });
         } catch (err) {
           showToast("Gagal mengubah nama sekolah: " + err.message, "error");
         }
@@ -3046,7 +3207,12 @@
             await updateDoc(doc(db, "registrations", id), updatedData);
           }
           window.closeEditRegModal();
-          showToast("Data pendaftaran tim berhasil diperbarui.", "success");
+          await showCenterPopup({
+            badge: "Data Diperbarui",
+            title: "Data Tim Berhasil Diubah!",
+            message: `Perubahan data tim ${namaSekolah} (${cabang}) telah berhasil disimpan.`,
+            variant: "success"
+          });
         } catch (err) {
           showToast("Gagal memperbarui pendaftaran: " + err.message, "error");
         }
@@ -3104,7 +3270,12 @@
             }
           }
           window.resetMatchForm();
-          showToast(editId ? "Data pertandingan diperbarui!" : "Pertandingan berhasil ditambahkan!", "success");
+          await showCenterPopup({
+            badge: "Data Pertandingan Terkirim",
+            title: editId ? "Data Pertandingan Diperbarui!" : "Pertandingan Berhasil Disimpan!",
+            message: `Laga ${payload.tim_a} vs ${payload.tim_b} (${payload.cabang}) telah tampil di halaman publik.`,
+            variant: "success"
+          });
         } catch (err) {
           showToast("Gagal menyimpan pertandingan: " + err.message, "error");
         }
@@ -3191,6 +3362,12 @@
             );
           }
           showToast("Peraturan & isi surat pernyataan berhasil disimpan!", "success");
+          await showCenterPopup({
+            badge: "Data Terkirim",
+            title: "Peraturan & Pernyataan Disimpan!",
+            message: "Peraturan pertandingan, permainan, dan isi surat pernyataan telah diperbarui.",
+            variant: "success"
+          });
         } catch (err) {
           showToast("Gagal menyimpan peraturan & pernyataan: " + err.message, "error");
         }
@@ -3231,6 +3408,12 @@
             );
           }
           showToast("Pengaturan tampilan, nama aplikasi, logo & footer berhasil diperbarui!", "success");
+          await showCenterPopup({
+            badge: "Pengaturan Terkirim",
+            title: "Tampilan Aplikasi Diperbarui!",
+            message: "Nama aplikasi, logo, judul banner, dan teks tampilan telah berhasil disimpan.",
+            variant: "success"
+          });
         } catch (err) {
           showToast("Gagal menyimpan pengaturan tampilan: " + err.message, "error");
         }
