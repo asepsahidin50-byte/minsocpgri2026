@@ -283,6 +283,15 @@
       background-color: #133b2e !important;
     }
 
+    /* Footer Kredit Transparan namun Terbaca Jelas di Mode Terang & Gelap */
+    #app-footer-text {
+      color: rgba(6, 78, 59, 0.72) !important;
+    }
+
+    html.dark-theme #app-footer-text {
+      color: rgba(209, 250, 229, 0.75) !important;
+    }
+
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
@@ -1339,9 +1348,9 @@
           </div>
         </section>
 
-        <!-- Footer Kredit Aplikasi (Transparan & Halus) -->
+        <!-- Footer Kredit Aplikasi (Transparan & Terbaca di Mode Terang maupun Gelap) -->
         <footer class="pt-4 pb-6 text-center bg-transparent">
-          <p id="app-footer-text" class="text-[11px] sm:text-xs font-medium text-emerald-950/40 dark:text-emerald-100/35 tracking-wide break-words select-none">
+          <p id="app-footer-text" class="text-xs font-semibold tracking-wide break-words select-none">
             Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026
           </p>
         </footer>
@@ -1365,6 +1374,7 @@
   storageBucket: "minsokpgri.firebasestorage.app",
   messagingSenderId: "822721450375",
   appId: "1:822721450375:web:2bb1fc352cf11f8c1f4322"
+      appId: "APP_ID"
     };
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
