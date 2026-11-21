@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Mini Soccer HUT PGRI — Pendaftaran, Bagan & Live Score</title>
+  <title>Mini Soccer HUT PGRI - Portal Pendaftaran & Pertandingan</title>
   <meta name="theme-color" content="#059669" />
-  <meta name="description" content="Portal Resmi Pendaftaran Tim, Peraturan, Bagan 12 Tim, dan Hasil Pertandingan Mini Soccer HUT PGRI" />
+  <meta name="description" content="Portal Resmi Pendaftaran Tim, Peraturan, Bagan Turnamen, dan Hasil Pertandingan Mini Soccer HUT PGRI" />
 
   <!-- PWA Manifest via Data URI -->
   <link rel="manifest" href='data:application/manifest+json,{"name":"Mini Soccer HUT PGRI","short_name":"MiniSoccer PGRI","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#059669","icons":[{"src":"https://placehold.co/192x192/059669/ffffff?text=PGRI","sizes":"192x192","type":"image/png"},{"src":"https://placehold.co/512x512/059669/ffffff?text=PGRI","sizes":"512x512","type":"image/png"}]}' />
@@ -13,7 +13,7 @@
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- QR Code Generator Library (untuk Barcode TTD Elektronik Offline/Embed di Word) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
@@ -43,9 +43,12 @@
   </script>
 
   <style>
+    /* Full-page override untuk kompatibilitas embed Blogger/Web */
     html, body {
       margin: 0;
       padding: 0;
+      background-color: #f0fdf4;
+      color: #0f172a;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       -webkit-tap-highlight-color: transparent;
@@ -54,29 +57,33 @@
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Tema Terang (Light) & Gelap (Dark) dengan Kontras Teks Terjamin */
-    html[data-theme="light"] body {
-      background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 50%, #f8fafc 100%);
-      color: #0f172a;
-    }
-
-    html[data-theme="dark"] body {
-      background: linear-gradient(135deg, #022c22 0%, #064e3b 40%, #0f172a 100%);
-      color: #f8fafc;
-    }
-
+    /* Tema Lapangan Sepak Bola (Rumput Stadion & Garis Lapangan Halus) - MODE TERANG */
     #pgri-app-root {
       position: relative;
       min-height: 100vh;
       width: 100%;
+      background-color: #ecfdf5;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(16, 185, 129, 0.06) 0px,
+          rgba(16, 185, 129, 0.06) 44px,
+          rgba(5, 150, 105, 0.11) 44px,
+          rgba(5, 150, 105, 0.11) 88px
+        ),
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(236, 253, 245, 0.4) 100%);
+      z-index: 9999;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
+    /* Glassmorphism Utilities */
     .glass-card {
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(16, 185, 129, 0.25);
-      box-shadow: 0 10px 30px -10px rgba(6, 78, 59, 0.12);
+      border: 1.5px solid rgba(167, 243, 208, 0.85);
+      box-shadow: 0 8px 28px -4px rgba(6, 78, 59, 0.08);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
     }
 
     .glass-nav {
@@ -85,80 +92,243 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    html[data-theme="dark"] .glass-card {
-      background: rgba(15, 23, 42, 0.92);
-      border-color: rgba(52, 211, 153, 0.28);
-      box-shadow: 0 14px 36px -12px rgba(0, 0, 0, 0.65);
+    /* ===================================================================== */
+    /* MODE GELAP (DARK MODE) - PENYESUAIAN LATAR & WARNA HURUF KONTRAS TINGGI */
+    /* ===================================================================== */
+    html.dark-theme,
+    html.dark-theme body {
+      background-color: #041510 !important;
+      color: #f1f5f9 !important;
     }
 
-    html[data-theme="dark"] .glass-nav {
-      background: rgba(3, 28, 21, 0.98);
-      border-color: rgba(52, 211, 153, 0.25);
+    html.dark-theme #pgri-app-root {
+      background-color: #051b14 !important;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(16, 185, 129, 0.04) 0px,
+          rgba(16, 185, 129, 0.04) 44px,
+          rgba(4, 120, 87, 0.09) 44px,
+          rgba(4, 120, 87, 0.09) 88px
+        ),
+        radial-gradient(circle at 50% 0%, rgba(6, 78, 59, 0.45) 0%, rgba(4, 21, 16, 0.95) 100%) !important;
+      color: #f1f5f9 !important;
     }
 
-    /* Penyesuaian warna huruf saat Dark Mode agar selalu tajam & terbaca jelas */
-    html[data-theme="dark"] .glass-card .text-slate-900,
-    html[data-theme="dark"] .glass-card .text-slate-800 {
+    html.dark-theme .glass-card {
+      background: rgba(11, 36, 28, 0.94) !important;
+      border-color: rgba(52, 211, 153, 0.25) !important;
+      box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.55) !important;
+      color: #f1f5f9 !important;
+    }
+
+    html.dark-theme .glass-nav {
+      background: rgba(3, 28, 21, 0.98) !important;
+      border-color: rgba(52, 211, 153, 0.25) !important;
+    }
+
+    html.dark-theme .bg-white,
+    html.dark-theme .bg-white\/90,
+    html.dark-theme .bg-white\/80 {
+      background-color: #0e2e24 !important;
       color: #f8fafc !important;
     }
-    html[data-theme="dark"] .glass-card .text-slate-700,
-    html[data-theme="dark"] .glass-card .text-slate-600 {
+
+    html.dark-theme .bg-slate-50,
+    html.dark-theme .bg-slate-50\/90,
+    html.dark-theme .bg-slate-50\/50 {
+      background-color: #09221a !important;
+      color: #f1f5f9 !important;
+    }
+
+    html.dark-theme .bg-slate-100,
+    html.dark-theme .bg-slate-200 {
+      background-color: #133b2e !important;
+      color: #f1f5f9 !important;
+    }
+
+    html.dark-theme .bg-emerald-50,
+    html.dark-theme .bg-emerald-50\/90,
+    html.dark-theme .bg-emerald-50\/75,
+    html.dark-theme .bg-emerald-50\/70,
+    html.dark-theme .bg-emerald-50\/60,
+    html.dark-theme .bg-emerald-100\/80,
+    html.dark-theme .bg-emerald-100\/70 {
+      background-color: #0d3327 !important;
+      color: #ecfdf5 !important;
+    }
+
+    html.dark-theme .text-slate-900,
+    html.dark-theme .text-slate-800,
+    html.dark-theme .text-gray-900 {
+      color: #f8fafc !important;
+    }
+
+    html.dark-theme .text-slate-700,
+    html.dark-theme .text-slate-600 {
       color: #cbd5e1 !important;
     }
-    html[data-theme="dark"] .glass-card .text-slate-500,
-    html[data-theme="dark"] .glass-card .text-slate-400 {
+
+    html.dark-theme .text-slate-500,
+    html.dark-theme .text-slate-400 {
       color: #94a3b8 !important;
     }
-    html[data-theme="dark"] .glass-card .bg-white,
-    html[data-theme="dark"] .glass-card .bg-white\/90,
-    html[data-theme="dark"] .glass-card .bg-white\/80,
-    html[data-theme="dark"] .glass-card .bg-slate-50,
-    html[data-theme="dark"] .glass-card .bg-slate-50\/90 {
-      background-color: #1e293b !important;
-      border-color: #334155 !important;
-      color: #f8fafc !important;
+
+    html.dark-theme .text-emerald-950,
+    html.dark-theme .text-emerald-900,
+    html.dark-theme .text-emerald-900\/80,
+    html.dark-theme .text-emerald-900\/75 {
+      color: #a7f3d0 !important;
     }
-    html[data-theme="dark"] .glass-card .bg-emerald-50,
-    html[data-theme="dark"] .glass-card .bg-emerald-50\/90,
-    html[data-theme="dark"] .glass-card .bg-emerald-50\/75,
-    html[data-theme="dark"] .glass-card .bg-emerald-50\/70,
-    html[data-theme="dark"] .glass-card .bg-emerald-50\/60 {
-      background-color: rgba(6, 78, 59, 0.45) !important;
-      border-color: rgba(52, 211, 153, 0.35) !important;
-    }
-    html[data-theme="dark"] .glass-card .text-emerald-950,
-    html[data-theme="dark"] .glass-card .text-emerald-900,
-    html[data-theme="dark"] .glass-card .text-emerald-800,
-    html[data-theme="dark"] .glass-card .text-emerald-700 {
+
+    html.dark-theme .text-emerald-800,
+    html.dark-theme .text-emerald-700 {
       color: #6ee7b7 !important;
     }
-    html[data-theme="dark"] input,
-    html[data-theme="dark"] select,
-    html[data-theme="dark"] textarea {
-      background-color: #0f172a !important;
-      color: #f8fafc !important;
-      border-color: #475569 !important;
+
+    html.dark-theme .text-amber-700,
+    html.dark-theme .text-amber-800,
+    html.dark-theme .text-amber-900 {
+      color: #fcd34d !important;
     }
-    html[data-theme="dark"] input::placeholder,
-    html[data-theme="dark"] textarea::placeholder {
+
+    html.dark-theme .bg-emerald-100 {
+      background-color: rgba(16, 185, 129, 0.22) !important;
+      color: #6ee7b7 !important;
+    }
+
+    html.dark-theme .bg-teal-100 {
+      background-color: rgba(20, 184, 166, 0.22) !important;
+      color: #5eead4 !important;
+    }
+
+    html.dark-theme .bg-amber-100,
+    html.dark-theme .bg-amber-200,
+    html.dark-theme .bg-amber-50,
+    html.dark-theme .bg-amber-50\/90,
+    html.dark-theme .bg-amber-50\/50 {
+      background-color: rgba(245, 158, 11, 0.22) !important;
+      color: #fcd34d !important;
+    }
+
+    html.dark-theme .bg-red-100,
+    html.dark-theme .bg-red-50 {
+      background-color: rgba(239, 68, 68, 0.2) !important;
+      color: #fca5a5 !important;
+    }
+
+    html.dark-theme .text-red-700,
+    html.dark-theme .text-red-600 {
+      color: #fca5a5 !important;
+    }
+
+    html.dark-theme .nav-btn.bg-white,
+    html.dark-theme #tab-btn-pertandingan.bg-white,
+    html.dark-theme #tab-btn-permainan.bg-white,
+    html.dark-theme #bracket-tab-putra.bg-white,
+    html.dark-theme #bracket-tab-putri.bg-white,
+    html.dark-theme #admin-b12-tab-putra.bg-white,
+    html.dark-theme #admin-b12-tab-putri.bg-white,
+    html.dark-theme #filter-match-all.bg-white,
+    html.dark-theme #filter-match-putra.bg-white,
+    html.dark-theme #filter-match-putri.bg-white {
+      background-color: #10b981 !important;
+      color: #032219 !important;
+    }
+
+    html.dark-theme .border-slate-100,
+    html.dark-theme .border-slate-200,
+    html.dark-theme .border-slate-300,
+    html.dark-theme .border-emerald-100,
+    html.dark-theme .border-emerald-200,
+    html.dark-theme .border-emerald-200\/90,
+    html.dark-theme .border-emerald-200\/80,
+    html.dark-theme .border-emerald-200\/70,
+    html.dark-theme .border-emerald-300 {
+      border-color: rgba(52, 211, 153, 0.24) !important;
+    }
+
+    html.dark-theme .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+    html.dark-theme .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+      border-color: rgba(52, 211, 153, 0.18) !important;
+    }
+
+    html.dark-theme input,
+    html.dark-theme select,
+    html.dark-theme textarea {
+      background-color: #071e17 !important;
+      color: #f8fafc !important;
+      border-color: rgba(52, 211, 153, 0.35) !important;
+    }
+
+    html.dark-theme input::placeholder,
+    html.dark-theme textarea::placeholder {
       color: #94a3b8 !important;
     }
-    html[data-theme="dark"] #confirm-modal > div,
-    html[data-theme="dark"] #edit-reg-modal > div,
-    html[data-theme="dark"] #detail-players-modal > div,
-    html[data-theme="dark"] #edit-school-modal > div,
-    html[data-theme="dark"] #center-popup-modal > div {
-      background-color: #0f172a !important;
+
+    html.dark-theme select option {
+      background-color: #071e17 !important;
+      color: #f8fafc !important;
+    }
+
+    html.dark-theme #confirm-modal > div,
+    html.dark-theme #edit-reg-modal > div,
+    html.dark-theme #detail-players-modal > div,
+    html.dark-theme #edit-school-modal > div,
+    html.dark-theme #center-popup-modal > div {
+      background-color: #0b241c !important;
       color: #f8fafc !important;
       border-color: rgba(52, 211, 153, 0.3) !important;
     }
 
-    /* Footer Transparan & Kontras */
-    html[data-theme="light"] .app-footer-text {
-      color: rgba(15, 23, 42, 0.62);
+    html.dark-theme .hover\:bg-slate-50:hover,
+    html.dark-theme .hover\:bg-emerald-50\/40:hover,
+    html.dark-theme .hover\:bg-emerald-50:hover {
+      background-color: #133b2e !important;
     }
-    html[data-theme="dark"] .app-footer-text {
-      color: rgba(248, 250, 252, 0.72);
+
+    #app-footer-text {
+      color: rgba(6, 78, 59, 0.78) !important;
+    }
+
+    html.dark-theme #app-footer-text {
+      color: rgba(209, 250, 229, 0.82) !important;
+    }
+
+    html.dark-theme #dash-rule-pertandingan p,
+    html.dark-theme #dash-rule-permainan p,
+    html.dark-theme #rule-content-pertandingan p,
+    html.dark-theme #rule-content-permainan p {
+      color: #e2e8f0 !important;
+    }
+
+    html.dark-theme #dash-rule-pertandingan span,
+    html.dark-theme #dash-rule-permainan span,
+    html.dark-theme #rule-content-pertandingan span,
+    html.dark-theme #rule-content-permainan span {
+      color: #6ee7b7 !important;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    html.dark-theme ::-webkit-scrollbar-track {
+      background: #071e17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    html.dark-theme ::-webkit-scrollbar-thumb {
+      background: #10b981;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
     }
 
     @keyframes fadeIn {
@@ -169,13 +339,13 @@
       animation: fadeIn 0.25s ease-out forwards;
     }
 
-    @keyframes popSpring {
-      0% { opacity: 0; transform: scale(0.84) translateY(14px); }
-      70% { opacity: 1; transform: scale(1.03) translateY(-2px); }
+    @keyframes centerPopSpring {
+      0% { opacity: 0; transform: scale(0.75) translateY(16px); }
+      65% { opacity: 1; transform: scale(1.04) translateY(-2px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .animate-pop-spring {
-      animation: popSpring 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    .animate-center-pop {
+      animation: centerPopSpring 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     @keyframes iconPulseRing {
@@ -186,23 +356,11 @@
     .animate-icon-ring {
       animation: iconPulseRing 1.4s ease-out infinite;
     }
-
-    .bracket-scroll::-webkit-scrollbar {
-      height: 8px;
-    }
-    .bracket-scroll::-webkit-scrollbar-track {
-      background: rgba(16, 185, 129, 0.08);
-      border-radius: 999px;
-    }
-    .bracket-scroll::-webkit-scrollbar-thumb {
-      background: rgba(16, 185, 129, 0.45);
-      border-radius: 999px;
-    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col md:flex-row pb-24 md:pb-0">
-  <div id="pgri-app-root" class="flex flex-col md:flex-row min-h-screen w-full">
-    <!-- Toast Container -->
+<body>
+  <div id="pgri-app-root" class="flex flex-col md:flex-row min-h-screen pb-24 md:pb-0">
+    <!-- Toast / Notification Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-[10050] flex flex-col gap-2 max-w-sm w-[calc(100%-2rem)] pointer-events-none"></div>
 
     <!-- Pop-Up Animasi Tengah Layar (Pengiriman Data & Keluar Admin) -->
@@ -257,11 +415,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Sekolah</label>
-              <select id="edit-reg-school" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-emerald-500 outline-none"></select>
+              <select id="edit-reg-school" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"></select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Cabang Pertandingan</label>
-              <select id="edit-reg-cabang" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+              <select id="edit-reg-cabang" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
                 <option value="Mini Soccer Putra">Mini Soccer Putra</option>
                 <option value="Mini Soccer Putri">Mini Soccer Putri</option>
               </select>
@@ -377,6 +535,7 @@
         </div>
       </div>
 
+      <!-- Menu Navigasi Desktop -->
       <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
         <button type="button" data-nav="dashboard" class="nav-btn w-full flex items-center justify-start gap-3.5 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all duration-200 bg-white text-emerald-950 shadow-md">
           <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -424,7 +583,7 @@
     </aside>
 
     <!-- ===================================================================== -->
-    <!-- MOBILE BOTTOM NAVIGATION BAR                                          -->
+    <!-- MOBILE BOTTOM NAVIGATION BAR (Muncul di HP / layar di bawah md)       -->
     <!-- ===================================================================== -->
     <nav class="md:hidden fixed bottom-2.5 inset-x-2 z-40 glass-nav border border-emerald-700/80 shadow-2xl rounded-2xl p-1.5 grid grid-cols-5 gap-1">
       <button type="button" data-nav="dashboard" class="nav-btn flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[10px] font-extrabold transition-all bg-white text-emerald-950 shadow-sm text-center leading-tight min-w-0">
@@ -455,10 +614,10 @@
     <main class="flex-1 md:pl-72 w-full min-w-0">
       <div class="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-5 sm:space-y-6">
 
-        <!-- Banner Mode Preview -->
+        <!-- Banner Mode Preview (HANYA dirender jika IS_PREVIEW === true) -->
         <div id="preview-banner-container"></div>
 
-        <!-- Header Stadion Banner -->
+        <!-- Header Stadion Banner (Desktop & Mobile) -->
         <header class="rounded-3xl bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white p-4 sm:p-7 shadow-xl border border-emerald-700/70 relative overflow-hidden">
           <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
@@ -475,6 +634,7 @@
               </div>
             </div>
 
+            <!-- Tombol Ganti Tema Terang / Gelap di Header -->
             <button type="button" onclick="window.toggleColorTheme()" aria-label="Ganti Tema Terang atau Gelap" class="theme-toggle-btn self-start sm:self-center px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur border border-white/25 text-white text-xs font-extrabold flex items-center gap-2 shrink-0 transition shadow-sm">
               <span class="theme-icon text-sm">🌙</span>
               <span class="theme-label">Tema Gelap</span>
@@ -483,10 +643,49 @@
         </header>
 
         <!-- ================================================================= -->
-        <!-- HALAMAN 1: DASHBOARD                                              -->
+        <!-- HALAMAN 1: DASHBOARD (PERATURAN DROPDOWN & LIVE SCORE BERJALAN)   -->
         <!-- ================================================================= -->
         <section id="view-dashboard" class="space-y-8 animate-fade-in">
-          <!-- 1. PERATURAN PERTANDINGAN & PERATURAN PERMAINAN -->
+          <!-- Ringkasan Statistik Cepat Turnamen -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div onclick="window.goToStatusPendaftaran()" class="cursor-pointer glass-card rounded-2xl p-4 sm:p-5 border border-emerald-200 hover:border-emerald-400 transition group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800">Sekolah Peserta</span>
+                <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold group-hover:scale-105 transition">🏫</span>
+              </div>
+              <p id="dash-stat-schools" class="text-2xl sm:text-3xl font-extrabold text-slate-900">0</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Sekolah terdata</p>
+            </div>
+
+            <div onclick="window.goToStatusPendaftaran()" class="cursor-pointer glass-card rounded-2xl p-4 sm:p-5 border border-emerald-200 hover:border-emerald-400 transition group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-teal-800">Tim Terdaftar</span>
+                <span class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-sm font-bold group-hover:scale-105 transition">⚽</span>
+              </div>
+              <p id="dash-stat-teams" class="text-2xl sm:text-3xl font-extrabold text-slate-900">0</p>
+              <p id="dash-stat-teams-sub" class="text-[11px] text-slate-500 mt-0.5">0 Putra • 0 Putri</p>
+            </div>
+
+            <div onclick="window.goToBaganJadwal()" class="cursor-pointer glass-card rounded-2xl p-4 sm:p-5 border border-emerald-200 hover:border-emerald-400 transition group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-red-700">Laga Live</span>
+                <span class="w-8 h-8 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-sm font-bold group-hover:scale-105 transition">🔴</span>
+              </div>
+              <p id="dash-stat-live" class="text-2xl sm:text-3xl font-extrabold text-slate-900">0</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Sedang bertanding</p>
+            </div>
+
+            <div onclick="window.goToBaganJadwal()" class="cursor-pointer glass-card rounded-2xl p-4 sm:p-5 border border-emerald-200 hover:border-emerald-400 transition group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-800">Total Laga</span>
+                <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-sm font-bold group-hover:scale-105 transition">🏆</span>
+              </div>
+              <p id="dash-stat-matches" class="text-2xl sm:text-3xl font-extrabold text-slate-900">0</p>
+              <p id="dash-stat-matches-sub" class="text-[11px] text-slate-500 mt-0.5">0 Selesai • 0 Jadwal</p>
+            </div>
+          </div>
+
+          <!-- 1. PERATURAN PERTANDINGAN & PERATURAN PERMAINAN (DROPDOWN) -->
           <div class="glass-card rounded-3xl overflow-hidden border border-emerald-200">
             <div class="bg-gradient-to-r from-emerald-700 to-emerald-800 px-5 sm:px-6 py-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div class="flex items-start sm:items-center gap-3">
@@ -546,28 +745,13 @@
 
             <div id="live-matches-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
           </div>
-
-          <!-- 3. JADWAL & WAKTU PERTANDINGAN (DARI BAGAN & JADWAL) -->
-          <div class="glass-card rounded-3xl p-5 sm:p-8 space-y-5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-emerald-200/80">
-              <div>
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800 mb-1.5">🕒 Jadwal & Waktu Pertandingan</span>
-                <h2 class="text-xl font-extrabold text-slate-900 break-words">Jadwal Waktu Pertandingan (Bagan & Jadwal)</h2>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Daftar jam kick-off pertandingan dan jadwal yang tercantum pada menu Bagan & Jadwal.</p>
-              </div>
-              <button type="button" onclick="window.goToBaganJadwal()" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs transition shrink-0">
-                Buka Bagan Lengkap →
-              </button>
-            </div>
-
-            <div id="dashboard-schedule-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
-          </div>
         </section>
 
         <!-- ================================================================= -->
         <!-- HALAMAN 2: BAGAN PERTANDINGAN & JADWAL MINI SOCCER                -->
         <!-- ================================================================= -->
         <section id="view-bagan-jadwal" class="hidden space-y-8 animate-fade-in">
+
           <!-- 1. BAGAN PERTANDINGAN OTOMATIS -->
           <div class="glass-card rounded-3xl p-5 sm:p-8 space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-emerald-200/80">
@@ -582,7 +766,7 @@
               </div>
             </div>
 
-            <!-- Bagan Pohon 12 Tim -->
+            <!-- Bagan Pohon 12 Tim (Sesuai Sketsa Turnamen) -->
             <div class="space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900">
@@ -590,7 +774,7 @@
                 </span>
                 <span class="text-[11px] font-semibold text-slate-500">Geser ke samping pada layar HP untuk melihat alur hingga Final →</span>
               </div>
-              <div id="bracket-12-tree-container" class="w-full overflow-x-auto bracket-scroll pb-2"></div>
+              <div id="bracket-12-tree-container" class="w-full overflow-x-auto pb-2"></div>
             </div>
 
             <div class="pt-4 border-t border-emerald-200/70 space-y-3">
@@ -608,6 +792,7 @@
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Daftar pertandingan selanjutnya per jam dan rekap hasil pertandingan selesai</p>
               </div>
 
+              <!-- Filter Cabang -->
               <div class="flex p-1 bg-emerald-100/80 rounded-xl self-start">
                 <button type="button" onclick="window.filterMatches('ALL')" id="filter-match-all" class="px-3 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-900 shadow-sm transition">Semua</button>
                 <button type="button" onclick="window.filterMatches('Mini Soccer Putra')" id="filter-match-putra" class="px-3 py-1.5 rounded-lg text-xs font-bold text-emerald-900/75 hover:text-emerald-950 transition">Putra</button>
@@ -615,6 +800,7 @@
               </div>
             </div>
 
+            <!-- Bagian A: Pertandingan Selanjutnya Per Jam -->
             <div>
               <h3 class="text-xs font-extrabold uppercase tracking-wider text-amber-700 mb-3 flex items-center gap-2">
                 <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -623,6 +809,7 @@
               <div id="upcoming-matches-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
             </div>
 
+            <!-- Bagian B: Hasil Pertandingan Selesai -->
             <div class="pt-4 border-t border-emerald-100">
               <h3 class="text-xs font-extrabold uppercase tracking-wider text-emerald-800 mb-3 flex items-center gap-2">
                 <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -631,80 +818,107 @@
               <div id="finished-matches-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
             </div>
           </div>
+
         </section>
 
         <!-- ================================================================= -->
-        <!-- HALAMAN 3: STATUS PENDAFTARAN SEKOLAH (PUTRA & PUTRI TERPISAH)    -->
+        <!-- HALAMAN 3: STATUS PENDAFTARAN SEKOLAH (MENU TERPISAH)             -->
         <!-- ================================================================= -->
         <section id="view-status-pendaftaran" class="hidden space-y-8 animate-fade-in">
-          <div class="glass-card rounded-3xl p-5 sm:p-8 space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-emerald-200/80">
+          <div class="glass-card rounded-3xl p-5 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-emerald-200/80 mb-6">
               <div>
                 <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 mb-1.5">📋 Rekapitulasi Peserta</span>
-                <h2 class="text-xl font-extrabold text-slate-900 break-words">Status Pendaftaran Sekolah (Putra & Putri)</h2>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Daftar otomatis sekolah yang sudah dan belum mendaftar dipisahkan untuk kategori Mini Soccer Putra dan Mini Soccer Putri</p>
+                <h2 class="text-xl font-extrabold text-slate-900 break-words">Status Pendaftaran Sekolah</h2>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Daftar otomatis sekolah yang sudah mendaftar dan belum mendaftar dipisahkan berdasarkan kategori Putra & Putri</p>
               </div>
               <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
-                <span id="stat-sudah-badge" class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800">Total Tim Terdaftar: 0</span>
+                <span id="stat-sudah-badge" class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800">Sudah: 0</span>
+                <span id="stat-belum-badge" class="px-3 py-1.5 rounded-xl bg-amber-100 text-amber-800">Belum: 0</span>
               </div>
             </div>
 
-            <!-- Bagian Mini Soccer Putra -->
-            <div class="space-y-3">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <h3 class="text-sm sm:text-base font-extrabold text-emerald-950 flex items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-lg bg-emerald-700 text-white text-xs">PUTRA</span>
-                  <span>Kategori Mini Soccer Putra</span>
-                </h3>
-                <div class="flex items-center gap-2 text-xs font-bold">
-                  <span id="stat-putra-sudah-badge" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800">Sudah: 0</span>
-                  <span id="stat-putra-belum-badge" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800">Belum: 0</span>
-                </div>
-              </div>
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
-                    <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wide">Sudah Mendaftar (Putra)</h4>
-                  </div>
-                  <div id="list-sudah-putra" class="space-y-3"></div>
-                </div>
-                <div class="bg-slate-50/90 border border-slate-200 rounded-2xl p-4 sm:p-5">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
-                    <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wide">Belum Mendaftar (Putra)</h4>
-                  </div>
-                  <div id="list-belum-putra" class="space-y-2.5"></div>
-                </div>
+            <!-- Kolom Pencarian Cepat Sekolah / Tim -->
+            <div class="mb-6">
+              <div class="relative max-w-md">
+                <input type="text" id="status-search-input" oninput="window.filterStatusPendaftaran(this.value)" placeholder="Cari nama sekolah, penanggung jawab, atau cabang..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-emerald-200 bg-white text-xs sm:text-sm font-medium text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none transition" />
+                <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               </div>
             </div>
 
-            <!-- Bagian Mini Soccer Putri -->
-            <div class="pt-4 border-t border-emerald-200/70 space-y-3">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <h3 class="text-sm sm:text-base font-extrabold text-emerald-950 flex items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-lg bg-teal-700 text-white text-xs">PUTRI</span>
-                  <span>Kategori Mini Soccer Putri</span>
-                </h3>
-                <div class="flex items-center gap-2 text-xs font-bold">
-                  <span id="stat-putri-sudah-badge" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800">Sudah: 0</span>
-                  <span id="stat-putri-belum-badge" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800">Belum: 0</span>
+            <!-- Pemisahan Kategori Mini Soccer Putra & Mini Soccer Putri -->
+            <div class="space-y-8">
+              <!-- BAGIAN 1: KATEGORI MINI SOCCER PUTRA -->
+              <div class="rounded-3xl border-2 border-emerald-200/90 bg-white/60 p-4 sm:p-6 space-y-4 shadow-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-emerald-200/80">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl bg-emerald-700 text-white flex items-center justify-center text-sm font-extrabold shadow-sm shrink-0">⚽</span>
+                    <div>
+                      <h3 class="text-base sm:text-lg font-extrabold text-emerald-950">Kategori Mini Soccer Putra</h3>
+                      <p class="text-[11px] sm:text-xs text-slate-600">Rekap sekolah peserta kategori Putra</p>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-extrabold">
+                    <span id="stat-putra-sudah-badge" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800">Sudah: 0</span>
+                    <span id="stat-putra-belum-badge" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800">Belum: 0</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  <!-- Putra: Sudah Mendaftar -->
+                  <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
+                      <h4 class="text-xs sm:text-sm font-extrabold text-emerald-950 uppercase tracking-wide">Sudah Mendaftar (Putra)</h4>
+                    </div>
+                    <div id="list-sudah-daftar-putra" class="space-y-3"></div>
+                  </div>
+
+                  <!-- Putra: Belum Mendaftar -->
+                  <div class="bg-slate-50/90 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
+                      <h4 class="text-xs sm:text-sm font-extrabold text-slate-800 uppercase tracking-wide">Belum Mendaftar (Putra)</h4>
+                    </div>
+                    <div id="list-belum-daftar-putra" class="space-y-2.5"></div>
+                  </div>
                 </div>
               </div>
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
-                    <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wide">Sudah Mendaftar (Putri)</h4>
+
+              <!-- BAGIAN 2: KATEGORI MINI SOCCER PUTRI -->
+              <div class="rounded-3xl border-2 border-teal-200/90 bg-white/60 p-4 sm:p-6 space-y-4 shadow-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center text-sm font-extrabold shadow-sm shrink-0">🏆</span>
+                    <div>
+                      <h3 class="text-base sm:text-lg font-extrabold text-emerald-950">Kategori Mini Soccer Putri</h3>
+                      <p class="text-[11px] sm:text-xs text-slate-600">Rekap sekolah peserta kategori Putri</p>
+                    </div>
                   </div>
-                  <div id="list-sudah-putri" class="space-y-3"></div>
+                  <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-extrabold">
+                    <span id="stat-putri-sudah-badge" class="px-2.5 py-1 rounded-lg bg-teal-100 text-teal-800">Sudah: 0</span>
+                    <span id="stat-putri-belum-badge" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800">Belum: 0</span>
+                  </div>
                 </div>
-                <div class="bg-slate-50/90 border border-slate-200 rounded-2xl p-4 sm:p-5">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
-                    <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wide">Belum Mendaftar (Putri)</h4>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  <!-- Putri: Sudah Mendaftar -->
+                  <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-2.5 h-2.5 rounded-full bg-teal-600 shrink-0"></span>
+                      <h4 class="text-xs sm:text-sm font-extrabold text-emerald-950 uppercase tracking-wide">Sudah Mendaftar (Putri)</h4>
+                    </div>
+                    <div id="list-sudah-daftar-putri" class="space-y-3"></div>
                   </div>
-                  <div id="list-belum-putri" class="space-y-2.5"></div>
+
+                  <!-- Putri: Belum Mendaftar -->
+                  <div class="bg-slate-50/90 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
+                      <h4 class="text-xs sm:text-sm font-extrabold text-slate-800 uppercase tracking-wide">Belum Mendaftar (Putri)</h4>
+                    </div>
+                    <div id="list-belum-daftar-putri" class="space-y-2.5"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -715,6 +929,7 @@
         <!-- HALAMAN 4: PENDAFTARAN TIM (WAJIB BACA PERATURAN -> CEKLIS -> FORM) -->
         <!-- ================================================================= -->
         <section id="view-pendaftaran" class="hidden space-y-8 animate-fade-in">
+
           <!-- LANGKAH 1: WAJIB BACA PERATURAN PERTANDINGAN & PERMAINAN -->
           <div class="glass-card rounded-3xl overflow-hidden border border-emerald-200">
             <div class="bg-gradient-to-r from-emerald-700 to-emerald-800 px-5 sm:px-6 py-5 text-white">
@@ -744,6 +959,7 @@
               <div id="rule-content-pertandingan" class="bg-white border border-emerald-200/80 rounded-2xl p-4 sm:p-5 text-sm text-slate-800 leading-relaxed break-words"></div>
               <div id="rule-content-permainan" class="hidden bg-white border border-emerald-200/80 rounded-2xl p-4 sm:p-5 text-sm text-slate-800 leading-relaxed break-words"></div>
 
+              <!-- Kotak Konfirmasi Ceklis Otomatis Membuka Form Pendaftaran -->
               <div class="bg-emerald-50 p-4 sm:p-5 rounded-2xl border border-emerald-300">
                 <label class="flex items-start gap-3.5 cursor-pointer select-none">
                   <input type="checkbox" id="agree-rules-checkbox" onchange="window.handleAgreeCheckboxChange(this)" class="mt-1 w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer shrink-0" />
@@ -756,7 +972,7 @@
             </div>
           </div>
 
-          <!-- LANGKAH 2: FORMULIR PENDAFTARAN TIM -->
+          <!-- LANGKAH 2: FORMULIR PENDAFTARAN TIM (MUNCUL OTOMATIS KETIKA KONFIRMASI DICEKLIS) -->
           <div id="registration-card-wrapper" class="hidden glass-card rounded-3xl p-5 sm:p-8 animate-fade-in">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-emerald-200/80 mb-6">
               <div>
@@ -767,6 +983,7 @@
             </div>
 
             <form id="registration-form" class="space-y-5">
+              <!-- Baris 1: Nama Sekolah & Cabang Pertandingan -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label for="reg-school" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
@@ -790,6 +1007,7 @@
                 </div>
               </div>
 
+              <!-- Baris 2: Penanggung Jawab (HURUF BESAR), No WhatsApp, Kapten Tim -->
               <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div>
                   <label for="reg-pj" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
@@ -820,6 +1038,7 @@
                 </div>
               </div>
 
+              <!-- Baris 3: Jumlah Pemain (Dropdown 7-10) -->
               <div class="pt-2">
                 <label for="reg-jumlah" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                   Jumlah Pemain (Minimal 7, Maksimal 10 Pemain) <span class="text-red-500">*</span>
@@ -832,6 +1051,7 @@
                 </select>
               </div>
 
+              <!-- Baris 4: Kolom Daftar Nama Pemain Dinamis -->
               <div>
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
@@ -849,7 +1069,7 @@
                 </div>
               </div>
 
-              <!-- Pernyataan Persetujuan & Tanda Tangan Elektronik -->
+              <!-- Baris 5: Pernyataan Persetujuan & Tanda Tangan Elektronik Langsung di HP / Laptop -->
               <div class="pt-2 space-y-4">
                 <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border border-emerald-300 space-y-4">
                   <label class="flex items-start gap-3 cursor-pointer select-none">
@@ -860,6 +1080,7 @@
                     </div>
                   </label>
 
+                  <!-- Area Canvas Tanda Tangan Elektronik -->
                   <div class="space-y-2">
                     <div class="flex flex-wrap items-center justify-between gap-2">
                       <label class="block text-xs font-extrabold text-emerald-950 uppercase tracking-wider">
@@ -880,6 +1101,7 @@
                 </div>
               </div>
 
+              <!-- Tombol Kirim Pendaftaran -->
               <div class="pt-3 flex justify-end">
                 <button type="submit" id="btn-submit-reg" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2.5 transition transform active:scale-[0.99]">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
@@ -888,22 +1110,25 @@
               </div>
             </form>
           </div>
+
         </section>
 
         <!-- ================================================================= -->
         <!-- HALAMAN 5: MASUK ADMIN & PANEL KONTROL ADMIN                      -->
         <!-- ================================================================= -->
         <section id="view-admin" class="hidden space-y-6 animate-fade-in">
-          <!-- Form Login Admin -->
+
+          <!-- Form Login Admin (Muncul jika belum login) -->
           <div id="admin-login-box" class="max-w-md mx-auto glass-card rounded-3xl p-6 sm:p-8 mt-4">
             <div class="text-center mb-6">
               <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-3">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
               <h2 class="text-xl font-extrabold text-slate-900">Masuk Koordinator / Admin</h2>
-              <p class="text-xs text-slate-600 mt-1">Kelola daftar sekolah, data tim, hasil pertandingan, bagan 12 tim, peraturan, tampilan aplikasi, dan unduh dokumen panitia.</p>
+              <p class="text-xs text-slate-600 mt-1">Kelola daftar sekolah, data tim, hasil pertandingan, peraturan, tampilan aplikasi, dan unduh dokumen panitia.</p>
             </div>
 
+            <!-- Petunjuk Login Demo (HANYA muncul jika IS_PREVIEW === true) -->
             <div id="preview-login-hint"></div>
 
             <form id="admin-login-form" class="space-y-4">
@@ -921,8 +1146,9 @@
             </form>
           </div>
 
-          <!-- Panel Dashboard Admin -->
+          <!-- Panel Dashboard Admin (Muncul setelah Admin berhasil login) -->
           <div id="admin-panel-box" class="hidden space-y-6">
+            <!-- Header Panel Admin -->
             <div class="glass-card rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 mb-1">Mode Koordinator Aktif</span>
@@ -1072,13 +1298,13 @@
               <div id="admin-matches-list" class="space-y-3"></div>
             </div>
 
-            <!-- SUB-TAB 3B: EDIT BAGAN PERTANDINGAN 12 TIM + JAM BERTANDING -->
+            <!-- SUB-TAB 3B: EDIT BAGAN PERTANDINGAN 12 TIM -->
             <div id="admin-sec-bracket12" class="hidden glass-card rounded-3xl p-5 sm:p-6 space-y-6">
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-emerald-200/80">
                 <div>
-                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 mb-1">Skema Bagan 12 Tim & Waktu Main</span>
-                  <h3 class="text-lg font-extrabold text-slate-900">Kelola Bagan Pohon 12 Tim & Jam Bertanding (Putra & Putri)</h3>
-                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Atur urutan 12 tim peserta, tambah/edit/hapus jam bertanding (contoh: 08.00 - 09.00), serta isi pemenang tiap babak.</p>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 mb-1">Skema Bagan 12 Tim</span>
+                  <h3 class="text-lg font-extrabold text-slate-900">Kelola Bagan Pohon 12 Tim (Putra & Putri)</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Atur posisi 12 tim peserta (No. 1, 6, 7, 12 langsung masuk Perempat Final / Bye; No. 2 vs 3, 4 vs 5, 8 vs 9, 10 vs 11 bertanding di Babak Awal) serta isi pemenang tiap babak.</p>
                 </div>
                 <div class="flex p-1 bg-emerald-100/80 rounded-xl self-start shrink-0">
                   <button type="button" onclick="window.switchAdminBracket12Cabang('Mini Soccer Putra')" id="admin-b12-tab-putra" class="px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-white text-emerald-800 shadow-sm transition">Bagan Putra</button>
@@ -1096,126 +1322,151 @@
                   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="admin-b12-teams-grid"></div>
                 </div>
 
-                <!-- Bagian 2: Hasil Pemenang & Jam Babak Awal -->
+                <!-- Bagian 2: Hasil Pemenang Babak Awal (Play-in 8 Tim -> 4 Pemenang) -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
-                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">2. Babak Awal (Jam Main & Pemenang Laga Kualifikasi)</h4>
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">2. Jam Pertandingan &amp; Pemenang Babak Awal (Laga Kualifikasi)</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">Laga 1 (Tim 2 vs Tim 3)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-r1-time-1" placeholder="Jam Main (misal: 08.00 - 09.00)" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-r1-time-1')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-r1-1" class="block text-xs font-extrabold text-emerald-900">Laga 1 (Tim 2 vs Tim 3)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Pertandingan</span>
+                        <input type="text" id="b12-time-r1-1" placeholder="Contoh: 08.00 - 08.35 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-r1-1" list="schools-datalist" placeholder="Pemenang Laga 1" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang Laga 1</span>
+                        <input type="text" id="b12-r1-1" list="schools-datalist" placeholder="Isi pemenang Tim 2 vs Tim 3" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">Laga 2 (Tim 4 vs Tim 5)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-r1-time-2" placeholder="Jam Main (misal: 09.00 - 10.00)" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-r1-time-2')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-r1-2" class="block text-xs font-extrabold text-emerald-900">Laga 2 (Tim 4 vs Tim 5)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Pertandingan</span>
+                        <input type="text" id="b12-time-r1-2" placeholder="Contoh: 08.40 - 09.15 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-r1-2" list="schools-datalist" placeholder="Pemenang Laga 2" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang Laga 2</span>
+                        <input type="text" id="b12-r1-2" list="schools-datalist" placeholder="Isi pemenang Tim 4 vs Tim 5" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">Laga 3 (Tim 8 vs Tim 9)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-r1-time-3" placeholder="Jam Main (misal: 10.00 - 11.00)" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-r1-time-3')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-r1-3" class="block text-xs font-extrabold text-emerald-900">Laga 3 (Tim 8 vs Tim 9)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Pertandingan</span>
+                        <input type="text" id="b12-time-r1-3" placeholder="Contoh: 09.20 - 09.55 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-r1-3" list="schools-datalist" placeholder="Pemenang Laga 3" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang Laga 3</span>
+                        <input type="text" id="b12-r1-3" list="schools-datalist" placeholder="Isi pemenang Tim 8 vs Tim 9" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">Laga 4 (Tim 10 vs Tim 11)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-r1-time-4" placeholder="Jam Main (misal: 11.00 - 12.00)" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-r1-time-4')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-r1-4" class="block text-xs font-extrabold text-emerald-900">Laga 4 (Tim 10 vs Tim 11)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Pertandingan</span>
+                        <input type="text" id="b12-time-r1-4" placeholder="Contoh: 10.00 - 10.35 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-r1-4" list="schools-datalist" placeholder="Pemenang Laga 4" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang Laga 4</span>
+                        <input type="text" id="b12-r1-4" list="schools-datalist" placeholder="Isi pemenang Tim 10 vs Tim 11" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Bagian 3: Perempat Final (Jam Main & Pemenang) -->
+                <!-- Bagian 3: Pemenang Perempat Final (8 Besar -> 4 Semifinalis) -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
-                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Perempat Final (Jam Main & Pemenang Menuju Semifinal)</h4>
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Jam Pertandingan &amp; Pemenang Perempat Final (Menuju Semifinal)</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">QF 1 (Tim 1 vs Pemenang Laga 1)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-qf-time-1" placeholder="Jam Main QF 1" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-qf-time-1')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-qf-1" class="block text-xs font-extrabold text-emerald-900">QF 1 (Tim 1 vs Pemenang Laga 1)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Perempat Final 1</span>
+                        <input type="text" id="b12-time-qf-1" placeholder="Contoh: 10.45 - 11.20 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-qf-1" list="schools-datalist" placeholder="Pemenang Perempat Final 1" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang QF 1</span>
+                        <input type="text" id="b12-qf-1" list="schools-datalist" placeholder="Isi pemenang Perempat Final 1" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">QF 2 (Pemenang Laga 2 vs Tim 6)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-qf-time-2" placeholder="Jam Main QF 2" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-qf-time-2')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-qf-2" class="block text-xs font-extrabold text-emerald-900">QF 2 (Pemenang Laga 2 vs Tim 6)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Perempat Final 2</span>
+                        <input type="text" id="b12-time-qf-2" placeholder="Contoh: 11.25 - 12.00 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-qf-2" list="schools-datalist" placeholder="Pemenang Perempat Final 2" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang QF 2</span>
+                        <input type="text" id="b12-qf-2" list="schools-datalist" placeholder="Isi pemenang Perempat Final 2" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">QF 3 (Tim 7 vs Pemenang Laga 3)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-qf-time-3" placeholder="Jam Main QF 3" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-qf-time-3')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-qf-3" class="block text-xs font-extrabold text-emerald-900">QF 3 (Tim 7 vs Pemenang Laga 3)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Perempat Final 3</span>
+                        <input type="text" id="b12-time-qf-3" placeholder="Contoh: 13.00 - 13.35 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-qf-3" list="schools-datalist" placeholder="Pemenang Perempat Final 3" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang QF 3</span>
+                        <input type="text" id="b12-qf-3" list="schools-datalist" placeholder="Isi pemenang Perempat Final 3" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-emerald-900">QF 4 (Pemenang Laga 4 vs Tim 12)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-qf-time-4" placeholder="Jam Main QF 4" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-qf-time-4')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus Jam</button>
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
+                      <label id="lbl-b12-qf-4" class="block text-xs font-extrabold text-emerald-900">QF 4 (Pemenang Laga 4 vs Tim 12)</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam / Jadwal Perempat Final 4</span>
+                        <input type="text" id="b12-time-qf-4" placeholder="Contoh: 13.40 - 14.15 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-qf-4" list="schools-datalist" placeholder="Pemenang Perempat Final 4" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Pemenang QF 4</span>
+                        <input type="text" id="b12-qf-4" list="schools-datalist" placeholder="Isi pemenang Perempat Final 4" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Bagian 4: Semifinal, Partai Final & Juara 1 -->
+                <!-- Bagian 4: Pemenang Semifinal & Juara 1 -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
-                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">4. Semifinal, Partai Final & Juara Turnamen</h4>
+                  <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">4. Jam Pertandingan Semifinal, Final &amp; Juara Turnamen</h4>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
                       <label class="block text-xs font-extrabold text-emerald-900">Semifinal 1 (QF 1 vs QF 2)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-sf-time-1" placeholder="Jam Main SF 1" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-sf-time-1')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus</button>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam Semifinal 1</span>
+                        <input type="text" id="b12-time-sf-1" placeholder="Contoh: 14.30 - 15.05 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-sf-1" list="schools-datalist" placeholder="Pemenang SF 1" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Finalis Atas (Pemenang SF 1)</span>
+                        <input type="text" id="b12-sf-1" list="schools-datalist" placeholder="Pemenang SF 1" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2.5">
+                    <div class="bg-white p-3.5 rounded-xl border border-emerald-200/80 space-y-2.5">
                       <label class="block text-xs font-extrabold text-emerald-900">Semifinal 2 (QF 3 vs QF 4)</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-sf-time-2" placeholder="Jam Main SF 2" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-sf-time-2')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus</button>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam Semifinal 2</span>
+                        <input type="text" id="b12-time-sf-2" placeholder="Contoh: 15.10 - 15.45 WIB" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50/50 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
                       </div>
-                      <input type="text" id="b12-sf-2" list="schools-datalist" placeholder="Pemenang SF 2" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🏆 Finalis Bawah (Pemenang SF 2)</span>
+                        <input type="text" id="b12-sf-2" list="schools-datalist" placeholder="Pemenang SF 2" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-500" />
+                      </div>
                     </div>
-
-                    <div class="bg-amber-50/60 p-3.5 rounded-xl border-2 border-amber-400 space-y-2.5">
-                      <label class="block text-xs font-extrabold text-amber-900">🏆 Partai Final & JUARA 1</label>
-                      <div class="flex items-center gap-2">
-                        <input type="text" id="b12-final-time" placeholder="Jam Main Final" class="flex-1 px-3 py-2 rounded-lg border border-amber-300 bg-white text-xs font-semibold outline-none focus:ring-2 focus:ring-amber-500" />
-                        <button type="button" onclick="window.clearBracketTimeInput('b12-final-time')" class="px-2.5 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold shrink-0">Hapus</button>
+                    <div class="bg-white p-3.5 rounded-xl border-2 border-amber-300 space-y-2.5">
+                      <label class="block text-xs font-extrabold text-amber-800">Partai Final &amp; Juara 1</label>
+                      <div>
+                        <span class="block text-[10px] font-bold text-slate-500 uppercase mb-1">🕒 Jam Partai Final</span>
+                        <input type="text" id="b12-time-final" placeholder="Contoh: 16.00 - 16.40 WIB" class="w-full px-3 py-2 rounded-lg border border-amber-300 bg-amber-50/40 text-xs font-semibold outline-none focus:ring-2 focus:ring-amber-500" />
                       </div>
-                      <input type="text" id="b12-champion" list="schools-datalist" placeholder="Nama Tim Juara 1" class="w-full px-3 py-2 rounded-lg border border-amber-400 bg-white text-xs sm:text-sm font-extrabold text-emerald-950 outline-none focus:ring-2 focus:ring-amber-500" />
+                      <div>
+                        <span class="block text-[10px] font-extrabold text-amber-800 uppercase mb-1">🏆 JUARA 1 (Pemenang Final)</span>
+                        <input type="text" id="b12-champion" list="schools-datalist" placeholder="Nama Tim Juara 1" class="w-full px-3 py-2 rounded-lg border-2 border-amber-400 bg-amber-50/50 text-sm font-extrabold text-emerald-950 outline-none focus:ring-2 focus:ring-amber-500" />
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="flex justify-end">
                   <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-sm shadow-sm transition">
-                    Simpan Bagan 12 Tim & Waktu Main
+                    Simpan Bagan 12 Tim
                   </button>
                 </div>
               </form>
@@ -1229,6 +1480,7 @@
               </div>
 
               <form id="admin-rules-form" class="space-y-6">
+                <!-- Editor Terstruktur: Peraturan Pertandingan -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-3">
                   <div class="flex flex-wrap items-center justify-between gap-2">
                     <label class="block text-xs font-extrabold text-emerald-950 uppercase tracking-wider">1. Peraturan Pertandingan</label>
@@ -1240,6 +1492,7 @@
                   <textarea id="edit-rule-pertandingan" class="hidden"></textarea>
                 </div>
 
+                <!-- Editor Terstruktur: Peraturan Permainan -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-3">
                   <div class="flex flex-wrap items-center justify-between gap-2">
                     <label class="block text-xs font-extrabold text-emerald-950 uppercase tracking-wider">2. Peraturan Permainan</label>
@@ -1251,6 +1504,7 @@
                   <textarea id="edit-rule-permainan" class="hidden"></textarea>
                 </div>
 
+                <!-- Editor Terstruktur: Isi Surat Pernyataan yang Ditandatangani Pendaftar -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-3">
                   <div class="flex flex-wrap items-center justify-between gap-2">
                     <div>
@@ -1288,19 +1542,22 @@
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Kartu 1: Bagan Pertandingan -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-100 text-emerald-800">Bagan Turnamen</span>
                     <h4 class="text-sm sm:text-base font-extrabold text-slate-900">Bagan Pertandingan Putra & Putri</h4>
-                    <p class="text-xs text-slate-600 leading-relaxed">Unduh susunan bagan 12 tim beserta jam bertanding untuk ditempel di papan informasi lapangan.</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">Unduh susunan bagan per babak (Penyisihan, Perempat Final, Semifinal, Final) untuk ditempel di papan informasi lapangan.</p>
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('BRACKET')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Bagan (.doc)</span>
                     </button>
                   </div>
                 </div>
 
+                <!-- Kartu 2: Jadwal & Hasil Pertandingan -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-800">Jadwal & Skor</span>
@@ -1309,6 +1566,7 @@
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('SCHEDULE')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Jadwal (.doc)</span>
                     </button>
                     <button type="button" onclick="window.downloadCommitteeCsv('SCHEDULE')" class="px-3 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition">
@@ -1317,6 +1575,7 @@
                   </div>
                 </div>
 
+                <!-- Kartu 3: Data Pendaftar Tim & Roster Pemain -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-teal-100 text-teal-800">Roster & Kontak</span>
@@ -1325,6 +1584,7 @@
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('REGISTRATIONS')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Tim (.doc)</span>
                     </button>
                     <button type="button" onclick="window.downloadCommitteeCsv('REGISTRATIONS')" class="px-3 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition">
@@ -1333,6 +1593,7 @@
                   </div>
                 </div>
 
+                <!-- Kartu 4: Rekap Status Sekolah -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-slate-100 text-slate-700">Absensi Peserta</span>
@@ -1341,11 +1602,13 @@
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('SCHOOL_STATUS')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Status (.doc)</span>
                     </button>
                   </div>
                 </div>
 
+                <!-- Kartu 5: Peraturan Pertandingan & Permainan -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-100 text-emerald-800">Regulasi Resmi</span>
@@ -1354,24 +1617,28 @@
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('RULES')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Peraturan (.doc)</span>
                     </button>
                   </div>
                 </div>
 
+                <!-- Kartu 6: Surat Pernyataan Menyanggupi Mentaati Peraturan (Bertanda Tangan Elektronik) -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-800">Surat Pernyataan & TTD</span>
                     <h4 class="text-sm sm:text-base font-extrabold text-slate-900">Surat Pernyataan Mentaati Peraturan</h4>
-                    <p class="text-xs text-slate-600 leading-relaxed">Unduh dokumen resmi surat pernyataan kesanggupan mentaati peraturan lengkap dengan barcode tanda tangan elektronik tim pendaftar.</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">Unduh dokumen resmi surat pernyataan kesanggupan mentaati peraturan pertandingan & permainan lengkap dengan barcode tanda tangan elektronik tim pendaftar.</p>
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('STATEMENTS')" class="flex-1 px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Surat Pernyataan (.doc)</span>
                     </button>
                   </div>
                 </div>
 
+                <!-- Kartu 7: Laporan Lengkap Semua Keperluan Panitia -->
                 <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border-2 border-emerald-300 shadow-sm flex flex-col justify-between gap-4">
                   <div class="space-y-1.5">
                     <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-400 text-emerald-950">Paket Lengkap</span>
@@ -1380,6 +1647,7 @@
                   </div>
                   <div class="flex flex-wrap gap-2 pt-1">
                     <button type="button" onclick="window.downloadCommitteeDocument('ALL')" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-950 text-white text-xs font-extrabold transition flex items-center justify-center gap-1.5 shadow-sm">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                       <span>Download Paket Lengkap (.doc)</span>
                     </button>
                   </div>
@@ -1401,6 +1669,7 @@
               </div>
 
               <form id="admin-appearance-form" class="space-y-5">
+                <!-- Pengaturan Logo & Nama Utama -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
                   <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">1. Identitas & Upload Logo Aplikasi (Live dari Perangkat)</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1414,6 +1683,7 @@
                     </div>
                   </div>
 
+                  <!-- Upload Logo Langsung dari Laptop / HP -->
                   <div class="bg-white border border-emerald-200 rounded-2xl p-4 space-y-3">
                     <label class="block text-xs font-bold text-slate-700 uppercase">Upload Logo Aplikasi / Kegiatan (Dari Laptop / HP)</label>
                     <div class="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -1438,6 +1708,7 @@
                   </div>
                 </div>
 
+                <!-- Pengaturan Header Utama Stadion -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
                   <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">2. Tampilan Banner Utama (Header Halaman)</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1456,6 +1727,7 @@
                   </div>
                 </div>
 
+                <!-- Pengaturan Info Sidebar, Kop Dokumen & Footer -->
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-4">
                   <h4 class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">3. Kartu Info Arena, Kop Cetak & Teks Footer Aplikasi</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1485,12 +1757,13 @@
                 </div>
               </form>
             </div>
+
           </div>
         </section>
 
-        <!-- Footer Kredit Aplikasi -->
+        <!-- Footer Kredit Aplikasi (Transparan & Terbaca di Mode Terang maupun Gelap) -->
         <footer class="pt-4 pb-6 text-center bg-transparent">
-          <p id="app-footer-text" class="app-footer-text text-xs font-semibold tracking-wide break-words select-none">
+          <p id="app-footer-text" class="text-xs font-semibold tracking-wide break-words select-none">
             Kreatif by Asep Sahidin @Ketua Ranting Semesta 2026
           </p>
         </footer>
@@ -1508,74 +1781,23 @@
 
     // PASTE FIREBASE CONFIG ANDA DI SINI
     const firebaseConfig = {
-  apiKey: "AIzaSyBx6R26uHwRPksouZkzL64z1evEGcTjNSc",
-  authDomain: "minsokpgri.firebaseapp.com",
-  projectId: "minsokpgri",
-  storageBucket: "minsokpgri.firebasestorage.app",
-  messagingSenderId: "822721450375",
-  appId: "1:822721450375:web:2bb1fc352cf11f8c1f4322"
+      apiKey: "AIzaSyBx6R26uHwRPksouZkzL64z1evEGcTjNSc",
+      authDomain: "minsokpgri.firebaseapp.com",
+      projectId: "minsokpgri",
+      storageBucket: "minsokpgri.firebasestorage.app",
+      messagingSenderId: "822721450375",
+      appId: "1:822721450375:web:2bb1fc352cf11f8c1f4322"
     };
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import {
-      getAuth,
-      signInWithEmailAndPassword,
-      signInAnonymously,
-      signInWithCustomToken,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import {
-      getFirestore,
-      collection,
-      doc,
-      addDoc,
-      setDoc,
-      updateDoc,
-      deleteDoc,
-      onSnapshot,
-      serverTimestamp
+      getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc,
+      onSnapshot, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     // =========================================================================
-    // 1. KONFIGURASI ENVIRONMENT & INISIALISASI FIREBASE
-    // =========================================================================
-    const hasValidManualConfig =
-      firebaseConfig.apiKey &&
-      !firebaseConfig.apiKey.startsWith("TEMPEL_");
-
-    const resolvedFirebaseConfig =
-      typeof __firebase_config !== "undefined" && __firebase_config
-        ? JSON.parse(__firebase_config)
-        : hasValidManualConfig
-          ? firebaseConfig
-          : null;
-
-    const APP_ID = typeof __app_id !== "undefined" ? __app_id : "mini-soccer-pgri";
-    let app = null;
-    let auth = null;
-    let db = null;
-
-    if (!IS_PREVIEW && resolvedFirebaseConfig) {
-      try {
-        app = initializeApp(resolvedFirebaseConfig);
-        auth = getAuth(app);
-        db = getFirestore(app);
-      } catch (e) {
-        console.error("Firebase init error:", e);
-      }
-    }
-
-    function getPublicCollection(colName) {
-      return collection(db, "artifacts", APP_ID, "public", "data", colName);
-    }
-
-    function getPublicDoc(colName, docId) {
-      return doc(db, "artifacts", APP_ID, "public", "data", colName, docId);
-    }
-
-    // =========================================================================
-    // 2. PENGATURAN TEMA TERANG / GELAP (LIGHT / DARK THEME)
+    // 0. PENGATURAN TEMA TERANG / GELAP (LIGHT / DARK THEME)
     // =========================================================================
     let currentColorTheme = "light";
     try {
@@ -1590,9 +1812,12 @@
       const htmlEl = document.documentElement;
       const metaTheme = document.querySelector('meta[name="theme-color"]');
 
-      htmlEl.setAttribute("data-theme", currentColorTheme);
-      if (metaTheme) {
-        metaTheme.setAttribute("content", currentColorTheme === "dark" ? "#022c22" : "#059669");
+      if (currentColorTheme === "dark") {
+        htmlEl.classList.add("dark-theme");
+        if (metaTheme) metaTheme.setAttribute("content", "#041510");
+      } else {
+        htmlEl.classList.remove("dark-theme");
+        if (metaTheme) metaTheme.setAttribute("content", "#059669");
       }
 
       document.querySelectorAll(".theme-icon").forEach((el) => {
@@ -1614,13 +1839,17 @@
     applyColorTheme(currentColorTheme);
 
     // =========================================================================
-    // 3. SERVICE WORKER PWA DINAMIS VIA BLOB
+    // 1. SERVICE WORKER PWA DINAMIS VIA BLOB
     // =========================================================================
     if ("serviceWorker" in navigator) {
       const swCode = `
         const CACHE_NAME = 'minisoccer-pgri-v1';
-        self.addEventListener('install', (e) => { e.skipWaiting(); });
-        self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
+        self.addEventListener('install', (e) => {
+          e.skipWaiting();
+        });
+        self.addEventListener('activate', (e) => {
+          e.waitUntil(clients.claim());
+        });
         self.addEventListener('fetch', (e) => {
           e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
         });
@@ -1631,7 +1860,7 @@
     }
 
     // =========================================================================
-    // 4. DEKLARASI STATE UTAMA & DATA DUMMY (STRICT DUAL-MODE)
+    // 2. DEKLARASI STATE UTAMA & DATA DUMMY (STRICT DUAL-MODE)
     // =========================================================================
     const DEFAULT_RULES = {
       pertandingan: `1. Peserta adalah guru/tenaga kependidikan aktif yang terdaftar pada sekolah peserta HUT PGRI.\n2. Setiap sekolah dapat mengirimkan maksimal 1 tim Mini Soccer Putra dan 1 tim Mini Soccer Putri.\n3. Jumlah pemain yang didaftarkan minimal 7 orang dan maksimal 10 orang per tim.\n4. Sistem pertandingan menggunakan sistem gugur (knock-out) dengan waktu 2 x 15 menit.\n5. Tim wajib hadir di lapangan 15 menit sebelum jadwal kick-off. Keterlambatan lebih dari 10 menit dinyatakan Walk Out (WO).\n6. Keputusan panitia dan wasit bersifat mutlak dan tidak dapat diganggu gugat.`,
@@ -1667,14 +1896,14 @@
         "SUKASARI",
         "SUKARAJA"
       ],
+      r1Times: ["", "", "", ""],
       r1Winners: ["", "", "", ""],
-      r1Times: ["08.00 - 09.00", "09.00 - 10.00", "10.00 - 11.00", "11.00 - 12.00"],
+      qfTimes: ["", "", "", ""],
       qfWinners: ["", "", "", ""],
-      qfTimes: ["12.30 - 13.15", "13.15 - 14.00", "14.00 - 14.45", "14.45 - 15.30"],
+      sfTimes: ["", ""],
       sfWinners: ["", ""],
-      sfTimes: ["15.45 - 16.30", "16.30 - 17.15"],
-      champion: "",
-      finalTime: "17.30 - 18.15"
+      finalTime: "",
+      champion: ""
     };
 
     const DEFAULT_BRACKET_12_PUTRI = {
@@ -1692,14 +1921,14 @@
         "SUKASARI",
         "SUKARAJA"
       ],
+      r1Times: ["", "", "", ""],
       r1Winners: ["", "", "", ""],
-      r1Times: ["08.00 - 09.00", "09.00 - 10.00", "10.00 - 11.00", "11.00 - 12.00"],
+      qfTimes: ["", "", "", ""],
       qfWinners: ["", "", "", ""],
-      qfTimes: ["12.30 - 13.15", "13.15 - 14.00", "14.00 - 14.45", "14.45 - 15.30"],
+      sfTimes: ["", ""],
       sfWinners: ["", ""],
-      sfTimes: ["15.45 - 16.30", "16.30 - 17.15"],
-      champion: "",
-      finalTime: "17.30 - 18.15"
+      finalTime: "",
+      champion: ""
     };
 
     function createSampleSignatureDataUrl() {
@@ -1727,18 +1956,8 @@
     const state = {
       schools: IS_PREVIEW
         ? [
-            { id: "sch-1", nama_sekolah: "TALAGASARI" },
-            { id: "sch-2", nama_sekolah: "2 SMP" },
-            { id: "sch-3", nama_sekolah: "SMA / SMK" },
-            { id: "sch-4", nama_sekolah: "SUKAKERTA" },
-            { id: "sch-5", nama_sekolah: "HIMPAUDI" },
-            { id: "sch-6", nama_sekolah: "1 SMP" },
-            { id: "sch-7", nama_sekolah: "BOJONG KASIH" },
-            { id: "sch-8", nama_sekolah: "WARGAASIH" },
-            { id: "sch-9", nama_sekolah: "KADUPANDAK" },
-            { id: "sch-10", nama_sekolah: "WARGASARI" },
-            { id: "sch-11", nama_sekolah: "SUKASARI" },
-            { id: "sch-12", nama_sekolah: "SUKARAJA" }
+            { id: "sch-1", nama_sekolah: "SDN 01 NEGERI HARAPAN" },
+            { id: "sch-2", nama_sekolah: "SMPN 02 TUNAS BANGSA" }
           ]
         : [],
       registrations: IS_PREVIEW
@@ -1746,7 +1965,7 @@
             {
               id: "reg-1",
               school_id: "sch-1",
-              nama_sekolah: "TALAGASARI",
+              nama_sekolah: "SDN 01 NEGERI HARAPAN",
               cabang: "Mini Soccer Putra",
               penanggung_jawab: "AHMAD FAUZI, S.PD",
               no_wa: "081234567890",
@@ -1774,9 +1993,9 @@
               status: "LIVE",
               babak: "Penyisihan",
               tanggal: "08.30 - 09.05 WIB",
-              tim_a: "2 SMP",
+              tim_a: "SDN 01 NEGERI HARAPAN",
               skor_a: 2,
-              tim_b: "SMA / SMK",
+              tim_b: "SMPN 02 TUNAS BANGSA",
               skor_b: 1
             },
             {
@@ -1785,9 +2004,9 @@
               status: "UPCOMING",
               babak: "Penyisihan",
               tanggal: "09.15 - 09.50 WIB",
-              tim_a: "TALAGASARI",
+              tim_a: "SDN 01 NEGERI HARAPAN",
               skor_a: 0,
-              tim_b: "1 SMP",
+              tim_b: "SMPN 02 TUNAS BANGSA",
               skor_b: 0
             }
           ]
@@ -1800,16 +2019,19 @@
       }
     };
 
+    let db = null;
+    let auth = null;
     let isAdminAuthenticated = false;
     let currentAdminEmail = "";
     let currentMatchFilter = "ALL";
     let currentBracketCabang = "Mini Soccer Putra";
     let currentAdminB12Cabang = "Mini Soccer Putra";
+    let currentStatusSearchQuery = "";
     let hasReadPertandingan = true;
     let hasReadPermainan = false;
 
     // =========================================================================
-    // 5. HELPER UTILITAS (ESCAPE HTML, TOAST, POP-UP ANIMASI, KONFIRMASI)
+    // 3. HELPER UTILITAS (ESCAPE HTML, TOAST, POP-UP ANIMASI, KONFIRMASI)
     // =========================================================================
     function escapeHtml(str) {
       if (str === null || str === undefined) return "";
@@ -1895,9 +2117,9 @@
           cancelBtn.classList.add("hidden");
         }
 
-        card.classList.remove("animate-pop-spring");
+        card.classList.remove("animate-center-pop");
         void card.offsetWidth;
-        card.classList.add("animate-pop-spring");
+        card.classList.add("animate-center-pop");
 
         modal.classList.remove("hidden");
         modal.classList.add("flex");
@@ -1924,7 +2146,7 @@
         const cancelBtn = document.getElementById("confirm-cancel-btn");
 
         if (!modal || !okBtn || !cancelBtn) {
-          resolve(true);
+          resolve(false);
           return;
         }
 
@@ -1947,7 +2169,7 @@
     }
 
     // =========================================================================
-    // 6. PREVIEW INDICATORS & INISIALISASI FIREBASE PRODUKSI
+    // 4. PREVIEW INDICATORS & INISIALISASI FIREBASE PRODUKSI
     // =========================================================================
     function renderPreviewIndicators() {
       const bannerEl = document.getElementById("preview-banner-container");
@@ -1979,33 +2201,26 @@
       }
     }
 
-    async function initFirebaseProduction() {
-      if (IS_PREVIEW || !auth || !db) return;
+    function initFirebaseProduction() {
+      if (IS_PREVIEW) return;
 
       try {
-        if (typeof __initial_auth_token !== "undefined" && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        } else if (!auth.currentUser) {
-          await signInAnonymously(auth);
-        }
-      } catch (authErr) {
-        console.warn("Anonymous auth notice:", authErr.message);
-      }
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
 
-      onAuthStateChanged(auth, (user) => {
-        if (user && !user.isAnonymous) {
-          isAdminAuthenticated = true;
-          currentAdminEmail = user.email || "Admin";
-        } else {
-          isAdminAuthenticated = false;
-          currentAdminEmail = "";
-        }
-        updateAdminUIState();
-      });
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            isAdminAuthenticated = true;
+            currentAdminEmail = user.email || "Admin";
+          } else {
+            isAdminAuthenticated = false;
+            currentAdminEmail = "";
+          }
+          updateAdminUIState();
+        });
 
-      onSnapshot(
-        getPublicCollection("schools"),
-        (snap) => {
+        onSnapshot(collection(db, "schools"), (snap) => {
           const list = [];
           snap.forEach((docSnap) => {
             list.push({ id: docSnap.id, ...docSnap.data() });
@@ -2014,28 +2229,22 @@
           state.schools = list;
           renderSchoolDropdowns();
           renderRegistrationStatus();
+          renderDashboardStats();
           if (isAdminAuthenticated) renderAdminLists();
-        },
-        (err) => console.warn("Schools listener:", err.message)
-      );
+        });
 
-      onSnapshot(
-        getPublicCollection("registrations"),
-        (snap) => {
+        onSnapshot(collection(db, "registrations"), (snap) => {
           const list = [];
           snap.forEach((docSnap) => {
             list.push({ id: docSnap.id, ...docSnap.data() });
           });
           state.registrations = list;
           renderRegistrationStatus();
+          renderDashboardStats();
           if (isAdminAuthenticated) renderAdminLists();
-        },
-        (err) => console.warn("Registrations listener:", err.message)
-      );
+        });
 
-      onSnapshot(
-        getPublicCollection("matches"),
-        (snap) => {
+        onSnapshot(collection(db, "matches"), (snap) => {
           const list = [];
           snap.forEach((docSnap) => {
             list.push({ id: docSnap.id, ...docSnap.data() });
@@ -2043,15 +2252,11 @@
           state.matches = list;
           renderMatchesSection();
           renderTournamentBracket();
-          renderDashboardScheduleSection();
+          renderDashboardStats();
           if (isAdminAuthenticated) renderAdminLists();
-        },
-        (err) => console.warn("Matches listener:", err.message)
-      );
+        });
 
-      onSnapshot(
-        getPublicDoc("settings", "rules"),
-        (docSnap) => {
+        onSnapshot(doc(db, "settings", "rules"), (docSnap) => {
           if (docSnap.exists()) {
             const d = docSnap.data();
             state.rules = {
@@ -2061,24 +2266,16 @@
             };
             renderRules();
           }
-        },
-        (err) => console.warn("Rules listener:", err.message)
-      );
+        });
 
-      onSnapshot(
-        getPublicDoc("settings", "appearance"),
-        (docSnap) => {
+        onSnapshot(doc(db, "settings", "appearance"), (docSnap) => {
           if (docSnap.exists()) {
             state.appearance = { ...DEFAULT_APPEARANCE, ...docSnap.data() };
             renderAppearance();
           }
-        },
-        (err) => console.warn("Appearance listener:", err.message)
-      );
+        });
 
-      onSnapshot(
-        getPublicDoc("settings", "bracket12"),
-        (docSnap) => {
+        onSnapshot(doc(db, "settings", "bracket12"), (docSnap) => {
           if (docSnap.exists()) {
             const data = docSnap.data();
             if (data.putra) {
@@ -2094,16 +2291,16 @@
               };
             }
             renderBracket12Tree();
-            renderDashboardScheduleSection();
             renderAdminBracket12Form();
           }
-        },
-        (err) => console.warn("Bracket12 listener:", err.message)
-      );
+        });
+      } catch (err) {
+        showToast("Konfigurasi Firebase belum valid: " + err.message, "error");
+      }
     }
 
     // =========================================================================
-    // 7. NAVIGASI MENU UTAMA (DESKTOP & MOBILE)
+    // 5. NAVIGASI MENU UTAMA (DESKTOP & MOBILE)
     // =========================================================================
     function switchMainView(viewName) {
       const views = {
@@ -2156,26 +2353,52 @@
       switchMainView("bagan-jadwal");
     };
 
+    window.goToStatusPendaftaran = function() {
+      switchMainView("status-pendaftaran");
+    };
+
+    function renderDashboardStats() {
+      const elSchools = document.getElementById("dash-stat-schools");
+      const elTeams = document.getElementById("dash-stat-teams");
+      const elTeamsSub = document.getElementById("dash-stat-teams-sub");
+      const elLive = document.getElementById("dash-stat-live");
+      const elMatches = document.getElementById("dash-stat-matches");
+      const elMatchesSub = document.getElementById("dash-stat-matches-sub");
+
+      const putraCount = state.registrations.filter((r) => r.cabang === "Mini Soccer Putra").length;
+      const putriCount = state.registrations.filter((r) => r.cabang === "Mini Soccer Putri").length;
+      const liveCount = state.matches.filter((m) => m.status === "LIVE").length;
+      const finishedCount = state.matches.filter((m) => m.status === "FINISHED").length;
+      const upcomingCount = state.matches.filter((m) => m.status === "UPCOMING").length;
+
+      if (elSchools) elSchools.textContent = String(state.schools.length);
+      if (elTeams) elTeams.textContent = String(state.registrations.length);
+      if (elTeamsSub) elTeamsSub.textContent = `${putraCount} Putra • ${putriCount} Putri`;
+      if (elLive) elLive.textContent = String(liveCount);
+      if (elMatches) elMatches.textContent = String(state.matches.length);
+      if (elMatchesSub) elMatchesSub.textContent = `${finishedCount} Selesai • ${upcomingCount} Jadwal`;
+    }
+
     // =========================================================================
-    // 8. RENDERING TAMPILAN & UPLOAD LOGO LANGSUNG
+    // 6. RENDERING TAMPILAN & UPLOAD LOGO LANGSUNG
     // =========================================================================
     function renderAppearance() {
-      const appInfo = state.appearance;
-      document.title = `${appInfo.appTitle} — Portal Pendaftaran & Pertandingan`;
+      const app = state.appearance;
+      document.title = `${app.appTitle} - Portal Pendaftaran & Pertandingan`;
 
       const setText = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.textContent = val;
       };
 
-      setText("app-sidebar-title", appInfo.appTitle);
-      setText("app-sidebar-subtitle", appInfo.appSubtitle);
-      setText("app-header-badge", appInfo.headerBadge);
-      setText("app-header-title", appInfo.headerTitle);
-      setText("app-header-subtitle", appInfo.headerSubtitle);
-      setText("app-arena-title", appInfo.arenaTitle);
-      setText("app-arena-desc", appInfo.arenaDesc);
-      setText("app-footer-text", appInfo.footerText || DEFAULT_APPEARANCE.footerText);
+      setText("app-sidebar-title", app.appTitle);
+      setText("app-sidebar-subtitle", app.appSubtitle);
+      setText("app-header-badge", app.headerBadge);
+      setText("app-header-title", app.headerTitle);
+      setText("app-header-subtitle", app.headerSubtitle);
+      setText("app-arena-title", app.arenaTitle);
+      setText("app-arena-desc", app.arenaDesc);
+      setText("app-footer-text", app.footerText || DEFAULT_APPEARANCE.footerText);
 
       const defaultSvgSidebar = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
       const defaultSvgHeader = `<svg class="w-7 h-7 sm:w-8 sm:h-8 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7l3 2.2-1.1 3.5H10.1L9 9.2 12 7zm0-5v5m6.9 2.5L15 9.2m1.5 8.3l-2.6-4.8m-6.4 4.8l2.6-4.8M5.1 9.5L9 9.2"/></svg>`;
@@ -2184,9 +2407,9 @@
         const box = document.getElementById(boxId);
         if (!box) return;
         box.innerHTML = "";
-        if (appInfo.logoUrl) {
+        if (app.logoUrl) {
           const img = document.createElement("img");
-          img.src = appInfo.logoUrl;
+          img.src = app.logoUrl;
           img.alt = "Logo Aplikasi";
           img.className = "w-full h-full object-cover";
           img.onerror = () => {
@@ -2204,23 +2427,23 @@
 
       const removeLogoBtn = document.getElementById("btn-remove-uploaded-logo");
       if (removeLogoBtn) {
-        removeLogoBtn.classList.toggle("hidden", !appInfo.logoUrl);
+        removeLogoBtn.classList.toggle("hidden", !app.logoUrl);
       }
 
       const setInputVal = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.value = val || "";
       };
-      setInputVal("set-app-title", appInfo.appTitle);
-      setInputVal("set-app-subtitle", appInfo.appSubtitle);
-      setInputVal("set-logo-url", appInfo.logoUrl);
-      setInputVal("set-header-badge", appInfo.headerBadge);
-      setInputVal("set-header-title", appInfo.headerTitle);
-      setInputVal("set-header-subtitle", appInfo.headerSubtitle);
-      setInputVal("set-arena-title", appInfo.arenaTitle);
-      setInputVal("set-arena-desc", appInfo.arenaDesc);
-      setInputVal("set-doc-header", appInfo.docHeader);
-      setInputVal("set-footer-text", appInfo.footerText);
+      setInputVal("set-app-title", app.appTitle);
+      setInputVal("set-app-subtitle", app.appSubtitle);
+      setInputVal("set-logo-url", app.logoUrl);
+      setInputVal("set-header-badge", app.headerBadge);
+      setInputVal("set-header-title", app.headerTitle);
+      setInputVal("set-header-subtitle", app.headerSubtitle);
+      setInputVal("set-arena-title", app.arenaTitle);
+      setInputVal("set-arena-desc", app.arenaDesc);
+      setInputVal("set-doc-header", app.docHeader);
+      setInputVal("set-footer-text", app.footerText);
     }
 
     window.handleLogoFileUpload = function(event) {
@@ -2275,7 +2498,7 @@
     };
 
     // =========================================================================
-    // 9. RENDERING PERATURAN
+    // 7. RENDERING PERATURAN (DASHBOARD DROPDOWN, PENDAFTARAN, & EDITOR ADMIN)
     // =========================================================================
     function formatNumberedRuleHtml(text) {
       const lines = String(text || "")
@@ -2458,7 +2681,7 @@
     };
 
     // =========================================================================
-    // 10. FORMULIR PENDAFTARAN TIM, KOLOM PEMAIN DINAMIS & TANDA TANGAN CANVAS
+    // 8. FORMULIR PENDAFTARAN TIM, KOLOM PEMAIN DINAMIS & TANDA TANGAN CANVAS
     // =========================================================================
     function renderSchoolDropdowns() {
       const regSelect = document.getElementById("reg-school");
@@ -2527,6 +2750,7 @@
       });
     }
 
+    // Canvas Tanda Tangan Elektronik
     let sigCanvas = null;
     let sigCtx = null;
     let isDrawingSig = false;
@@ -2672,7 +2896,7 @@
             state.registrations.push({ id: "reg-" + Date.now(), ...payload });
             renderAll();
           } else {
-            await addDoc(getPublicCollection("registrations"), {
+            await addDoc(collection(db, "registrations"), {
               ...payload,
               createdAt: serverTimestamp()
             });
@@ -2701,7 +2925,7 @@
     }
 
     // =========================================================================
-    // 11. RENDERING BAGAN 12 TIM + JAM BERTANDING & BAGAN RINCIAN BABAK
+    // 9. RENDERING BAGAN 12 TIM & BAGAN RINCIAN BABAK
     // =========================================================================
     window.switchBracketCabang = function(cabang) {
       currentBracketCabang = cabang;
@@ -2725,29 +2949,58 @@
 
       const data = state.bracket12[currentBracketCabang] || DEFAULT_BRACKET_12_PUTRA;
       const t = data.teams || [];
+      const r1Times = data.r1Times || ["", "", "", ""];
       const r1 = data.r1Winners || ["", "", "", ""];
-      const r1T = data.r1Times || ["", "", "", ""];
+      const qfTimes = data.qfTimes || ["", "", "", ""];
       const qf = data.qfWinners || ["", "", "", ""];
-      const qfT = data.qfTimes || ["", "", "", ""];
+      const sfTimes = data.sfTimes || ["", ""];
       const sf = data.sfWinners || ["", ""];
-      const sfT = data.sfTimes || ["", ""];
+      const finalTime = data.finalTime || "";
       const champ = data.champion || "";
-      const fTime = data.finalTime || "";
 
-      const teamSlot = (num, name, isBye = false) => `
-        <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-xl border ${isBye ? "bg-amber-50/90 border-amber-300" : "bg-white border-emerald-200"} shadow-sm">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="w-5 h-5 rounded-md ${isBye ? "bg-amber-400 text-emerald-950" : "bg-emerald-700 text-white"} text-[10px] font-extrabold flex items-center justify-center shrink-0">${num}</span>
-            <span class="text-xs font-extrabold text-slate-900 break-words leading-snug">${escapeHtml(name || `TIM ${num}`)}</span>
+      const timeBadgeHtml = (timeStr, tone = "emerald") => {
+        const toneStyles = {
+          emerald: "bg-emerald-100 text-emerald-950 border-emerald-400",
+          teal: "bg-teal-100 text-teal-950 border-teal-400",
+          sky: "bg-sky-100 text-sky-950 border-sky-400",
+          indigo: "bg-indigo-100 text-indigo-950 border-indigo-400",
+          amber: "bg-amber-100 text-amber-950 border-amber-400"
+        };
+        return timeStr
+          ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-extrabold border shadow-sm ${toneStyles[tone] || toneStyles.emerald}">🕒 ${escapeHtml(timeStr)}</span>`
+          : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100/90 text-slate-500 border border-slate-200">🕒 Jam belum diatur</span>`;
+      };
+
+      const teamSlot = (num, name, isBye = false, accent = "emerald") => {
+        const borderAccent = isBye
+          ? "bg-amber-50/95 border-amber-300"
+          : accent === "teal"
+          ? "bg-white border-teal-300"
+          : accent === "sky"
+          ? "bg-white border-sky-300"
+          : accent === "indigo"
+          ? "bg-white border-indigo-300"
+          : "bg-white border-emerald-300";
+        const badgeAccent = isBye
+          ? "bg-amber-400 text-emerald-950"
+          : accent === "teal"
+          ? "bg-teal-700 text-white"
+          : accent === "sky"
+          ? "bg-sky-700 text-white"
+          : accent === "indigo"
+          ? "bg-indigo-700 text-white"
+          : "bg-emerald-700 text-white";
+
+        return `
+          <div class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl border ${borderAccent} shadow-sm">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-lg ${badgeAccent} text-[11px] font-extrabold flex items-center justify-center shrink-0">${num}</span>
+              <span class="text-xs sm:text-[13px] font-extrabold text-slate-900 break-words leading-snug">${escapeHtml(name || `TIM ${num}`)}</span>
+            </div>
+            ${isBye ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-200 text-amber-950 shrink-0">BYE ➔</span>` : ""}
           </div>
-          ${isBye ? `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-200 text-amber-950 shrink-0">BYE ➔</span>` : ""}
-        </div>
-      `;
-
-      const timeBadge = (timeStr) =>
-        timeStr && timeStr.trim()
-          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 text-[10px] font-extrabold">🕒 ${escapeHtml(timeStr)}</span>`
-          : "";
+        `;
+      };
 
       const advSlot = (label, winnerName, highlight = false) => `
         <div class="px-3 py-2 rounded-xl border ${highlight ? "bg-amber-50 border-amber-400" : "bg-white border-emerald-300"} shadow-sm">
@@ -2764,7 +3017,8 @@
       `;
 
       container.innerHTML = `
-        <div class="min-w-[980px] bg-emerald-50/75 border border-emerald-200 rounded-2xl p-4 sm:p-5">
+        <div class="min-w-[1040px] bg-emerald-50/75 border border-emerald-200 rounded-2xl p-4 sm:p-5">
+          <!-- Penunjuk Arah Alur Turnamen -->
           <div class="flex items-center justify-between gap-2 mb-4 px-3 py-2 rounded-xl bg-white/90 border border-emerald-200 text-[11px] font-extrabold text-emerald-900">
             <span>1. Babak Awal (12 Tim)</span>
             <span class="text-emerald-600">━━━━▶</span>
@@ -2776,51 +3030,71 @@
           </div>
 
           <div class="flex items-stretch gap-2">
-            <!-- KOLOM 1: 12 TIM PESERTA -->
+            <!-- KOLOM 1: 12 TIM PESERTA (BABAK AWAL) -->
             <div class="flex-1 flex flex-col justify-between space-y-3">
               <div class="text-center pb-1.5 border-b border-emerald-200">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">1. Babak Awal (12 Tim)</span>
               </div>
-              <div class="space-y-2.5">
-                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-200/80 space-y-2">
+              <div class="space-y-3">
+                <!-- Grup Atas (1-6) -->
+                <div class="p-3 rounded-2xl bg-white/85 border border-emerald-200/90 space-y-3 shadow-sm">
                   ${teamSlot(1, t[0], true)}
-                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
-                    ${teamSlot(2, t[1], false)}
-                    <div class="flex flex-wrap items-center justify-between gap-1 text-[9px] font-extrabold text-emerald-700 pl-1">
-                      <span>VS (Laga 1 ➔ QF 1)</span>
-                      ${timeBadge(r1T[0])}
+
+                  <!-- LAGA 1 (Aksen Emerald) -->
+                  <div class="p-2.5 rounded-xl bg-emerald-50/80 border-l-4 border-emerald-600 border border-emerald-200 space-y-2">
+                    <div class="flex flex-col gap-1.5">
+                      <span class="self-start px-2 py-0.5 rounded-md bg-emerald-700 text-white text-[10px] font-extrabold uppercase tracking-wide">LAGA 1 ➔ QF 1</span>
+                      <div>${timeBadgeHtml(r1Times[0], "emerald")}</div>
                     </div>
-                    ${teamSlot(3, t[2], false)}
-                  </div>
-                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
-                    ${teamSlot(4, t[3], false)}
-                    <div class="flex flex-wrap items-center justify-between gap-1 text-[9px] font-extrabold text-emerald-700 pl-1">
-                      <span>VS (Laga 2 ➔ QF 2)</span>
-                      ${timeBadge(r1T[1])}
+                    <div class="space-y-1.5">
+                      ${teamSlot(2, t[1], false, "emerald")}
+                      ${teamSlot(3, t[2], false, "emerald")}
                     </div>
-                    ${teamSlot(5, t[4], false)}
                   </div>
+
+                  <!-- LAGA 2 (Aksen Teal) -->
+                  <div class="p-2.5 rounded-xl bg-teal-50/80 border-l-4 border-teal-600 border border-teal-200 space-y-2">
+                    <div class="flex flex-col gap-1.5">
+                      <span class="self-start px-2 py-0.5 rounded-md bg-teal-700 text-white text-[10px] font-extrabold uppercase tracking-wide">LAGA 2 ➔ QF 2</span>
+                      <div>${timeBadgeHtml(r1Times[1], "teal")}</div>
+                    </div>
+                    <div class="space-y-1.5">
+                      ${teamSlot(4, t[3], false, "teal")}
+                      ${teamSlot(5, t[4], false, "teal")}
+                    </div>
+                  </div>
+
                   ${teamSlot(6, t[5], true)}
                 </div>
 
-                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-200/80 space-y-2">
+                <!-- Grup Bawah (7-12) -->
+                <div class="p-3 rounded-2xl bg-white/85 border border-emerald-200/90 space-y-3 shadow-sm">
                   ${teamSlot(7, t[6], true)}
-                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
-                    ${teamSlot(8, t[7], false)}
-                    <div class="flex flex-wrap items-center justify-between gap-1 text-[9px] font-extrabold text-emerald-700 pl-1">
-                      <span>VS (Laga 3 ➔ QF 3)</span>
-                      ${timeBadge(r1T[2])}
+
+                  <!-- LAGA 3 (Aksen Sky) -->
+                  <div class="p-2.5 rounded-xl bg-sky-50/80 border-l-4 border-sky-600 border border-sky-200 space-y-2">
+                    <div class="flex flex-col gap-1.5">
+                      <span class="self-start px-2 py-0.5 rounded-md bg-sky-700 text-white text-[10px] font-extrabold uppercase tracking-wide">LAGA 3 ➔ QF 3</span>
+                      <div>${timeBadgeHtml(r1Times[2], "sky")}</div>
                     </div>
-                    ${teamSlot(9, t[8], false)}
-                  </div>
-                  <div class="pl-2 border-l-2 border-emerald-500 space-y-1">
-                    ${teamSlot(10, t[9], false)}
-                    <div class="flex flex-wrap items-center justify-between gap-1 text-[9px] font-extrabold text-emerald-700 pl-1">
-                      <span>VS (Laga 4 ➔ QF 4)</span>
-                      ${timeBadge(r1T[3])}
+                    <div class="space-y-1.5">
+                      ${teamSlot(8, t[7], false, "sky")}
+                      ${teamSlot(9, t[8], false, "sky")}
                     </div>
-                    ${teamSlot(11, t[10], false)}
                   </div>
+
+                  <!-- LAGA 4 (Aksen Indigo) -->
+                  <div class="p-2.5 rounded-xl bg-indigo-50/80 border-l-4 border-indigo-600 border border-indigo-200 space-y-2">
+                    <div class="flex flex-col gap-1.5">
+                      <span class="self-start px-2 py-0.5 rounded-md bg-indigo-700 text-white text-[10px] font-extrabold uppercase tracking-wide">LAGA 4 ➔ QF 4</span>
+                      <div>${timeBadgeHtml(r1Times[3], "indigo")}</div>
+                    </div>
+                    <div class="space-y-1.5">
+                      ${teamSlot(10, t[9], false, "indigo")}
+                      ${teamSlot(11, t[10], false, "indigo")}
+                    </div>
+                  </div>
+
                   ${teamSlot(12, t[11], true)}
                 </div>
               </div>
@@ -2828,40 +3102,40 @@
 
             ${flowArrowHtml}
 
-            <!-- KOLOM 2: PEREMPAT FINAL -->
+            <!-- KOLOM 2: PEREMPAT FINAL (8 BESAR) -->
             <div class="flex-1 flex flex-col justify-between space-y-3">
               <div class="text-center pb-1.5 border-b border-emerald-200">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">2. Perempat Final</span>
               </div>
               <div class="flex-1 flex flex-col justify-around gap-3 py-1">
-                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 1 ➔ SF 1</span>
-                    ${timeBadge(qfT[0])}
+                <div class="p-3 rounded-2xl bg-white/90 border-l-4 border-emerald-600 border border-emerald-200 space-y-2 shadow-sm">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-900 text-[10px] font-extrabold uppercase">QF 1 ➔ Semifinal 1</span>
+                    <div>${timeBadgeHtml(qfTimes[0], "emerald")}</div>
                   </div>
                   ${advSlot("Tim 1 (Bye)", t[0])}
                   ${advSlot("Pemenang 2 vs 3", r1[0])}
                 </div>
-                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 2 ➔ SF 1</span>
-                    ${timeBadge(qfT[1])}
+                <div class="p-3 rounded-2xl bg-white/90 border-l-4 border-teal-600 border border-teal-200 space-y-2 shadow-sm">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2 py-0.5 rounded-md bg-teal-100 text-teal-900 text-[10px] font-extrabold uppercase">QF 2 ➔ Semifinal 1</span>
+                    <div>${timeBadgeHtml(qfTimes[1], "teal")}</div>
                   </div>
                   ${advSlot("Pemenang 4 vs 5", r1[1])}
                   ${advSlot("Tim 6 (Bye)", t[5])}
                 </div>
-                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 3 ➔ SF 2</span>
-                    ${timeBadge(qfT[2])}
+                <div class="p-3 rounded-2xl bg-white/90 border-l-4 border-sky-600 border border-sky-200 space-y-2 shadow-sm">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2 py-0.5 rounded-md bg-sky-100 text-sky-900 text-[10px] font-extrabold uppercase">QF 3 ➔ Semifinal 2</span>
+                    <div>${timeBadgeHtml(qfTimes[2], "sky")}</div>
                   </div>
                   ${advSlot("Tim 7 (Bye)", t[6])}
                   ${advSlot("Pemenang 8 vs 9", r1[2])}
                 </div>
-                <div class="p-2.5 rounded-2xl bg-white/80 border border-emerald-300 space-y-1.5">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[9px] font-extrabold text-emerald-800 uppercase">QF 4 ➔ SF 2</span>
-                    ${timeBadge(qfT[3])}
+                <div class="p-3 rounded-2xl bg-white/90 border-l-4 border-indigo-600 border border-indigo-200 space-y-2 shadow-sm">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-900 text-[10px] font-extrabold uppercase">QF 4 ➔ Semifinal 2</span>
+                    <div>${timeBadgeHtml(qfTimes[3], "indigo")}</div>
                   </div>
                   ${advSlot("Pemenang 10 vs 11", r1[3])}
                   ${advSlot("Tim 12 (Bye)", t[11])}
@@ -2871,25 +3145,25 @@
 
             ${flowArrowHtml}
 
-            <!-- KOLOM 3: SEMIFINAL -->
+            <!-- KOLOM 3: SEMIFINAL (4 BESAR) -->
             <div class="flex-1 flex flex-col justify-between space-y-3">
               <div class="text-center pb-1.5 border-b border-emerald-200">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">3. Semifinal</span>
               </div>
               <div class="flex-1 flex flex-col justify-around gap-6 py-4">
-                <div class="p-3 rounded-2xl bg-white/90 border-2 border-emerald-300 space-y-2 shadow-sm">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[10px] font-extrabold text-emerald-800 uppercase">Semifinal 1 ➔ Final</span>
-                    ${timeBadge(sfT[0])}
+                <div class="p-3.5 rounded-2xl bg-white/95 border-l-4 border-emerald-700 border-2 border-emerald-200 space-y-2 shadow-sm">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2 py-0.5 rounded-md bg-emerald-700 text-white text-[10px] font-extrabold uppercase">Semifinal 1 ➔ Final</span>
+                    <div>${timeBadgeHtml(sfTimes[0], "emerald")}</div>
                   </div>
                   ${advSlot("Pemenang QF 1", qf[0])}
                   <div class="text-center text-[10px] font-extrabold text-slate-400">VS</div>
                   ${advSlot("Pemenang QF 2", qf[1])}
                 </div>
-                <div class="p-3 rounded-2xl bg-white/90 border-2 border-emerald-300 space-y-2 shadow-sm">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[10px] font-extrabold text-emerald-800 uppercase">Semifinal 2 ➔ Final</span>
-                    ${timeBadge(sfT[1])}
+                <div class="p-3.5 rounded-2xl bg-white/95 border-l-4 border-sky-700 border-2 border-sky-200 space-y-2 shadow-sm">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2 py-0.5 rounded-md bg-sky-700 text-white text-[10px] font-extrabold uppercase">Semifinal 2 ➔ Final</span>
+                    <div>${timeBadgeHtml(sfTimes[1], "sky")}</div>
                   </div>
                   ${advSlot("Pemenang QF 3", qf[2])}
                   <div class="text-center text-[10px] font-extrabold text-slate-400">VS</div>
@@ -2908,10 +3182,10 @@
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-950">4. Final &amp; Juara</span>
               </div>
               <div class="flex-1 flex flex-col justify-center gap-3 py-4">
-                <div class="p-3.5 rounded-2xl bg-white border-2 border-amber-300 space-y-2 shadow-md">
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="text-[10px] font-extrabold text-amber-800 uppercase">Partai Final</span>
-                    ${timeBadge(fTime)}
+                <div class="p-3.5 rounded-2xl bg-white border-l-4 border-amber-500 border-2 border-amber-300 space-y-2 shadow-md">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start px-2.5 py-0.5 rounded-md bg-amber-400 text-emerald-950 text-[10px] font-extrabold uppercase">Partai Final</span>
+                    <div>${timeBadgeHtml(finalTime, "amber")}</div>
                   </div>
                   ${advSlot("Finalis 1 (Pemenang SF 1)", sf[0])}
                   <div class="text-center text-[10px] font-extrabold text-amber-600">VS</div>
@@ -2985,84 +3259,119 @@
     }
 
     // =========================================================================
-    // 12. RENDERING STATUS PENDAFTARAN (PUTRA & PUTRI TERPISAH)
+    // 10. RENDERING STATUS PENDAFTARAN OTOMATIS (DIPISAH PUTRA & PUTRI)
     // =========================================================================
+    window.filterStatusPendaftaran = function(query) {
+      currentStatusSearchQuery = String(query || "").trim().toLowerCase();
+      renderRegistrationStatus();
+    };
+
     function renderRegistrationStatus() {
+      const sudahPutraContainer = document.getElementById("list-sudah-daftar-putra");
+      const belumPutraContainer = document.getElementById("list-belum-daftar-putra");
+      const sudahPutriContainer = document.getElementById("list-sudah-daftar-putri");
+      const belumPutriContainer = document.getElementById("list-belum-daftar-putri");
+
       const badgeSudah = document.getElementById("stat-sudah-badge");
+      const badgeBelum = document.getElementById("stat-belum-badge");
+      const badgePutraSudah = document.getElementById("stat-putra-sudah-badge");
+      const badgePutraBelum = document.getElementById("stat-putra-belum-badge");
+      const badgePutriSudah = document.getElementById("stat-putri-sudah-badge");
+      const badgePutriBelum = document.getElementById("stat-putri-belum-badge");
+
+      if (!sudahPutraContainer || !belumPutraContainer || !sudahPutriContainer || !belumPutriContainer) return;
+
+      const putraRegs = state.registrations.filter((r) => r.cabang === "Mini Soccer Putra");
+      const putriRegs = state.registrations.filter((r) => r.cabang === "Mini Soccer Putri");
+
+      const putraRegisteredSet = new Set(putraRegs.map((r) => r.nama_sekolah));
+      const putriRegisteredSet = new Set(putriRegs.map((r) => r.nama_sekolah));
+
+      const belumPutraSchools = state.schools.filter((s) => !putraRegisteredSet.has(s.nama_sekolah));
+      const belumPutriSchools = state.schools.filter((s) => !putriRegisteredSet.has(s.nama_sekolah));
+
       if (badgeSudah) badgeSudah.textContent = `Total Tim Terdaftar: ${state.registrations.length}`;
+      if (badgeBelum) badgeBelum.textContent = `Slot Belum Terisi: ${belumPutraSchools.length + belumPutriSchools.length}`;
+      if (badgePutraSudah) badgePutraSudah.textContent = `Sudah: ${putraRegs.length}`;
+      if (badgePutraBelum) badgePutraBelum.textContent = `Belum: ${belumPutraSchools.length}`;
+      if (badgePutriSudah) badgePutriSudah.textContent = `Sudah: ${putriRegs.length}`;
+      if (badgePutriBelum) badgePutriBelum.textContent = `Belum: ${belumPutriSchools.length}`;
 
-      const categories = [
-        {
-          cabang: "Mini Soccer Putra",
-          sudahId: "list-sudah-putra",
-          belumId: "list-belum-putra",
-          badgeSudahId: "stat-putra-sudah-badge",
-          badgeBelumId: "stat-putra-belum-badge",
-          badgeColor: "bg-emerald-100 text-emerald-800"
-        },
-        {
-          cabang: "Mini Soccer Putri",
-          sudahId: "list-sudah-putri",
-          belumId: "list-belum-putri",
-          badgeSudahId: "stat-putri-sudah-badge",
-          badgeBelumId: "stat-putri-belum-badge",
-          badgeColor: "bg-teal-100 text-teal-800"
+      const q = currentStatusSearchQuery;
+      const matchRegQuery = (reg) => {
+        if (!q) return true;
+        return (
+          (reg.nama_sekolah || "").toLowerCase().includes(q) ||
+          (reg.penanggung_jawab || "").toLowerCase().includes(q) ||
+          (reg.kapten || "").toLowerCase().includes(q) ||
+          (reg.cabang || "").toLowerCase().includes(q)
+        );
+      };
+      const matchSchoolQuery = (sch) => {
+        if (!q) return true;
+        return (sch.nama_sekolah || "").toLowerCase().includes(q);
+      };
+
+      const renderRegisteredCards = (list, emptyMsg) => {
+        if (list.length === 0) {
+          return `<div class="p-4 rounded-xl bg-white/80 border border-emerald-200/70 text-xs text-slate-500 text-center">${escapeHtml(emptyMsg)}</div>`;
         }
-      ];
-
-      categories.forEach((cfg) => {
-        const sudahEl = document.getElementById(cfg.sudahId);
-        const belumEl = document.getElementById(cfg.belumId);
-        const bSudah = document.getElementById(cfg.badgeSudahId);
-        const bBelum = document.getElementById(cfg.badgeBelumId);
-        if (!sudahEl || !belumEl) return;
-
-        const catRegs = state.registrations.filter((r) => r.cabang === cfg.cabang);
-        const registeredSet = new Set(catRegs.map((r) => r.nama_sekolah));
-        const belumSchools = state.schools.filter((s) => !registeredSet.has(s.nama_sekolah));
-
-        if (bSudah) bSudah.textContent = `Sudah: ${catRegs.length}`;
-        if (bBelum) bBelum.textContent = `Belum: ${belumSchools.length}`;
-
-        if (catRegs.length === 0) {
-          sudahEl.innerHTML = `<div class="p-4 rounded-xl bg-white/80 border border-emerald-200/70 text-xs text-slate-500 text-center">Belum ada tim sekolah yang mendaftar pada kategori ${escapeHtml(cfg.cabang)}.</div>`;
-        } else {
-          sudahEl.innerHTML = catRegs
-            .map(
-              (reg) => `
-                <div class="p-3.5 rounded-xl bg-white border border-emerald-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                  <div class="min-w-0">
-                    <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-extrabold ${cfg.badgeColor} mb-1">${escapeHtml(reg.cabang)}</span>
-                    <h4 class="text-sm font-extrabold text-slate-900 break-words">${escapeHtml(reg.nama_sekolah)}</h4>
-                    <p class="text-xs text-slate-600 mt-0.5 break-words">PJ: <span class="font-bold">${escapeHtml(reg.penanggung_jawab)}</span> • Kapten: ${escapeHtml(reg.kapten)} (${reg.jumlah_pemain} Pemain)</p>
-                  </div>
-                  <button type="button" onclick="window.openDetailModal('${escapeHtml(reg.id)}')" class="self-start sm:self-center px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 transition shrink-0">
-                    Lihat Pemain
-                  </button>
+        return list
+          .map((reg) => {
+            const isPutra = reg.cabang === "Mini Soccer Putra";
+            const badgeClass = isPutra ? "bg-emerald-100 text-emerald-800" : "bg-teal-100 text-teal-800";
+            return `
+              <div class="p-3.5 rounded-xl bg-white border border-emerald-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div class="min-w-0">
+                  <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-extrabold ${badgeClass} mb-1">${escapeHtml(reg.cabang)}</span>
+                  <h4 class="text-sm font-extrabold text-slate-900 break-words">${escapeHtml(reg.nama_sekolah)}</h4>
+                  <p class="text-xs text-slate-600 mt-0.5 break-words">PJ: <span class="font-bold">${escapeHtml(reg.penanggung_jawab)}</span> • Kapten: ${escapeHtml(reg.kapten)} (${reg.jumlah_pemain} Pemain)</p>
                 </div>
-              `
-            )
-            .join("");
-        }
+                <button type="button" onclick="window.openDetailModal('${escapeHtml(reg.id)}')" class="self-start sm:self-center px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 transition shrink-0">
+                  Lihat Pemain
+                </button>
+              </div>
+            `;
+          })
+          .join("");
+      };
 
-        if (belumSchools.length === 0) {
-          belumEl.innerHTML = `<div class="p-4 rounded-xl bg-white/80 border border-slate-200 text-xs text-emerald-700 font-semibold text-center">Semua sekolah yang diundang sudah mendaftar pada kategori ini!</div>`;
-        } else {
-          belumEl.innerHTML = belumSchools
-            .map(
-              (s, idx) => `
-                <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start justify-between gap-2.5">
-                  <div class="flex items-start gap-2 min-w-0">
-                    <span class="w-6 shrink-0 text-xs sm:text-sm font-extrabold text-slate-600 text-right">${idx + 1}.</span>
-                    <span class="text-xs sm:text-sm font-bold text-slate-800 break-words leading-snug">${escapeHtml(s.nama_sekolah)}</span>
-                  </div>
-                  <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 text-amber-800 shrink-0">Belum Daftar</span>
-                </div>
-              `
-            )
-            .join("");
+      const renderUnregisteredRows = (list, emptyMsg) => {
+        if (list.length === 0) {
+          return `<div class="p-4 rounded-xl bg-white/80 border border-slate-200 text-xs text-emerald-700 font-semibold text-center">${escapeHtml(emptyMsg)}</div>`;
         }
-      });
+        return list
+          .map(
+            (s, idx) => `
+              <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start justify-between gap-2.5">
+                <div class="flex items-start gap-2 min-w-0">
+                  <span class="w-6 shrink-0 text-xs sm:text-sm font-extrabold text-slate-600 text-right">${idx + 1}.</span>
+                  <span class="text-xs sm:text-sm font-bold text-slate-800 break-words leading-snug">${escapeHtml(s.nama_sekolah)}</span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 text-amber-800 shrink-0">Belum Daftar</span>
+              </div>
+            `
+          )
+          .join("");
+      };
+
+      sudahPutraContainer.innerHTML = renderRegisteredCards(
+        putraRegs.filter(matchRegQuery),
+        "Belum ada tim sekolah yang mendaftar kategori Putra."
+      );
+      belumPutraContainer.innerHTML = renderUnregisteredRows(
+        belumPutraSchools.filter(matchSchoolQuery),
+        "Semua sekolah sudah mendaftar kategori Putra!"
+      );
+
+      sudahPutriContainer.innerHTML = renderRegisteredCards(
+        putriRegs.filter(matchRegQuery),
+        "Belum ada tim sekolah yang mendaftar kategori Putri."
+      );
+      belumPutriContainer.innerHTML = renderUnregisteredRows(
+        belumPutriSchools.filter(matchSchoolQuery),
+        "Semua sekolah sudah mendaftar kategori Putri!"
+      );
     }
 
     window.openDetailModal = function(regId) {
@@ -3111,7 +3420,7 @@
     };
 
     // =========================================================================
-    // 13. RENDERING LIVE SCORE, JADWAL PERTANDINGAN & JADWAL DI DASHBOARD
+    // 11. RENDERING LIVE SCORE & JADWAL PERTANDINGAN
     // =========================================================================
     window.filterMatches = function(filter) {
       currentMatchFilter = filter;
@@ -3203,80 +3512,10 @@
           ? `<div class="col-span-full p-5 rounded-2xl bg-white/80 border border-slate-200 text-center text-xs text-slate-500">Belum ada pertandingan yang selesai.</div>`
           : finishedMatches.map(createMatchCardHtml).join("");
       }
-
-      renderDashboardScheduleSection();
-    }
-
-    function renderDashboardScheduleSection() {
-      const dashSchedContainer = document.getElementById("dashboard-schedule-container");
-      if (!dashSchedContainer) return;
-
-      const scheduleCards = [];
-
-      // 1. Jadwal pertandingan selanjutnya & berlangsung dari menu Bagan & Jadwal
-      state.matches
-        .filter((m) => m.status === "UPCOMING" || m.status === "LIVE")
-        .forEach((m) => {
-          scheduleCards.push(createMatchCardHtml(m));
-        });
-
-      // 2. Jam bertanding yang diisi Admin pada Bagan Pohon 12 Tim
-      ["Mini Soccer Putra", "Mini Soccer Putri"].forEach((cabang) => {
-        const b12 = state.bracket12[cabang];
-        if (!b12) return;
-        const t = b12.teams || [];
-        const r1 = b12.r1Winners || ["", "", "", ""];
-        const r1T = b12.r1Times || ["", "", "", ""];
-        const qf = b12.qfWinners || ["", "", "", ""];
-        const qfT = b12.qfTimes || ["", "", "", ""];
-        const sf = b12.sfWinners || ["", ""];
-        const sfT = b12.sfTimes || ["", ""];
-
-        const bracketTimedSlots = [
-          { time: r1T[0], babak: "Babak Awal (Laga 1)", timA: t[1] || "Tim 2", timB: t[2] || "Tim 3" },
-          { time: r1T[1], babak: "Babak Awal (Laga 2)", timA: t[3] || "Tim 4", timB: t[4] || "Tim 5" },
-          { time: r1T[2], babak: "Babak Awal (Laga 3)", timA: t[7] || "Tim 8", timB: t[8] || "Tim 9" },
-          { time: r1T[3], babak: "Babak Awal (Laga 4)", timA: t[9] || "Tim 10", timB: t[10] || "Tim 11" },
-          { time: qfT[0], babak: "Perempat Final 1", timA: t[0] || "Tim 1 (Bye)", timB: r1[0] || "Pemenang Laga 1" },
-          { time: qfT[1], babak: "Perempat Final 2", timA: r1[1] || "Pemenang Laga 2", timB: t[5] || "Tim 6 (Bye)" },
-          { time: qfT[2], babak: "Perempat Final 3", timA: t[6] || "Tim 7 (Bye)", timB: r1[2] || "Pemenang Laga 3" },
-          { time: qfT[3], babak: "Perempat Final 4", timA: r1[3] || "Pemenang Laga 4", timB: t[11] || "Tim 12 (Bye)" },
-          { time: sfT[0], babak: "Semifinal 1", timA: qf[0] || "Pemenang QF 1", timB: qf[1] || "Pemenang QF 2" },
-          { time: sfT[1], babak: "Semifinal 2", timA: qf[2] || "Pemenang QF 3", timB: qf[3] || "Pemenang QF 4" },
-          { time: b12.finalTime, babak: "Partai Final", timA: sf[0] || "Pemenang SF 1", timB: sf[1] || "Pemenang SF 2" }
-        ];
-
-        bracketTimedSlots.forEach((slot) => {
-          if (slot.time && slot.time.trim()) {
-            scheduleCards.push(`
-              <div class="rounded-2xl bg-white border border-emerald-200/90 p-3.5 sm:p-4 shadow-sm space-y-2">
-                <div class="flex flex-wrap items-center justify-between gap-1.5 text-xs border-b border-slate-100 pb-2">
-                  <div class="flex flex-wrap items-center gap-1.5">
-                    <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-900">🕒 ${escapeHtml(slot.time)}</span>
-                    <span class="font-bold text-emerald-800">${escapeHtml(cabang)}</span>
-                  </div>
-                  <span class="text-[11px] font-semibold text-slate-500">Bagan • ${escapeHtml(slot.babak)}</span>
-                </div>
-                <div class="flex items-center justify-between gap-2 pt-0.5 text-xs sm:text-sm font-extrabold text-slate-900">
-                  <span class="break-words flex-1">${escapeHtml(slot.timA)}</span>
-                  <span class="px-2 py-0.5 rounded bg-emerald-950 text-white text-[11px] shrink-0">VS</span>
-                  <span class="break-words flex-1 text-right">${escapeHtml(slot.timB)}</span>
-                </div>
-              </div>
-            `);
-          }
-        });
-      });
-
-      if (scheduleCards.length === 0) {
-        dashSchedContainer.innerHTML = `<div class="col-span-full p-5 rounded-2xl bg-white/80 border border-slate-200 text-center text-xs text-slate-500">Belum ada waktu pertandingan yang dijadwalkan pada menu Bagan & Jadwal.</div>`;
-      } else {
-        dashSchedContainer.innerHTML = scheduleCards.join("");
-      }
     }
 
     // =========================================================================
-    // 14. AUTENTIKASI ADMIN, SUB-TAB PANEL ADMIN & BAGAN 12 TIM ADMIN
+    // 12. AUTENTIKASI ADMIN, SUB-TAB PANEL ADMIN & BAGAN 12 TIM ADMIN
     // =========================================================================
     function updateAdminUIState() {
       const loginBox = document.getElementById("admin-login-box");
@@ -3361,7 +3600,6 @@
         }
         try {
           await signOut(auth);
-          await signInAnonymously(auth);
           await showCenterPopup({
             badge: "Sesi Berakhir",
             title: "Berhasil Keluar Admin",
@@ -3429,14 +3667,6 @@
       renderAdminBracket12Form();
     };
 
-    window.clearBracketTimeInput = function(inputId) {
-      const el = document.getElementById(inputId);
-      if (el) {
-        el.value = "";
-        showToast("Jam bertanding dihapus. Klik 'Simpan Bagan 12 Tim' untuk menerapkan.", "info");
-      }
-    };
-
     function renderAdminBracket12Form() {
       const grid = document.getElementById("admin-b12-teams-grid");
       if (!grid) return;
@@ -3461,46 +3691,44 @@
         })
         .join("");
 
+      const r1Times = data.r1Times || ["", "", "", ""];
       const r1 = data.r1Winners || ["", "", "", ""];
-      const r1T = data.r1Times || ["", "", "", ""];
+      const qfTimes = data.qfTimes || ["", "", "", ""];
       const qf = data.qfWinners || ["", "", "", ""];
-      const qfT = data.qfTimes || ["", "", "", ""];
+      const sfTimes = data.sfTimes || ["", ""];
       const sf = data.sfWinners || ["", ""];
-      const sfT = data.sfTimes || ["", ""];
 
       const setVal = (id, v) => {
         const el = document.getElementById(id);
         if (el) el.value = v || "";
       };
 
+      setVal("b12-time-r1-1", r1Times[0]);
+      setVal("b12-time-r1-2", r1Times[1]);
+      setVal("b12-time-r1-3", r1Times[2]);
+      setVal("b12-time-r1-4", r1Times[3]);
+
       setVal("b12-r1-1", r1[0]);
       setVal("b12-r1-2", r1[1]);
       setVal("b12-r1-3", r1[2]);
       setVal("b12-r1-4", r1[3]);
 
-      setVal("b12-r1-time-1", r1T[0]);
-      setVal("b12-r1-time-2", r1T[1]);
-      setVal("b12-r1-time-3", r1T[2]);
-      setVal("b12-r1-time-4", r1T[3]);
+      setVal("b12-time-qf-1", qfTimes[0]);
+      setVal("b12-time-qf-2", qfTimes[1]);
+      setVal("b12-time-qf-3", qfTimes[2]);
+      setVal("b12-time-qf-4", qfTimes[3]);
 
       setVal("b12-qf-1", qf[0]);
       setVal("b12-qf-2", qf[1]);
       setVal("b12-qf-3", qf[2]);
       setVal("b12-qf-4", qf[3]);
 
-      setVal("b12-qf-time-1", qfT[0]);
-      setVal("b12-qf-time-2", qfT[1]);
-      setVal("b12-qf-time-3", qfT[2]);
-      setVal("b12-qf-time-4", qfT[3]);
-
+      setVal("b12-time-sf-1", sfTimes[0]);
+      setVal("b12-time-sf-2", sfTimes[1]);
       setVal("b12-sf-1", sf[0]);
       setVal("b12-sf-2", sf[1]);
-
-      setVal("b12-sf-time-1", sfT[0]);
-      setVal("b12-sf-time-2", sfT[1]);
-
+      setVal("b12-time-final", data.finalTime || "");
       setVal("b12-champion", data.champion || "");
-      setVal("b12-final-time", data.finalTime || "");
     }
 
     const bracket12Form = document.getElementById("admin-bracket12-form");
@@ -3525,14 +3753,14 @@
 
         const updatedB12 = {
           teams,
+          r1Times: [getRaw("b12-time-r1-1"), getRaw("b12-time-r1-2"), getRaw("b12-time-r1-3"), getRaw("b12-time-r1-4")],
           r1Winners: [getUpper("b12-r1-1"), getUpper("b12-r1-2"), getUpper("b12-r1-3"), getUpper("b12-r1-4")],
-          r1Times: [getRaw("b12-r1-time-1"), getRaw("b12-r1-time-2"), getRaw("b12-r1-time-3"), getRaw("b12-r1-time-4")],
+          qfTimes: [getRaw("b12-time-qf-1"), getRaw("b12-time-qf-2"), getRaw("b12-time-qf-3"), getRaw("b12-time-qf-4")],
           qfWinners: [getUpper("b12-qf-1"), getUpper("b12-qf-2"), getUpper("b12-qf-3"), getUpper("b12-qf-4")],
-          qfTimes: [getRaw("b12-qf-time-1"), getRaw("b12-qf-time-2"), getRaw("b12-qf-time-3"), getRaw("b12-qf-time-4")],
+          sfTimes: [getRaw("b12-time-sf-1"), getRaw("b12-time-sf-2")],
           sfWinners: [getUpper("b12-sf-1"), getUpper("b12-sf-2")],
-          sfTimes: [getRaw("b12-sf-time-1"), getRaw("b12-sf-time-2")],
-          champion: getUpper("b12-champion"),
-          finalTime: getRaw("b12-final-time")
+          finalTime: getRaw("b12-time-final"),
+          champion: getUpper("b12-champion")
         };
 
         state.bracket12[currentAdminB12Cabang] = updatedB12;
@@ -3540,10 +3768,9 @@
         try {
           if (IS_PREVIEW) {
             renderBracket12Tree();
-            renderDashboardScheduleSection();
           } else {
             await setDoc(
-              getPublicDoc("settings", "bracket12"),
+              doc(db, "settings", "bracket12"),
               {
                 putra: state.bracket12["Mini Soccer Putra"],
                 putri: state.bracket12["Mini Soccer Putri"],
@@ -3553,9 +3780,9 @@
             );
           }
           await showCenterPopup({
-            badge: "Bagan & Jadwal Diperbarui",
-            title: "Bagan 12 Tim Disimpan!",
-            message: `Susunan bagan 12 tim dan jam bertanding kategori ${currentAdminB12Cabang} telah diperbarui dan tampil di Bagan & Dashboard.`,
+            badge: "Bagan Diperbarui",
+            title: "Bagan & Jam Pertandingan Disimpan!",
+            message: `Susunan bagan 12 tim beserta jam pertandingan kategori ${currentAdminB12Cabang} telah berhasil diperbarui.`,
             variant: "success"
           });
         } catch (err) {
@@ -3565,7 +3792,7 @@
     }
 
     // =========================================================================
-    // 15. CRUD ADMIN: DAFTAR SEKOLAH, DATA TIM, PERTANDINGAN, PERATURAN, TAMPILAN
+    // 13. CRUD ADMIN: DAFTAR SEKOLAH, DATA TIM, PERTANDINGAN, PERATURAN, TAMPILAN
     // =========================================================================
     const addSchoolForm = document.getElementById("admin-add-school-form");
     if (addSchoolForm) {
@@ -3586,7 +3813,7 @@
             state.schools.sort((a, b) => a.nama_sekolah.localeCompare(b.nama_sekolah));
             renderAll();
           } else {
-            await addDoc(getPublicCollection("schools"), {
+            await addDoc(collection(db, "schools"), {
               nama_sekolah: nama,
               createdAt: serverTimestamp()
             });
@@ -3613,7 +3840,7 @@
           state.schools = state.schools.filter((s) => s.id !== id);
           renderAll();
         } else {
-          await deleteDoc(getPublicDoc("schools", id));
+          await deleteDoc(doc(db, "schools", id));
         }
         showToast("Sekolah berhasil dihapus.", "success");
       } catch (err) {
@@ -3669,10 +3896,10 @@
             });
             renderAll();
           } else {
-            await updateDoc(getPublicDoc("schools", id), { nama_sekolah: newName });
+            await updateDoc(doc(db, "schools", id), { nama_sekolah: newName });
             const relatedRegs = state.registrations.filter((r) => r.school_id === id || r.nama_sekolah === oldName);
             for (const reg of relatedRegs) {
-              await updateDoc(getPublicDoc("registrations", reg.id), { nama_sekolah: newName });
+              await updateDoc(doc(db, "registrations", reg.id), { nama_sekolah: newName });
             }
           }
 
@@ -3762,7 +3989,7 @@
             }
             renderAll();
           } else {
-            await updateDoc(getPublicDoc("registrations", id), updatedData);
+            await updateDoc(doc(db, "registrations", id), updatedData);
           }
           window.closeEditRegModal();
           await showCenterPopup({
@@ -3786,7 +4013,7 @@
           state.registrations = state.registrations.filter((r) => r.id !== id);
           renderAll();
         } else {
-          await deleteDoc(getPublicDoc("registrations", id));
+          await deleteDoc(doc(db, "registrations", id));
         }
         showToast("Data pendaftaran tim berhasil dihapus.", "success");
       } catch (err) {
@@ -3822,9 +4049,9 @@
             renderAll();
           } else {
             if (editId) {
-              await updateDoc(getPublicDoc("matches", editId), payload);
+              await updateDoc(doc(db, "matches", editId), payload);
             } else {
-              await addDoc(getPublicCollection("matches"), { ...payload, createdAt: serverTimestamp() });
+              await addDoc(collection(db, "matches"), { ...payload, createdAt: serverTimestamp() });
             }
           }
           window.resetMatchForm();
@@ -3876,7 +4103,7 @@
           state.matches = state.matches.filter((m) => m.id !== id);
           renderAll();
         } else {
-          await deleteDoc(getPublicDoc("matches", id));
+          await deleteDoc(doc(db, "matches", id));
         }
         showToast("Data pertandingan berhasil dihapus.", "success");
       } catch (err) {
@@ -3909,7 +4136,7 @@
             renderRules();
           } else {
             await setDoc(
-              getPublicDoc("settings", "rules"),
+              doc(db, "settings", "rules"),
               {
                 peraturan_pertandingan: peraturanPertandingan,
                 peraturan_permainan: peraturanPermainan,
@@ -3919,6 +4146,7 @@
               { merge: true }
             );
           }
+          showToast("Peraturan & isi surat pernyataan berhasil disimpan!", "success");
           await showCenterPopup({
             badge: "Data Terkirim",
             title: "Peraturan & Pernyataan Disimpan!",
@@ -3931,7 +4159,7 @@
       });
     }
 
-    // Simpan Pengaturan Tampilan
+    // Simpan Pengaturan Tampilan, Nama Aplikasi, Logo & Footer Admin
     const appearanceForm = document.getElementById("admin-appearance-form");
     if (appearanceForm) {
       appearanceForm.addEventListener("submit", async (e) => {
@@ -3956,7 +4184,7 @@
             renderAppearance();
           } else {
             await setDoc(
-              getPublicDoc("settings", "appearance"),
+              doc(db, "settings", "appearance"),
               {
                 ...updatedAppearance,
                 updatedAt: serverTimestamp()
@@ -3964,6 +4192,7 @@
               { merge: true }
             );
           }
+          showToast("Pengaturan tampilan, nama aplikasi, logo & footer berhasil diperbarui!", "success");
           await showCenterPopup({
             badge: "Pengaturan Terkirim",
             title: "Tampilan Aplikasi Diperbarui!",
@@ -3986,7 +4215,7 @@
           renderAppearance();
         } else {
           await setDoc(
-            getPublicDoc("settings", "appearance"),
+            doc(db, "settings", "appearance"),
             {
               ...DEFAULT_APPEARANCE,
               updatedAt: serverTimestamp()
@@ -4001,7 +4230,7 @@
     };
 
     // =========================================================================
-    // 16. FITUR DOWNLOAD DOKUMEN & KEPERLUAN PANITIA (ADMIN)
+    // 14. FITUR DOWNLOAD DOKUMEN & KEPERLUAN PANITIA (ADMIN)
     // =========================================================================
     function generateEmbeddedQrCodeDataUrl(text) {
       try {
@@ -4088,15 +4317,14 @@
         ${categories.map((cat) => {
           const b12 = state.bracket12[cat] || DEFAULT_BRACKET_12_PUTRA;
           const t = b12.teams || [];
+          const r1Times = b12.r1Times || ["", "", "", ""];
           const r1 = b12.r1Winners || ["", "", "", ""];
-          const r1T = b12.r1Times || ["", "", "", ""];
+          const qfTimes = b12.qfTimes || ["", "", "", ""];
           const qf = b12.qfWinners || ["", "", "", ""];
-          const qfT = b12.qfTimes || ["", "", "", ""];
+          const sfTimes = b12.sfTimes || ["", ""];
           const sf = b12.sfWinners || ["", ""];
-          const sfT = b12.sfTimes || ["", ""];
+          const finalTime = b12.finalTime || "";
           const catMatches = state.matches.filter((m) => m.cabang === cat);
-
-          const fmtTime = (tm) => (tm && tm.trim() ? ` <em>[${escapeHtml(tm)}]</em>` : "");
 
           const b12TableHtml = `
             <h3>Skema Bagan 12 Tim — ${escapeHtml(cat)}</h3>
@@ -4113,20 +4341,20 @@
                 <tr>
                   <td>
                     1. <strong>${escapeHtml(t[0] || "")}</strong> <em>(BYE)</em><br/>
-                    2. ${escapeHtml(t[1] || "")} vs 3. ${escapeHtml(t[2] || "")}${fmtTime(r1T[0])}<br/>
-                    4. ${escapeHtml(t[3] || "")} vs 5. ${escapeHtml(t[4] || "")}${fmtTime(r1T[1])}<br/>
+                    2. ${escapeHtml(t[1] || "")} vs 3. ${escapeHtml(t[2] || "")} ${r1Times[0] ? `<br/><small>Jam: ${escapeHtml(r1Times[0])}</small>` : ""}<br/>
+                    4. ${escapeHtml(t[3] || "")} vs 5. ${escapeHtml(t[4] || "")} ${r1Times[1] ? `<br/><small>Jam: ${escapeHtml(r1Times[1])}</small>` : ""}<br/>
                     6. <strong>${escapeHtml(t[5] || "")}</strong> <em>(BYE)</em>
                   </td>
                   <td>
-                    <strong>QF 1${fmtTime(qfT[0])}:</strong> ${escapeHtml(t[0] || "")} vs ${escapeHtml(r1[0] || "(Pemenang 2 vs 3)")}<br/><br/>
-                    <strong>QF 2${fmtTime(qfT[1])}:</strong> ${escapeHtml(r1[1] || "(Pemenang 4 vs 5)")} vs ${escapeHtml(t[5] || "")}
+                    <strong>QF 1:</strong> ${qfTimes[0] ? `<small>(${escapeHtml(qfTimes[0])})</small><br/>` : ""}${escapeHtml(t[0] || "")} vs ${escapeHtml(r1[0] || "(Pemenang 2 vs 3)")}<br/><br/>
+                    <strong>QF 2:</strong> ${qfTimes[1] ? `<small>(${escapeHtml(qfTimes[1])})</small><br/>` : ""}${escapeHtml(r1[1] || "(Pemenang 4 vs 5)")} vs ${escapeHtml(t[5] || "")}
                   </td>
                   <td>
-                    <strong>Semifinal 1${fmtTime(sfT[0])}:</strong><br/>
+                    <strong>Semifinal 1:</strong> ${sfTimes[0] ? `<small>(${escapeHtml(sfTimes[0])})</small>` : ""}<br/>
                     ${escapeHtml(qf[0] || "(Pemenang QF 1)")} vs ${escapeHtml(qf[1] || "(Pemenang QF 2)")}
                   </td>
                   <td rowspan="2" style="vertical-align: middle; text-align: center;">
-                    <strong>FINAL${fmtTime(b12.finalTime)}:</strong><br/>
+                    <strong>FINAL:</strong> ${finalTime ? `<br/><small>(${escapeHtml(finalTime)})</small>` : ""}<br/>
                     ${escapeHtml(sf[0] || "(Finalis 1)")}<br/>VS<br/>${escapeHtml(sf[1] || "(Finalis 2)")}<br/><br/>
                     <strong>JUARA 1:</strong><br/>
                     <span style="color:#064e3b; font-size:11pt;"><strong>${escapeHtml(b12.champion || "-")}</strong></span>
@@ -4135,16 +4363,16 @@
                 <tr>
                   <td>
                     7. <strong>${escapeHtml(t[6] || "")}</strong> <em>(BYE)</em><br/>
-                    8. ${escapeHtml(t[7] || "")} vs 9. ${escapeHtml(t[8] || "")}${fmtTime(r1T[2])}<br/>
-                    10. ${escapeHtml(t[9] || "")} vs 11. ${escapeHtml(t[10] || "")}${fmtTime(r1T[3])}<br/>
+                    8. ${escapeHtml(t[7] || "")} vs 9. ${escapeHtml(t[8] || "")} ${r1Times[2] ? `<br/><small>Jam: ${escapeHtml(r1Times[2])}</small>` : ""}<br/>
+                    10. ${escapeHtml(t[9] || "")} vs 11. ${escapeHtml(t[10] || "")} ${r1Times[3] ? `<br/><small>Jam: ${escapeHtml(r1Times[3])}</small>` : ""}<br/>
                     12. <strong>${escapeHtml(t[11] || "")}</strong> <em>(BYE)</em>
                   </td>
                   <td>
-                    <strong>QF 3${fmtTime(qfT[2])}:</strong> ${escapeHtml(t[6] || "")} vs ${escapeHtml(r1[2] || "(Pemenang 8 vs 9)")}<br/><br/>
-                    <strong>QF 4${fmtTime(qfT[3])}:</strong> ${escapeHtml(r1[3] || "(Pemenang 10 vs 11)")} vs ${escapeHtml(t[11] || "")}
+                    <strong>QF 3:</strong> ${qfTimes[2] ? `<small>(${escapeHtml(qfTimes[2])})</small><br/>` : ""}${escapeHtml(t[6] || "")} vs ${escapeHtml(r1[2] || "(Pemenang 8 vs 9)")}<br/><br/>
+                    <strong>QF 4:</strong> ${qfTimes[3] ? `<small>(${escapeHtml(qfTimes[3])})</small><br/>` : ""}${escapeHtml(r1[3] || "(Pemenang 10 vs 11)")} vs ${escapeHtml(t[11] || "")}
                   </td>
                   <td>
-                    <strong>Semifinal 2${fmtTime(sfT[1])}:</strong><br/>
+                    <strong>Semifinal 2:</strong> ${sfTimes[1] ? `<small>(${escapeHtml(sfTimes[1])})</small>` : ""}<br/>
                     ${escapeHtml(qf[2] || "(Pemenang QF 3)")} vs ${escapeHtml(qf[3] || "(Pemenang QF 4)")}
                   </td>
                 </tr>
@@ -4582,6 +4810,7 @@
     };
 
     function renderAdminLists() {
+      // 1. List Sekolah Admin
       const schoolsListEl = document.getElementById("admin-schools-list");
       const schoolCountEl = document.getElementById("admin-school-count");
       if (schoolCountEl) schoolCountEl.textContent = `${state.schools.length} Sekolah`;
@@ -4610,6 +4839,7 @@
               .join("");
       }
 
+      // 2. List Pendaftar Tim Admin
       const regsListEl = document.getElementById("admin-registrations-list");
       const regCountEl = document.getElementById("admin-reg-count");
       if (regCountEl) regCountEl.textContent = `${state.registrations.length} Tim Terdaftar`;
@@ -4639,6 +4869,7 @@
               .join("");
       }
 
+      // 3. List Pertandingan Admin
       const matchesListEl = document.getElementById("admin-matches-list");
       if (matchesListEl) {
         matchesListEl.innerHTML = state.matches.length === 0
@@ -4669,11 +4900,12 @@
     }
 
     // =========================================================================
-    // 17. RENDER ALL & INISIALISASI AWAL
+    // 15. RENDER ALL & INISIALISASI AWAL
     // =========================================================================
     function renderAll() {
       renderAppearance();
       renderRules();
+      renderDashboardStats();
       renderSchoolDropdowns();
       renderRegistrationStatus();
       renderMatchesSection();
